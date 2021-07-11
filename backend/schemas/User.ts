@@ -12,5 +12,17 @@ export const User = list({
       email: text({ isRequired: true, isUnique: true }),
       password: password(),
       posts: relationship({ ref: 'Post.author', many: true }),
+      role: relationship({
+        ref: 'Role.users',
+        many: false
+      }),
+      preferences: relationship({
+        ref: 'Preference.user',
+        many: true,
+      }),
+      memberships: relationship({
+        ref: 'Membership.users',
+        many: true
+      })
     },
   });

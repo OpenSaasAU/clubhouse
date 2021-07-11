@@ -5,6 +5,10 @@ import { document } from '@keystone-next/fields-document';
 export const Post = list({
     fields: {
       title: text(),
+      channel: relationship({
+        ref: 'Channel.posts',
+        many: false
+      }),
       status: select({
         options: [
           { label: 'Published', value: 'published' },
