@@ -1,25 +1,25 @@
 import { checkbox } from '@keystone-next/fields';
 
 export const membershipFields = {
-  canManageProducts: checkbox({
+  canManagePosts: checkbox({
     defaultValue: false,
-    label: 'User can Update and delete any product',
+    label: 'User can Create, update and approve all posts in this club',
   }),
   canSeeOtherUsers: checkbox({
     defaultValue: false,
-    label: 'User can query other users',
+    label: 'User can query other users in this club',
   }),
   canManageUsers: checkbox({
     defaultValue: false,
-    label: 'User can Edit other users',
+    label: 'User can add and remove other users from this club',
   }),
-  canManageRoles: checkbox({
+  canManageMemberships: checkbox({
     defaultValue: false,
-    label: 'User can CRUD roles',
+    label: 'User can create and update memberships in this club',
   }),
-  canManageCart: checkbox({
+  canManageChannels: checkbox({
     defaultValue: false,
-    label: 'User can see and manage cart and cart items',
+    label: 'User can see and manage all channels in this club',
   }),
   canManageOrgs: checkbox({
     defaultValue: false,
