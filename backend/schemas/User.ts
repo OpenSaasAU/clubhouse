@@ -13,7 +13,7 @@ export const User = list({
       password: password(),
       posts: relationship({ ref: 'Post.author', many: true }),
       role: relationship({
-        ref: 'Role.users',
+        ref: 'Role.assignedTo',
         many: false
       }),
       preferences: relationship({

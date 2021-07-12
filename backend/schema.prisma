@@ -8,29 +8,105 @@ generator client {
   output   = "node_modules/.prisma/client"
 }
 
-model User {
-  id       Int     @id @default(autoincrement())
-  name     String?
-  email    String? @unique
-  password String?
-  posts    Post[]  @relation("Postauthor")
+model Channel {
+  id                      String       @id @default(cuid())
+  name                    String?
+  description             String?
+  posts                   Post[]       @relation("Post_channel")
+  club                    Club?        @relation("Channel_club", fields: [clubId], references: [id])
+  clubId                  String?      @map("club")
+  status                  String?
+  content                 Json?
+  from_Preference_channel Preference[] @relation("Preference_channel")
+
+  @@index([clubId])
+}
+
+model Club {
+  id          String       @id @default(cuid())
+  name        String?
+  channels    Channel[]    @relation("Channel_club")
+  memberships Membership[] @relation("Club_memberships_Membership_club")
+  status      String?
+  content     Json?
 }
 
 model Post {
-  id          Int       @id @default(autoincrement())
+  id          String    @id @default(cuid())
   title       String?
+  channel     Channel?  @relation("Post_channel", fields: [channelId], references: [id])
+  channelId   String?   @map("channel")
   status      String?
   content     Json?
   publishDate DateTime?
-  author      User?     @relation("Postauthor", fields: [authorId], references: [id])
-  authorId    Int?      @map("author")
-  tags        Tag[]     @relation("Post_tags_Tag_posts", references: [id])
+  author      User?     @relation("Post_author", fields: [authorId], references: [id])
+  authorId    String?   @map("author")
+  tags        Tag[]     @relation("Post_tags_Tag_posts")
 
+  @@index([channelId])
   @@index([authorId])
 }
 
+model Preference {
+  id                String   @id @default(cuid())
+  name              String?
+  user              User?    @relation("Preference_user", fields: [userId], references: [id])
+  userId            String?  @map("user")
+  channel           Channel? @relation("Preference_channel", fields: [channelId], references: [id])
+  channelId         String?  @map("channel")
+  canManageProducts Boolean?
+  canSeeOtherUsers  Boolean?
+  canManageUsers    Boolean?
+  canManageRoles    Boolean?
+  canManageCart     Boolean?
+  canManageOrgs     Boolean?
+
+  @@index([userId])
+  @@index([channelId])
+}
+
+model Membership {
+  id                   String   @id @default(cuid())
+  name                 String?
+  description          String?
+  canManagePosts       Boolean?
+  canSeeOtherUsers     Boolean?
+  canManageUsers       Boolean?
+  canManageMemberships Boolean?
+  canManageChannels    Boolean?
+  canManageOrgs        Boolean?
+  club                 Club[]   @relation("Club_memberships_Membership_club")
+  users                User[]   @relation("Membership_users_User_memberships")
+}
+
+model Role {
+  id                   String   @id @default(cuid())
+  name                 String?
+  canManageClubs       Boolean?
+  canSeeOtherUsers     Boolean?
+  canManageUsers       Boolean?
+  canManageRoles       Boolean?
+  canManageMemberships Boolean?
+  canManagePosts       Boolean?
+  assignedTo           User[]   @relation("User_role")
+}
+
 model Tag {
-  id    Int     @id @default(autoincrement())
+  id    String  @id @default(cuid())
   name  String?
-  posts Post[]  @relation("Post_tags_Tag_posts", references: [id])
+  posts Post[]  @relation("Post_tags_Tag_posts")
+}
+
+model User {
+  id          String       @id @default(cuid())
+  name        String?
+  email       String?      @unique
+  password    String?
+  posts       Post[]       @relation("Post_author")
+  role        Role?        @relation("User_role", fields: [roleId], references: [id])
+  roleId      String?      @map("role")
+  preferences Preference[] @relation("Preference_user")
+  memberships Membership[] @relation("Membership_users_User_memberships")
+
+  @@index([roleId])
 }
