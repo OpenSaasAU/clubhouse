@@ -16,7 +16,7 @@ services:
     # docker-compose.yml file (the first in the devcontainer.json "dockerComposeFile"
     # array). The sample below assumes your primary file is in the root of your project.
     #
-    image: vscode/devcontainers/typescript-node:16
+    image: mcr.microsoft.com/vscode/devcontainers/typescript-node:16
     environment:
       - NODE_ENV=development
       - DATABASE_URL=postgres://postgres:mysecretpassword@db
