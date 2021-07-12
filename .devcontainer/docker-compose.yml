@@ -50,6 +50,6 @@ services:
     environment:
       - POSTGRES_PASSWORD=mysecretpassword
     volumes:
-      - postgress-data: /var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
 volumes:
   postgres-data:
