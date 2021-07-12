@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-    next-aap:
+    next-app:
         image: "${DOCKER_REGISTRY}/next-app:${TAG}"
         build:
             context: .
@@ -10,16 +10,6 @@ services:
                 APP: next-app
                 DOCKER_REGISTRY: ${DOCKER_REGISTRY}   
                 TAG: ${TAG}          
-
-    next-cypress:
-        image: "${DOCKER_REGISTRY}/next-cypress:${TAG}"
-        build:
-            context: .
-            dockerfile: ./apps/Dockerfile
-            args:
-                APP: next-cypress
-                DOCKER_REGISTRY: ${DOCKER_REGISTRY}   
-                TAG: ${TAG}
 
     backend:
         image: "${DOCKER_REGISTRY}/backend:${TAG}"
