@@ -3,9 +3,6 @@ import { text, relationship, select } from '@keystone-next/fields';
 import { document } from '@keystone-next/fields-document';
 
 export const Channel = list({
-    ui: {
-      isHidden: true,
-    },
     fields: {
       name: text(),
       description: text(),
