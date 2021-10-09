@@ -1,5 +1,5 @@
-import { list } from '@keystone-next/keystone/schema';
-import { text, relationship, select } from '@keystone-next/fields';
+import { list } from '@keystone-next/keystone';
+import { text, relationship, select } from '@keystone-next/keystone/fields';
 import { document } from '@keystone-next/fields-document';
 
 export const Channel = list({
