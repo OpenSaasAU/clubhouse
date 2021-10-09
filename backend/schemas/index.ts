@@ -6,9 +6,8 @@ import { Tag } from './Tag';
 import { Post } from './Post';
 import { User } from './User';
 import { Role } from './Role';
-import { createSchema } from '@keystone-next/keystone/schema';
 
-export const lists = createSchema({
+export const lists = {
     Channel,
     Club,
     Post,
@@ -17,4 +16,4 @@ export const lists = createSchema({
     Role,
     Tag,
     User,
-})
+}
