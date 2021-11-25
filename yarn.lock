@@ -2240,20 +2240,20 @@
   resolved "https://registry.yarnpkg.com/@josephg/resolvable/-/resolvable-1.0.1.tgz#69bc4db754d79e1a2f17a650d3466e038d94a5eb"
   integrity sha512-CtzORUwWTTOTqfVtHaKRJ0I1kNQd1bpn3sUh8I3nJDVY+5/M/Oe1DnEWzPQvqq/xPIIkzzzIP7mfCoAjFRvDhg==
 
-"@keystone-next/auth@33.0.0":
-  version "33.0.0"
-  resolved "https://registry.yarnpkg.com/@keystone-next/auth/-/auth-33.0.0.tgz#d09a5e38ebd6f87b0a05747ec2e259cb9127ad1b"
-  integrity sha512-u/rTowJfihp80p0vI4bq6QbtWIV4w++o78iUsxTYVVoHE/7oof1ekA67cfsS1BBx/X2zddyLp+7X/vWGyZMppw==
+"@keystone-next/auth@37.0.0":
+  version "37.0.0"
+  resolved "https://registry.yarnpkg.com/@keystone-next/auth/-/auth-37.0.0.tgz#5658acc3b5cd8fe7375e73f42f817f734bca746a"
+  integrity sha512-Pi4HhAV31z3RfSDZu+wwS+kN/YBnI8sspmsSpHM8nK/HkniRKYXLqgbvWyRyCUtSJI4M5t0XQPXShiDnEyPNwQ==
   dependencies:
-    "@babel/runtime" "^7.15.4"
-    "@graphql-tools/schema" "^8.2.0"
-    "@keystone-ui/button" "^5.0.1"
-    "@keystone-ui/core" "^3.2.0"
-    "@keystone-ui/fields" "^5.0.0"
-    "@keystone-ui/notice" "^4.1.0"
+    "@babel/runtime" "^7.16.3"
+    "@keystone-ui/button" "^6.0.0"
+    "@keystone-ui/core" "^4.0.0"
+    "@keystone-ui/fields" "^6.0.0"
+    "@keystone-ui/loading" "^5.0.0"
+    "@keystone-ui/notice" "^5.0.0"
     cross-fetch "^3.1.4"
     fast-deep-equal "^3.1.3"
-    graphql "^15.6.0"
+    graphql "^15.7.2"
 
 "@keystone-next/fields-document@10.0.0":
   version "10.0.0"
@@ -2510,17 +2510,6 @@
     react-focus-lock "^2.6.0"
     react-remove-scroll "^2.4.3"
     react-transition-group "^4.4.2"
-
-"@keystone-ui/notice@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@keystone-ui/notice/-/notice-4.1.0.tgz#5a10b44bc5e62af6e15cc6a630aca66b1c8f5703"
-  integrity sha512-LqPXF4rJpbFoSW7nvu/ZTAlDjQuB0Y38ZNV6k4pQ9E5AP10YYewB+5oKLVtiMWsh8yMYD3qJ9otzo+wht0mHwQ==
-  dependencies:
-    "@babel/runtime" "^7.15.4"
-    "@keystone-ui/button" "^5.0.1"
-    "@keystone-ui/core" "^3.2.0"
-    "@keystone-ui/icons" "^4.0.1"
-    react "^17.0.2"
 
 "@keystone-ui/notice@^5.0.0":
   version "5.0.0"
