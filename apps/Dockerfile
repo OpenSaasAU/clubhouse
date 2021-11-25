@@ -1,5 +1,5 @@
 
-FROM node:16.1-alpine AS deps
+FROM node:16.13-alpine AS deps
 ARG APP=next-app
 RUN npm i -g pnpm
 WORKDIR /usr/app
