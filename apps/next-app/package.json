@@ -7,7 +7,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@apollo/client": "3.4.16",
+    "@apollo/client": "3.5.5",
     "@apollo/link-error": "2.0.0-beta.3",
     "@apollo/react-hooks": "4.0.0",
     "@apollo/react-ssr": "4.0.0",
