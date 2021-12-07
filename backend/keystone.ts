@@ -2,7 +2,10 @@ import { config } from '@keystone-next/keystone';
 import {
   statelessSessions,
 } from '@keystone-next/keystone/session';
-import { createAuth } from '@keystone-next/auth';
+import {
+  createAuth,
+  nextAuthProviders as Providers,
+} from '@opensaas/keystone-nextjs-auth';
 
 import { lists } from './schemas';
 
@@ -22,12 +25,19 @@ let sessionMaxAge = 60 * 60 * 24 * 30; // 30 days
 
 const auth = createAuth({
   listKey: 'User',
-  identityField: 'email',
+  identityField: 'subjectId',
   sessionData: `id name email`,
-  secretField: 'password',
-  initFirstItem: {
-    fields: ['name', 'email', 'password'],
-  },
+  autoCreate: true,
+  userMap: { subjectId: 'id', name: 'name' },
+  accountMap: {},
+  profileMap: { email: 'email' },
+  providers: [
+    Providers.Auth0({
+      clientId: process.env.AUTH0_CLIENT_ID || 'Auth0ClientID',
+      clientSecret: process.env.AUTH0_CLIENT_SECRET || 'Auth0ClientSecret',
+      domain: process.env.AUTH0_DOMAIN || 'opensaas.au.auth0.com',
+    }),
+]
 });
 
 export default auth.withAuth(
