@@ -7,9 +7,8 @@ datasource postgresql {
 }
 
 generator client {
-  provider   = "prisma-client-js"
-  output     = "node_modules/.prisma/client"
-  engineType = "binary"
+  provider = "prisma-client-js"
+  output   = "node_modules/.prisma/client"
 }
 
 model Channel {
@@ -30,7 +29,7 @@ model Club {
   id          String       @id @default(cuid())
   name        String       @default("")
   channels    Channel[]    @relation("Channel_club")
-  memberships Membership[] @relation("Club_memberships_Membership_club")
+  memberships Membership[] @relation("Club_memberships")
   status      String?
   content     Json         @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
@@ -45,7 +44,7 @@ model Post {
   publishDate DateTime?
   author      User?     @relation("Post_author", fields: [authorId], references: [id])
   authorId    String?   @map("author")
-  tags        Tag[]     @relation("Post_tags_Tag_posts")
+  tags        Tag[]     @relation("Post_tags")
 
   @@index([channelId])
   @@index([authorId])
@@ -79,8 +78,8 @@ model Membership {
   canManageMemberships Boolean @default(false)
   canManageChannels    Boolean @default(false)
   canManageOrgs        Boolean @default(false)
-  club                 Club[]  @relation("Club_memberships_Membership_club")
-  users                User[]  @relation("Membership_users_User_memberships")
+  club                 Club[]  @relation("Club_memberships")
+  users                User[]  @relation("Membership_users")
 }
 
 model Role {
@@ -98,19 +97,20 @@ model Role {
 model Tag {
   id    String @id @default(cuid())
   name  String @default("")
-  posts Post[] @relation("Post_tags_Tag_posts")
+  posts Post[] @relation("Post_tags")
 }
 
 model User {
   id          String       @id @default(cuid())
   name        String       @default("")
-  email       String       @unique @default("")
-  password    String?
+  email       String       @default("")
+  subjectId   String       @unique @default("")
   posts       Post[]       @relation("Post_author")
   role        Role?        @relation("User_role", fields: [roleId], references: [id])
   roleId      String?      @map("role")
   preferences Preference[] @relation("Preference_user")
-  memberships Membership[] @relation("Membership_users_User_memberships")
+  memberships Membership[] @relation("Membership_users")
 
+  @@index([email])
   @@index([roleId])
 }

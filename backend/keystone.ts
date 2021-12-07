@@ -1,7 +1,7 @@
-import { config } from '@keystone-next/keystone';
+import { config } from '@keystone-6/core';
 import {
   statelessSessions,
-} from '@keystone-next/keystone/session';
+} from '@keystone-6/core/session';
 import {
   createAuth,
   nextAuthProviders as Providers,
