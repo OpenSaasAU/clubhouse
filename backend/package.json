@@ -2,16 +2,23 @@
   "name": "@opensaas-clubhouse/backend",
   "version": "2.0.0",
   "private": true,
+  "repository": "https://github.com/OpenSaasAU/clubhouse/tree/master/backend",
   "scripts": {
+    "build": "keystone build",
     "dev": "keystone dev",
-    "start": "keystone start",
-    "build": "keystone build"
+    "postinstall": "keystone postinstall",
+    "start": "keystone start"
   },
   "dependencies": {
     "@keystone-6/core": "1.0.0",
     "@keystone-6/fields-document": "1.0.1",
     "@opensaas/keystone-nextjs-auth": "19.0.0",
+    "@prisma/client": "3.5.0",
+    "@sendgrid/mail": "7.6.0",
     "typescript": "4.4.4"
   },
-  "repository": "https://github.com/OpenSaasAU/clubhouse/tree/master/backend"
+  "devDependencies": {
+    "next": "12.0.7",
+    "prisma": "3.5.0"
+  }
 }
