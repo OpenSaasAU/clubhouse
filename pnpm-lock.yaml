@@ -77,14 +77,14 @@ importers:
       '@sendgrid/mail': 7.6.0
       next: 12.0.7
       prisma: 3.5.0
-      typescript: 4.4.4
+      typescript: 4.5.4
     dependencies:
       '@keystone-6/core': 1.0.0
       '@keystone-6/fields-document': 1.0.1_34c0fd11d139f9f0553bce408f871dd2
       '@opensaas/keystone-nextjs-auth': 19.0.0_ce2588f3a89b928f8fdb0a661275e022
       '@prisma/client': 3.5.0_prisma@3.5.0
       '@sendgrid/mail': 7.6.0
-      typescript: 4.4.4
+      typescript: 4.5.4
     devDependencies:
       next: 12.0.7_@babel+core@7.16.0
       prisma: 3.5.0
@@ -11588,8 +11588,8 @@ packages:
       - supports-color
     dev: false
 
-  /typescript/4.4.4:
-    resolution: {integrity: sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==}
+  /typescript/4.5.4:
+    resolution: {integrity: sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: false
