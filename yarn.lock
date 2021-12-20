@@ -2719,10 +2719,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@opensaas/keystone-nextjs-auth@19.0.0":
-  version "19.0.0"
-  resolved "https://registry.yarnpkg.com/@opensaas/keystone-nextjs-auth/-/keystone-nextjs-auth-19.0.0.tgz#391661aa0e04dd57d6c9ea48dc7cf6ea05450f21"
-  integrity sha512-kzapcEK3xa7BgXu7wJ5rqNqdYuipsTij13XtUEk58/AwjRWsrgDt32HxIo+szBpjYvOaTX1ALwUy6UVyncZkZQ==
+"@opensaas/keystone-nextjs-auth@19.1.0":
+  version "19.1.0"
+  resolved "https://registry.yarnpkg.com/@opensaas/keystone-nextjs-auth/-/keystone-nextjs-auth-19.1.0.tgz#ca8b69fdb479e203226ca3675c5f41971dd6930e"
+  integrity sha512-1oPXU4GclxP0DYp568X3O8w0a/srQv53SuZQOVABBtAvmqhZ69+LdQZzUQdUdz8Z02C+NFTGE+sTNlT3+SH9LQ==
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@babel/runtime-corejs3" "^7.16.3"
