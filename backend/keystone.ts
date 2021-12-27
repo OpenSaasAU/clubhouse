@@ -1,13 +1,16 @@
+import dotenv from 'dotenv';
 import { config } from '@keystone-6/core';
 import {
   statelessSessions,
 } from '@keystone-6/core/session';
 import {
   createAuth,
-  nextAuthProviders as Providers,
 } from '@opensaas/keystone-nextjs-auth';
+import Auth0 from '@opensaas/keystone-nextjs-auth/providers/auth0'
 
 import { lists } from './schemas';
+
+dotenv.config();
 
 let sessionSecret = process.env.SESSION_SECRET;
 
@@ -31,13 +34,15 @@ const auth = createAuth({
   userMap: { subjectId: 'id', name: 'name' },
   accountMap: {},
   profileMap: { email: 'email' },
+  sessionSecret,
   providers: [
-    Providers.Auth0({
+    Auth0({
       clientId: process.env.AUTH0_CLIENT_ID || 'Auth0ClientID',
       clientSecret: process.env.AUTH0_CLIENT_SECRET || 'Auth0ClientSecret',
-      domain: process.env.AUTH0_DOMAIN || 'opensaas.au.auth0.com',
+      issuer:
+        process.env.AUTH0_ISSUER_BASE_URL || 'https://opensaas.au.auth0.com',
     }),
-]
+  ],
 });
 
 export default auth.withAuth(
@@ -50,6 +55,10 @@ export default auth.withAuth(
       isAccessAllowed: (context) => !!context.session?.data,
     },
     lists,
+    experimental: {
+      generateNodeAPI: true,
+      enableNextJsGraphqlApiEndpoint: true
+    },
     session: statelessSessions({
       maxAge: sessionMaxAge,
       secret: sessionSecret,
