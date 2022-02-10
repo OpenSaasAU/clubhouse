@@ -75,7 +75,7 @@ importers:
       '@opensaas/keystone-nextjs-auth': 20.1.1
       '@prisma/client': 3.5.0
       '@prisma/generator-helper': 3.7.0
-      '@sendgrid/mail': 7.6.0
+      '@sendgrid/mail': 7.6.1
       next: 12.0.7
       prisma: 3.6.0
       react: 17.0.2
@@ -86,7 +86,7 @@ importers:
       '@keystone-6/fields-document': 1.0.1_18cb948fbe559cfafd9edc99835272c5
       '@opensaas/keystone-nextjs-auth': 20.1.1_416222cd89d0a0aa212204a35dea4aa4
       '@prisma/client': 3.5.0_prisma@3.6.0
-      '@sendgrid/mail': 7.6.0
+      '@sendgrid/mail': 7.6.1
       typescript: 4.5.4
     devDependencies:
       '@prisma/generator-helper': 3.7.0
@@ -189,8 +189,8 @@ packages:
       zen-observable-ts: 1.2.3
     dev: false
 
-  /@apollo/client/3.5.7_graphql@15.7.2+react@17.0.2:
-    resolution: {integrity: sha512-HSLqTGp3sp/PVIWYLLr5v3fjQSr6Fxg6Z5RQj5Q9ALyseIVudD8GZk1jHplaUblTFMBueXGw3Z6DXObuVAr3tw==}
+  /@apollo/client/3.5.8_graphql@15.7.2+react@17.0.2:
+    resolution: {integrity: sha512-MAm05+I1ullr64VLpZwon/ISnkMuNLf6vDqgo9wiMhHYBGT4yOAbAIseRdjCHZwfSx/7AUuBgaTNOssZPIr6FQ==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
       react: ^16.8.0 || ^17.0.0
@@ -251,7 +251,7 @@ packages:
   /@apollo/react-hooks/4.0.0_graphql@15.7.2+react@17.0.2:
     resolution: {integrity: sha512-fCu0cbne3gbUl0QbA8X4L33iuuFVQbC5Jo2MIKRK8CyawR6PoxDpFdFA1kc6033ODZuZZ9Eo4RdeJFlFIIYcLA==}
     dependencies:
-      '@apollo/client': 3.5.7_graphql@15.7.2+react@17.0.2
+      '@apollo/client': 3.5.8_graphql@15.7.2+react@17.0.2
     transitivePeerDependencies:
       - graphql
       - react
@@ -261,7 +261,7 @@ packages:
   /@apollo/react-ssr/4.0.0_graphql@15.7.2+react@17.0.2:
     resolution: {integrity: sha512-IW+x5M6eTTMbKwCfgox+BwfnZVhKTNiAjAHVdeOIc5jHIuG4oyB/gWcEonHRK6RKb+zLV1rOqpdwnJc6wchxLA==}
     dependencies:
-      '@apollo/client': 3.5.7_graphql@15.7.2+react@17.0.2
+      '@apollo/client': 3.5.8_graphql@15.7.2+react@17.0.2
     transitivePeerDependencies:
       - graphql
       - react
@@ -3277,8 +3277,8 @@ packages:
       rollup: 2.61.0
     dev: false
 
-  /@sendgrid/client/7.6.0:
-    resolution: {integrity: sha512-cpBVZKLlMTO+vpE18krTixubYmZa98oTbLkqBDuTiA3zRkW+urrxg7pDR24TkI35Mid0Zru8jDHwnOiqrXu0TA==}
+  /@sendgrid/client/7.6.1:
+    resolution: {integrity: sha512-q4U5OhcbJjs+lLVv/LhZSc28feiVCFMgvG9aYcRI5X4tKArnrrGDWb5HMITR9vaAtX42TXhyPFjHr1fk/Q1loQ==}
     engines: {node: 6.* || 8.* || >=10.*}
     dependencies:
       '@sendgrid/helpers': 7.6.0
@@ -3294,11 +3294,11 @@ packages:
       deepmerge: 4.2.2
     dev: false
 
-  /@sendgrid/mail/7.6.0:
-    resolution: {integrity: sha512-0KdaSZzflJD/vUAZjB3ALBIuaVGoLq22hrb2fvQXZHRepU/yhRNlEOqrr05MfKBnKskzq1blnD1J0fHxiwaolw==}
+  /@sendgrid/mail/7.6.1:
+    resolution: {integrity: sha512-F+HXpDLIU4PGZyZznOiFLDGJDwLn2qh7/wD5MvwurrldDx5DaGQHrYBKHopceOl15FVuq9ElU9VIxQJF8SMvTg==}
     engines: {node: 6.* || 8.* || >=10.*}
     dependencies:
-      '@sendgrid/client': 7.6.0
+      '@sendgrid/client': 7.6.1
       '@sendgrid/helpers': 7.6.0
     transitivePeerDependencies:
       - debug
