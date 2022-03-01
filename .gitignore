@@ -64,6 +64,7 @@ typings/
 
 # dotenv environment variables file
 .env
+*.env
 
 # ESlint reports
 reports/
