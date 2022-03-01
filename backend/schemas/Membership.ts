@@ -67,12 +67,12 @@ export const Membership = list({
         },
       }),
     }),
-    person: relationship({
+    user: relationship({
       ref: "User.memberships",
-      many: true,
+      many: false,
     }),
-    type: relationship({
-      ref: "MembershipSubType",
+    variation: relationship({
+      ref: "Variation.memberships",
       many: false,
     }),
     status: select({
@@ -90,10 +90,7 @@ export const Membership = list({
       defaultValue: { kind: "now" },
     }),
     renewalDate: timestamp(),
-    payment: relationship({
-      ref: "Payment",
-      many: true,
-    }),
+    stripeSubscriptionId: text(),
     ...membershipFields,
   },
 });

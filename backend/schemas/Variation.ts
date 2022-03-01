@@ -8,13 +8,13 @@ import {
 } from "@keystone-6/core/fields";
 import { list } from "@keystone-6/core";
 import { rules, isSignedIn, permissions } from "../access";
-import { document } from "@keystone-6/fields-document";
 
-export const MembershipType = list({
+export const Variation = list({
   access: {
     operation: {
       create: permissions.canManageProducts,
       delete: permissions.canManageProducts,
+      update: permissions.canManageProducts,
     },
     filter: {
       update: rules.canManageProducts,
@@ -22,41 +22,36 @@ export const MembershipType = list({
   },
   fields: {
     name: text({ validation: { isRequired: true } }),
-    club: relationship({
-      ref: "Club.membershipTypes",
+    type: relationship({
+      ref: "Subscription.variations",
       many: false,
     }),
-    subTypes: relationship({
-      ref: "MembershipSubType.type",
+    memberships: relationship({
+      ref: "Membership.variation",
       many: true,
     }),
-    lengthMonths: integer({
+    cost: integer({
       validation: {
         isRequired: true,
       },
     }),
-    fromEmail: text({
-      validation: {
-        isRequired: true,
-      },
-    }),
-    emailTemplate: text({
-      validation: {
-        isRequired: true,
-      },
-    }),
-    autoRenew: checkbox({ defaultValue: false }),
-    about: document({
-      formatting: true,
-      layouts: [
-        [1, 1],
-        [1, 1, 1],
-        [2, 1],
-        [1, 2],
-        [1, 2, 1],
+    chargeInterval: select({
+      options: [
+        { value: "day", label: "Day" },
+        { value: "week", label: "Week" },
+        { value: "month", label: "Month" },
+        { value: "year", label: "Year" },
       ],
-      links: true,
-      dividers: true,
+      validation: {
+        isRequired: true,
+      },
     }),
+    chargeIntervalCount: integer({
+      validation: {
+        isRequired: true,
+      },
+    }),
+    tatalCount: integer(),
+    stripePrice: text(),
   },
 });

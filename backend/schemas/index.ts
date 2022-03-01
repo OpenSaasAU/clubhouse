@@ -1,5 +1,5 @@
-import { MembershipType } from "./MembershipType";
-import { MembershipSubType } from "./MembershipSubType";
+import { Subscription } from "./Subscription";
+import { Variation } from "./Variation";
 import { Preference } from "./Preference";
 import { Membership } from "./Membership";
 import { Club } from "./Club";
@@ -11,8 +11,8 @@ import { Role } from "./Role";
 export const lists = {
   Club,
   Membership,
-  MembershipSubType,
-  MembershipType,
+  Variation,
+  Subscription,
   Post,
   Preference,
   Role,
