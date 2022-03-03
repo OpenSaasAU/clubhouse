@@ -72,21 +72,25 @@ importers:
     specifiers:
       '@keystone-6/core': 1.0.1
       '@keystone-6/fields-document': 1.0.1
-      '@opensaas/keystone-nextjs-auth': 20.1.1
-      '@prisma/client': 3.5.0
+      '@opensaas/keystone-nextjs-auth': 20.2.0
+      '@prisma/client': 3.6.0
       '@prisma/generator-helper': 3.7.0
       '@sendgrid/mail': 7.6.1
+      dotenv: 16.0.0
       next: 12.0.7
       prisma: 3.6.0
       react: 17.0.2
       react-dom: 17.0.2
+      stripe: 8.205.0
       typescript: 4.5.4
     dependencies:
       '@keystone-6/core': 1.0.1_@prisma+generator-helper@3.7.0
       '@keystone-6/fields-document': 1.0.1_18cb948fbe559cfafd9edc99835272c5
-      '@opensaas/keystone-nextjs-auth': 20.1.1_416222cd89d0a0aa212204a35dea4aa4
-      '@prisma/client': 3.5.0_prisma@3.6.0
+      '@opensaas/keystone-nextjs-auth': 20.2.0_416222cd89d0a0aa212204a35dea4aa4
+      '@prisma/client': 3.6.0_prisma@3.6.0
       '@sendgrid/mail': 7.6.1
+      dotenv: 16.0.0
+      stripe: 8.205.0
       typescript: 4.5.4
     devDependencies:
       '@prisma/generator-helper': 3.7.0
@@ -131,6 +135,37 @@ packages:
       ts-invariant: 0.9.4
       tslib: 2.3.1
       zen-observable-ts: 1.1.0
+    dev: false
+
+  /@apollo/client/3.5.10_graphql@15.7.2+react@17.0.2:
+    resolution: {integrity: sha512-tL3iSpFe9Oldq7gYikZK1dcYxp1c01nlSwtsMz75382HcI6fvQXyFXUCJTTK3wgO2/ckaBvRGw7VqjFREdVoRw==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+      graphql-ws: ^5.5.5
+      react: ^16.8.0 || ^17.0.0
+      subscriptions-transport-ws: ^0.9.0 || ^0.11.0
+    peerDependenciesMeta:
+      graphql-ws:
+        optional: true
+      react:
+        optional: true
+      subscriptions-transport-ws:
+        optional: true
+    dependencies:
+      '@graphql-typed-document-node/core': 3.1.1_graphql@15.7.2
+      '@wry/context': 0.6.1
+      '@wry/equality': 0.5.2
+      '@wry/trie': 0.3.1
+      graphql: 15.7.2
+      graphql-tag: 2.12.6_graphql@15.7.2
+      hoist-non-react-statics: 3.3.2
+      optimism: 0.16.1
+      prop-types: 15.7.2
+      react: 17.0.2
+      symbol-observable: 4.0.0
+      ts-invariant: 0.9.4
+      tslib: 2.3.1
+      zen-observable-ts: 1.2.3
     dev: false
 
   /@apollo/client/3.5.5_graphql@15.7.2+react@17.0.2:
@@ -189,34 +224,6 @@ packages:
       zen-observable-ts: 1.2.3
     dev: false
 
-  /@apollo/client/3.5.8_graphql@15.7.2+react@17.0.2:
-    resolution: {integrity: sha512-MAm05+I1ullr64VLpZwon/ISnkMuNLf6vDqgo9wiMhHYBGT4yOAbAIseRdjCHZwfSx/7AUuBgaTNOssZPIr6FQ==}
-    peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
-      react: ^16.8.0 || ^17.0.0
-      subscriptions-transport-ws: ^0.9.0 || ^0.11.0
-    peerDependenciesMeta:
-      react:
-        optional: true
-      subscriptions-transport-ws:
-        optional: true
-    dependencies:
-      '@graphql-typed-document-node/core': 3.1.1_graphql@15.7.2
-      '@wry/context': 0.6.1
-      '@wry/equality': 0.5.2
-      '@wry/trie': 0.3.1
-      graphql: 15.7.2
-      graphql-tag: 2.12.6_graphql@15.7.2
-      hoist-non-react-statics: 3.3.2
-      optimism: 0.16.1
-      prop-types: 15.7.2
-      react: 17.0.2
-      symbol-observable: 4.0.0
-      ts-invariant: 0.9.4
-      tslib: 2.3.1
-      zen-observable-ts: 1.2.3
-    dev: false
-
   /@apollo/link-error/2.0.0-beta.3_graphql@15.7.2+react@17.0.2:
     resolution: {integrity: sha512-blNBBi9+4SEfb4Bhn8cYqGFhb0C7MjqLiRwNdUqwGefl1w+G8Ze8pCLHAyPxXLcslirtht9LY0i6ZOpCzSXHCg==}
     dependencies:
@@ -251,9 +258,10 @@ packages:
   /@apollo/react-hooks/4.0.0_graphql@15.7.2+react@17.0.2:
     resolution: {integrity: sha512-fCu0cbne3gbUl0QbA8X4L33iuuFVQbC5Jo2MIKRK8CyawR6PoxDpFdFA1kc6033ODZuZZ9Eo4RdeJFlFIIYcLA==}
     dependencies:
-      '@apollo/client': 3.5.8_graphql@15.7.2+react@17.0.2
+      '@apollo/client': 3.5.10_graphql@15.7.2+react@17.0.2
     transitivePeerDependencies:
       - graphql
+      - graphql-ws
       - react
       - subscriptions-transport-ws
     dev: false
@@ -261,9 +269,10 @@ packages:
   /@apollo/react-ssr/4.0.0_graphql@15.7.2+react@17.0.2:
     resolution: {integrity: sha512-IW+x5M6eTTMbKwCfgox+BwfnZVhKTNiAjAHVdeOIc5jHIuG4oyB/gWcEonHRK6RKb+zLV1rOqpdwnJc6wchxLA==}
     dependencies:
-      '@apollo/client': 3.5.8_graphql@15.7.2+react@17.0.2
+      '@apollo/client': 3.5.10_graphql@15.7.2+react@17.0.2
     transitivePeerDependencies:
       - graphql
+      - graphql-ws
       - react
       - subscriptions-transport-ws
     dev: false
@@ -2397,6 +2406,7 @@ packages:
       uuid: 8.3.2
     transitivePeerDependencies:
       - '@prisma/generator-helper'
+      - encoding
       - fibers
       - node-sass
       - sass
@@ -2878,8 +2888,8 @@ packages:
       fastq: 1.13.0
     dev: false
 
-  /@opensaas/keystone-nextjs-auth/20.1.1_416222cd89d0a0aa212204a35dea4aa4:
-    resolution: {integrity: sha512-8nwn+E9APPdpBDaat0tmer6KHCNqHnNc5pCX1hMJisDnNL4e8mcPYLI+oNtEwy4yCtwzCw433zz7eXvVdaiQkQ==}
+  /@opensaas/keystone-nextjs-auth/20.2.0_416222cd89d0a0aa212204a35dea4aa4:
+    resolution: {integrity: sha512-o5aLz71wb5KdLXfVcwRH5wgnXOcI1MBqwbn0YQdxNRG+oa5B7KuAko5WQhSQ1GFh4JphaSRPSS+4F/RJ9DelyA==}
     engines: {node: ^12.20 || >= 14.13}
     peerDependencies:
       '@keystone-6/core': ^1.0.1
@@ -2890,13 +2900,14 @@ packages:
       '@keystone-6/core': 1.0.1_@prisma+generator-helper@3.7.0
       '@types/ejs': 3.1.0
       cookie: 0.4.1
-      cross-fetch: 3.1.4
+      cross-fetch: 3.1.5
       ejs: 3.1.6
       fast-deep-equal: 3.1.3
       graphql: 15.8.0
-      next-auth: 4.1.0_react-dom@17.0.2+react@17.0.2
+      next-auth: 4.2.1_react-dom@17.0.2+react@17.0.2
       react: 17.0.2
     transitivePeerDependencies:
+      - encoding
       - nodemailer
       - react-dom
     dev: false
@@ -2970,20 +2981,6 @@ packages:
     resolution: {integrity: sha512-b9q1US5vsUzHPeMGlCFGWdttAHQ2q6raFlY1vf5binrKMkki/gt6GvskTJ4RXfFCt7QmVx9tRcuTFXMhUDgb6A==}
     dev: false
 
-  /@prisma/client/3.5.0_prisma@3.6.0:
-    resolution: {integrity: sha512-LuaaisknLe9CCfJ1Rtqe9b9knvPgEEcC77OMmWdo3fSanxl5oTDxcH3IIhpULQQlJfZvDcaEXuXNU4dsNF+q1w==}
-    engines: {node: '>=12.6'}
-    requiresBuild: true
-    peerDependencies:
-      prisma: '*'
-    peerDependenciesMeta:
-      prisma:
-        optional: true
-    dependencies:
-      '@prisma/engines-version': 3.5.0-38.78a5df6def6943431f4c022e1428dbc3e833cf8e
-      prisma: 3.6.0
-    dev: false
-
   /@prisma/client/3.6.0_prisma@3.6.0:
     resolution: {integrity: sha512-ycSGY9EZGROtje0iCNsgC5Zqi/ttX2sO7BNMYaLsUMiTlf3F69ZPH+08pRo0hrDfkZzyimXYqeXJlaoYDH1w7A==}
     engines: {node: '>=12.6'}
@@ -3036,10 +3033,6 @@ packages:
       undici: 3.3.6
     dev: false
 
-  /@prisma/engines-version/3.5.0-38.78a5df6def6943431f4c022e1428dbc3e833cf8e:
-    resolution: {integrity: sha512-X16YmBmj7Omso4ZbkNBe6gPYlNcnwZMUPtXsguCkn+KoMqm3DJD9M4X31gx0Gf13Q44dY3SKPJZUk44/XUj/WA==}
-    dev: false
-
   /@prisma/engines-version/3.6.0-24.dc520b92b1ebb2d28dc3161f9f82e875bd35d727:
     resolution: {integrity: sha512-vtoO2ys6mSfc8ONTWdcYztKN3GBU1tcKBj0aXObyjzSuGwHFcM/pEA0xF+n1W4/0TAJgfoPX2khNEit6g0jtNA==}
     dev: false
@@ -3060,7 +3053,7 @@ packages:
       http-proxy-agent: 5.0.0
       https-proxy-agent: 5.0.0
       make-dir: 3.1.0
-      node-fetch: 2.6.6
+      node-fetch: 2.6.7
       p-filter: 2.1.0
       p-map: 4.0.0
       p-retry: 4.6.1
@@ -3069,6 +3062,7 @@ packages:
       temp-dir: 2.0.0
       tempy: 1.0.1
     transitivePeerDependencies:
+      - encoding
       - supports-color
     dev: false
 
@@ -3159,6 +3153,7 @@ packages:
       terminal-link: 2.1.1
       tmp: 0.2.1
     transitivePeerDependencies:
+      - encoding
       - supports-color
     dev: false
 
@@ -4006,6 +4001,8 @@ packages:
     dependencies:
       apollo-server-caching: 3.3.0
       apollo-server-env: 4.2.0
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /apollo-graphql/0.9.5_graphql@15.8.0:
@@ -4105,13 +4102,17 @@ packages:
       lru-cache: 6.0.0
       sha.js: 2.4.11
       uuid: 8.3.2
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /apollo-server-env/4.2.0:
     resolution: {integrity: sha512-4xJ+PCoWsFLj4rU6iXrIhqD7nI42goi4Iqrhsof9680ljSzkzd+PCwZsja3mHOFXKUQQUvJ7StVSgwaiRu45+A==}
     engines: {node: '>=12.0'}
     dependencies:
-      node-fetch: 2.6.6
+      node-fetch: 2.6.7
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /apollo-server-errors/3.3.0_graphql@15.8.0:
@@ -4143,6 +4144,8 @@ packages:
       express: 4.17.1
       graphql: 15.8.0
       parseurl: 1.3.3
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /apollo-server-micro/3.5.0_graphql@15.8.0+micro@9.3.4:
@@ -4156,6 +4159,7 @@ packages:
       micro: 9.3.4
       type-is: 1.6.18
     transitivePeerDependencies:
+      - encoding
       - graphql
     dev: false
 
@@ -4167,6 +4171,8 @@ packages:
     dependencies:
       apollo-server-types: 3.4.0_graphql@15.8.0
       graphql: 15.8.0
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /apollo-server-types/3.4.0_graphql@15.8.0:
@@ -4179,6 +4185,8 @@ packages:
       apollo-server-caching: 3.3.0
       apollo-server-env: 4.2.0
       graphql: 15.8.0
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /apollo-upload-client/17.0.0_2be55a5501891bfc6d28f88d606775e7:
@@ -5208,10 +5216,12 @@ packages:
       safe-buffer: 5.2.1
       sha.js: 2.4.11
 
-  /cross-fetch/3.1.4:
-    resolution: {integrity: sha512-1eAtFWdIubi6T4XPy6ei9iUFoKpUkIF971QLN8lIvvvwueI65+Nw5haMNKUwfJxabqlIIDODJKGrQ66gxC0PbQ==}
+  /cross-fetch/3.1.5:
+    resolution: {integrity: sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==}
     dependencies:
-      node-fetch: 2.6.1
+      node-fetch: 2.6.7
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /cross-spawn/5.1.0:
@@ -5575,6 +5585,11 @@ packages:
   /dotenv/10.0.0:
     resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
     engines: {node: '>=10'}
+    dev: false
+
+  /dotenv/16.0.0:
+    resolution: {integrity: sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==}
+    engines: {node: '>=12'}
     dev: false
 
   /dumb-passwords/0.2.1:
@@ -8688,13 +8703,13 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /next-auth/4.1.0_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-PGq5jQyhEF3vB8zl4LOXzG1KxTKT5DQnfKbSBgPslg+kIhIFdDCH9cLT64tJfsKKyCchLGuFsVlGu+kDEGbqOQ==}
+  /next-auth/4.2.1_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-XDtt7nqevkNf4EJ2zKAKkI+MFsURf11kx11vPwxrBYA1MHeqWwaWbGOUOI2ekNTvfAg4nTEJJUH3LV2cLrH3Tg==}
     engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0}
     peerDependencies:
       nodemailer: ^6.6.5
-      react: ^17.0.2
-      react-dom: ^17.0.2
+      react: ^17.0.2 || ^18.0.0-0
+      react-dom: ^17.0.2 || ^18.0.0-0
     peerDependenciesMeta:
       nodemailer:
         optional: true
@@ -8808,6 +8823,18 @@ packages:
   /node-fetch/2.6.6:
     resolution: {integrity: sha512-Z8/6vRlTUChSdIgMa51jxQ4lrw/Jy5SOW10ObaA47/RElsAN2c5Pn8bTgFGWn/ibwzXTE8qwr1Yzx28vsecXEA==}
     engines: {node: 4.x || >=6.0.0}
+    dependencies:
+      whatwg-url: 5.0.0
+    dev: false
+
+  /node-fetch/2.6.7:
+    resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
+    engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
     dependencies:
       whatwg-url: 5.0.0
     dev: false
@@ -10667,6 +10694,14 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       escape-string-regexp: 1.0.5
+    dev: false
+
+  /stripe/8.205.0:
+    resolution: {integrity: sha512-hmYnc7je6j0n9GlkUpc8USsUquLzSxmWj78g9NKFokCtSybNy7y9fYS+VB5AuZUwmIkzhTczgf+TaSmI4kbk9A==}
+    engines: {node: ^8.1 || >=10.*}
+    dependencies:
+      '@types/node': 16.11.12
+      qs: 6.10.2
     dev: false
 
   /styled-jsx/5.0.0-beta.3_@babel+core@7.16.5+react@17.0.2:

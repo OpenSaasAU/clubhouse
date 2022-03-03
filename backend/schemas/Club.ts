@@ -5,12 +5,12 @@ import { document } from "@keystone-6/fields-document";
 export const Club = list({
   fields: {
     name: text(),
-    membershipTypes: relationship({
-      ref: "MembershipType.club",
+    subscriptions: relationship({
+      ref: "Subscription.club",
       many: true,
     }),
-    memberships: relationship({
-      ref: "Membership.club",
+    posts: relationship({
+      ref: "Post.club",
       many: true,
     }),
     status: select({

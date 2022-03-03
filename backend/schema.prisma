@@ -11,34 +11,68 @@ generator client {
   output   = "node_modules/.prisma/client"
 }
 
-model Channel {
-  id                      String       @id @default(cuid())
-  name                    String       @default("")
-  description             String       @default("")
-  posts                   Post[]       @relation("Post_channel")
-  club                    Club?        @relation("Channel_club", fields: [clubId], references: [id])
-  clubId                  String?      @map("club")
-  status                  String?
-  content                 Json         @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  from_Preference_channel Preference[] @relation("Preference_channel")
-
-  @@index([clubId])
+model Club {
+  id            String         @id @default(cuid())
+  name          String         @default("")
+  subscriptions Subscription[] @relation("Subscription_club")
+  posts         Post[]         @relation("Post_club")
+  status        String?
+  content       Json           @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
-model Club {
-  id          String       @id @default(cuid())
-  name        String       @default("")
-  channels    Channel[]    @relation("Channel_club")
-  memberships Membership[] @relation("Club_memberships")
-  status      String?
-  content     Json         @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+model Membership {
+  id                   String     @id @default(cuid())
+  user                 User?      @relation("Membership_user", fields: [userId], references: [id])
+  userId               String?    @map("user")
+  variation            Variation? @relation("Membership_variation", fields: [variationId], references: [id])
+  variationId          String?    @map("variation")
+  status               String?    @default("PENDING")
+  startDate            DateTime?  @default(now())
+  renewalDate          DateTime?
+  stripeSubscriptionId String     @default("")
+  contactPreference    String?
+  receiveRenewal       Boolean    @default(false)
+
+  @@index([userId])
+  @@index([variationId])
+}
+
+model Variation {
+  id                  String        @id @default(cuid())
+  name                String        @default("")
+  subscription        Subscription? @relation("Variation_subscription", fields: [subscriptionId], references: [id])
+  subscriptionId      String?       @map("subscription")
+  memberships         Membership[]  @relation("Membership_variation")
+  cost                Int
+  chargeInterval      String
+  chargeIntervalCount Int
+  tatalCount          Int?
+  stripePrice         String        @default("")
+
+  @@index([subscriptionId])
+}
+
+model Subscription {
+  id            String      @id @default(cuid())
+  name          String      @default("")
+  description   String      @default("")
+  club          Club?       @relation("Subscription_club", fields: [clubId], references: [id])
+  clubId        String?     @map("club")
+  variations    Variation[] @relation("Variation_subscription")
+  fromEmail     String      @default("")
+  emailTemplate String      @default("")
+  autoRenew     Boolean     @default(false)
+  about         Json        @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  stripeProduct String      @default("")
+
+  @@index([clubId])
 }
 
 model Post {
   id          String    @id @default(cuid())
   title       String    @default("")
-  channel     Channel?  @relation("Post_channel", fields: [channelId], references: [id])
-  channelId   String?   @map("channel")
+  club        Club?     @relation("Post_club", fields: [clubId], references: [id])
+  clubId      String?   @map("club")
   status      String?
   content     Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   publishDate DateTime?
@@ -46,40 +80,8 @@ model Post {
   authorId    String?   @map("author")
   tags        Tag[]     @relation("Post_tags")
 
-  @@index([channelId])
+  @@index([clubId])
   @@index([authorId])
-}
-
-model Preference {
-  id                String   @id @default(cuid())
-  name              String   @default("")
-  user              User?    @relation("Preference_user", fields: [userId], references: [id])
-  userId            String?  @map("user")
-  channel           Channel? @relation("Preference_channel", fields: [channelId], references: [id])
-  channelId         String?  @map("channel")
-  canManageProducts Boolean  @default(false)
-  canSeeOtherUsers  Boolean  @default(false)
-  canManageUsers    Boolean  @default(false)
-  canManageRoles    Boolean  @default(false)
-  canManageCart     Boolean  @default(false)
-  canManageOrgs     Boolean  @default(false)
-
-  @@index([userId])
-  @@index([channelId])
-}
-
-model Membership {
-  id                   String  @id @default(cuid())
-  name                 String  @default("")
-  description          String  @default("")
-  canManagePosts       Boolean @default(false)
-  canSeeOtherUsers     Boolean @default(false)
-  canManageUsers       Boolean @default(false)
-  canManageMemberships Boolean @default(false)
-  canManageChannels    Boolean @default(false)
-  canManageOrgs        Boolean @default(false)
-  club                 Club[]  @relation("Club_memberships")
-  users                User[]  @relation("Membership_users")
 }
 
 model Role {
@@ -101,15 +103,15 @@ model Tag {
 }
 
 model User {
-  id          String       @id @default(cuid())
-  name        String       @default("")
-  email       String       @default("")
-  subjectId   String       @unique @default("")
-  posts       Post[]       @relation("Post_author")
-  role        Role?        @relation("User_role", fields: [roleId], references: [id])
-  roleId      String?      @map("role")
-  preferences Preference[] @relation("Preference_user")
-  memberships Membership[] @relation("Membership_users")
+  id               String       @id @default(cuid())
+  name             String       @default("")
+  email            String       @default("")
+  subjectId        String       @unique @default("")
+  posts            Post[]       @relation("Post_author")
+  role             Role?        @relation("User_role", fields: [roleId], references: [id])
+  roleId           String?      @map("role")
+  stripeCustomerId String       @default("")
+  memberships      Membership[] @relation("Membership_user")
 
   @@index([email])
   @@index([roleId])

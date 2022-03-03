@@ -16,13 +16,9 @@ export const User = list({
       ref: "Role.assignedTo",
       many: false,
     }),
-    preferences: relationship({
-      ref: "Preference.user",
-      many: true,
-    }),
     stripeCustomerId: text(),
     memberships: relationship({
-      ref: "Membership.users",
+      ref: "Membership.user",
       many: true,
     }),
   },

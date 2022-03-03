@@ -1,34 +1,20 @@
-import { checkbox } from '@keystone-6/core/fields';
+import { checkbox, select } from "@keystone-6/core/fields";
 
 export const preferenceFields = {
-  canManageProducts: checkbox({
-    defaultValue: false,
-    label: 'User can Update and delete any product',
+  contactPreference: select({
+    options: [
+      { label: "Email", value: "email" },
+      { label: "SMS", value: "sms" },
+    ],
   }),
-  canSeeOtherUsers: checkbox({
+  receiveRenewal: checkbox({
     defaultValue: false,
-    label: 'User can query other users',
-  }),
-  canManageUsers: checkbox({
-    defaultValue: false,
-    label: 'User can Edit other users',
-  }),
-  canManageRoles: checkbox({
-    defaultValue: false,
-    label: 'User can CRUD roles',
-  }),
-  canManageCart: checkbox({
-    defaultValue: false,
-    label: 'User can see and manage cart and cart items',
-  }),
-  canManageOrgs: checkbox({
-    defaultValue: false,
-    label: 'User can see and manage Organisations',
+    label: "Receive Membership Renewal reminders",
   }),
 };
 
-export type Permission = keyof typeof preferenceFields;
+export type Preference = keyof typeof preferenceFields;
 
-export const permissionsList: Permission[] = Object.keys(
+export const permissionsList: Preference[] = Object.keys(
   preferenceFields
-) as Permission[];
+) as Preference[];

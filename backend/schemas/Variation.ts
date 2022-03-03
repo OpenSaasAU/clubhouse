@@ -22,7 +22,7 @@ export const Variation = list({
   },
   fields: {
     name: text({ validation: { isRequired: true } }),
-    type: relationship({
+    subscription: relationship({
       ref: "Subscription.variations",
       many: false,
     }),

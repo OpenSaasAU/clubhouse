@@ -10,7 +10,7 @@ import { list, graphql } from "@keystone-6/core";
 import { rules, isSignedIn, permissions } from "../access";
 import getContactName from "../lib/getContactName";
 import sendEmail from "../lib/sendEmail";
-import { membershipFields } from "./membershipFields";
+import { preferenceFields } from "./preferenceFields";
 
 export const Membership = list({
   access: {
@@ -91,6 +91,6 @@ export const Membership = list({
     }),
     renewalDate: timestamp(),
     stripeSubscriptionId: text(),
-    ...membershipFields,
+    ...preferenceFields,
   },
 });

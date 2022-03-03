@@ -1,6 +1,5 @@
 import { Subscription } from "./Subscription";
 import { Variation } from "./Variation";
-import { Preference } from "./Preference";
 import { Membership } from "./Membership";
 import { Club } from "./Club";
 import { Tag } from "./Tag";
@@ -14,7 +13,6 @@ export const lists = {
   Variation,
   Subscription,
   Post,
-  Preference,
   Role,
   Tag,
   User,
