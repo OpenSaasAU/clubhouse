@@ -30,7 +30,7 @@ export const Membership = list({
       const sudo = context.sudo();
 
       if (operation === "create") {
-        const person = await sudo.query.User.findOne({
+        const user = await sudo.query.User.findOne({
           where: { id: resolvedData?.user?.connect?.id },
           query: `
                             id
@@ -46,11 +46,11 @@ export const Membership = list({
                             emailTemplate`,
         });
         const data = {
-          to: person.email,
+          to: user.email,
           from: membershipType.fromEmail,
           templateId: membershipType.emailTemplate,
           dynamicTemplateData: {
-            firstName: person.preferredName,
+            firstName: user.preferredName,
           },
         };
         sendEmail(data);
@@ -67,6 +67,7 @@ export const Membership = list({
         },
       }),
     }),
+    householdMembers: text(),
     user: relationship({
       ref: "User.memberships",
       many: false,

@@ -18,6 +18,7 @@
     "build:backend": "manypkg run backend build",
     "clean": "manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
     "dev:backend": "manypkg run backend dev",
+    "dev:frontend": "manypkg run frontend dev",
     "postinstall": "preconstruct dev && manypkg check",
     "lint": "yarn eslint .",
     "release": "yarn build && changeset publish",

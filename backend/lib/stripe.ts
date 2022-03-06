@@ -1,5 +1,8 @@
 import Stripe from "stripe";
 
+import type { Request, Response } from "express";
+import type { KeystoneContext } from "@keystone-6/core/types";
+
 const stripeConfig = new Stripe(process.env.STRIPE_SECRET || "", {
   apiVersion: "2020-08-27",
 });
@@ -13,8 +16,11 @@ export const stripeSession = async ({
   priceId: string;
   frontendUrl: string;
 }) => {
+  frontendUrl = "http://localhost:3000";
+  priceId = "price_1KZCYnCrhE5hs3QhKlO0hoYN";
   const session = await stripeConfig.checkout.sessions.create({
     mode: "subscription",
+    customer: "cus_LFi0e5cBcLkp9l",
     line_items: [
       {
         price: priceId,
@@ -28,6 +34,7 @@ export const stripeSession = async ({
     success_url: `${frontendUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${frontendUrl}/canceled`,
   });
+  console.log(session);
 
   return session;
 };
@@ -46,11 +53,14 @@ export const stripePortalSession = async ({
   return portalSession;
 };
 
-export const stripeHook = async ({ req, createContext }: any) => {
+export async function stripeHook(req: Request, res: Response) {
+  console.log(req.headers["stripe-signature"]);
+  console.log(process.env.STRIPE_SECRET);
   let data;
   let eventType;
   // Check if webhook signing is configured.
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const webhookSecret =
+    "whsec_dc197429e82997fc8346176e159944dcf140952afda76c7d2ea37331d1af42ab";
   if (webhookSecret) {
     // Retrieve the event by verifying the signature using the raw body and secret.
     let event;
@@ -58,13 +68,13 @@ export const stripeHook = async ({ req, createContext }: any) => {
 
     try {
       event = stripeConfig.webhooks.constructEvent(
-        req.body,
+        (req as any).rawBody,
         signature,
         webhookSecret
       );
     } catch (err) {
       console.log(`⚠️  Webhook signature verification failed.`);
-      return 400;
+      res.sendStatus(400);
     }
     // Extract the object from the event.
     data = event.data;
@@ -72,9 +82,12 @@ export const stripeHook = async ({ req, createContext }: any) => {
   } else {
     // Webhook signing is recommended, but if the secret is not configured in `config.js`,
     // retrieve the event data directly from the request body.
+    console.log(req.body);
+
     data = req.body.data;
     eventType = req.body.type;
   }
+  console.log(data);
 
   switch (eventType) {
     case "checkout.session.completed":
@@ -95,5 +108,5 @@ export const stripeHook = async ({ req, createContext }: any) => {
     // Unhandled event type
   }
 
-  return 200;
-};
+  res.sendStatus(200);
+}
