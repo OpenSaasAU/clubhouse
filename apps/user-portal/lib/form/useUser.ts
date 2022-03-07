@@ -8,6 +8,7 @@ const CURRENT_USER_QUERY = gql`
         email
         name
         preferredName
+        phone
         memberships {
           id
           status

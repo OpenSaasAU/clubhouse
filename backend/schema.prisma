@@ -112,6 +112,7 @@ model User {
   email            String       @default("")
   subjectId        String       @unique @default("")
   preferredName    String       @default("")
+  phone            String       @default("")
   posts            Post[]       @relation("Post_author")
   role             Role?        @relation("User_role", fields: [roleId], references: [id])
   roleId           String?      @map("role")

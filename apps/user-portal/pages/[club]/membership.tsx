@@ -1,8 +1,8 @@
 import { useRouter } from "next/dist/client/router";
-import { useForm, useUser } from "../lib/form";
+import { useForm, useUser } from "../../lib/form";
 import getConfig from "next/config";
 
-import { FriendSignup } from "../components/forms";
+import { FriendSignup } from "../../components/forms";
 
 export default function Membership() {
   const user = useUser();
@@ -55,13 +55,16 @@ export default function Membership() {
   // 2. Show form to create a membership
   // 3. Create subscription through stripe
   return (
-    <FriendSignup
-      inputs={inputs}
-      handleChange={handleChange}
-      resetForm={resetForm}
-      handleStageButton={handleStageButton}
-      clearForm={clearForm}
-      router={router}
-    />
+    <>
+      <h2>Pantry Membership</h2>
+      <FriendSignup
+        inputs={inputs}
+        handleChange={handleChange}
+        resetForm={resetForm}
+        handleStageButton={handleStageButton}
+        clearForm={clearForm}
+        router={router}
+      />
+    </>
   );
 }

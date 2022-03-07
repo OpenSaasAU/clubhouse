@@ -868,6 +868,7 @@ type User {
   email: String
   subjectId: String
   preferredName: String
+  phone: String
   posts(
     where: PostWhereInput! = {}
     orderBy: [PostOrderByInput!]! = []
@@ -900,6 +901,7 @@ input UserWhereInput {
   email: StringFilter
   subjectId: StringFilter
   preferredName: StringFilter
+  phone: StringFilter
   posts: PostManyRelationFilter
   role: RoleWhereInput
   stripeCustomerId: StringFilter
@@ -912,6 +914,7 @@ input UserOrderByInput {
   email: OrderDirection
   subjectId: OrderDirection
   preferredName: OrderDirection
+  phone: OrderDirection
   stripeCustomerId: OrderDirection
 }
 
@@ -920,6 +923,7 @@ input UserUpdateInput {
   email: String
   subjectId: String
   preferredName: String
+  phone: String
   posts: PostRelateToManyForUpdateInput
   role: RoleRelateToOneForUpdateInput
   stripeCustomerId: String
@@ -942,6 +946,7 @@ input UserCreateInput {
   email: String
   subjectId: String
   preferredName: String
+  phone: String
   posts: PostRelateToManyForCreateInput
   role: RoleRelateToOneForCreateInput
   stripeCustomerId: String

@@ -7,6 +7,7 @@ export const User = list({
     email: text({ validation: { isRequired: true }, isIndexed: true }),
     subjectId: text({ validation: { isRequired: true }, isIndexed: "unique" }),
     preferredName: text(),
+    phone: text(),
     posts: relationship({ ref: "Post.author", many: true }),
     role: relationship({
       ref: "Role.assignedTo",

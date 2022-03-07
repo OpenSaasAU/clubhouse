@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Container } from "react-bootstrap";
+import { SigninButton } from "../SigninButton";
 
 export function Header() {
   const { data, status } = useSession();
@@ -16,43 +17,17 @@ export function Header() {
             <Link href="/" passHref>
               <Nav.Link>Home</Nav.Link>
             </Link>
-            <Link href="/about" passHref>
-              <Nav.Link>About</Nav.Link>
+            <Link href="/pantry/posts" passHref>
+              <Nav.Link>News</Nav.Link>
             </Link>
-            <Link href="/contact" passHref>
-              <Nav.Link>Contact</Nav.Link>
+            <Link href="/pantry/membership" passHref>
+              <Nav.Link>Pantry Membership</Nav.Link>
             </Link>
-            <Link href="/products" passHref>
-              <Nav.Link>Products</Nav.Link>
-            </Link>
-            {!data ? (
-              <Button
-                onClick={() =>
-                  signIn('auth0', {
-                    callbackUrl: `${window.location.origin}`
-                })
-                }
-              >
-                Sign In
-              </Button>
-            ) : (<>
-              <Link href='/profile' passHref>
-                <Nav.Link>Profile</Nav.Link>
-              </Link>
-              <Link href='/membership' passHref>
-                <Nav.Link>Membership</Nav.Link>
-              </Link>
-              <Button
-                onClick={() =>
-                  signOut({
-                    callbackUrl: `${window.location.origin}`,
-                  })
-                }
-              >
-                Sign Out
-              </Button>
-              </>
-            )}
+            {data && (<Link href="/profile" passHref>
+            <Nav.Link>Profile</Nav.Link>
+          </Link>)}
+
+          <SigninButton />
           </Nav>
         </Navbar.Collapse>
         <Navbar.Brand

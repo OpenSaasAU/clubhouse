@@ -33,9 +33,9 @@ const auth = createAuth({
   identityField: "subjectId",
   sessionData: `id name email memberships { id name variation { id name subscription { id name }}}`,
   autoCreate: true,
-  userMap: { subjectId: "id", name: "name" },
+  userMap: { subjectId: "id" },
   accountMap: {},
-  profileMap: { email: "email" },
+  profileMap: { email: "email", name: "name", preferredName: "nickname" },
   sessionSecret,
   keystonePath: "/admin",
   providers: [
