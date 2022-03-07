@@ -7,6 +7,19 @@ const CURRENT_USER_QUERY = gql`
         id
         email
         name
+        preferredName
+        memberships {
+          id
+          status
+          variation {
+            id
+            name
+            subscription {
+              id
+              name
+            }
+          }
+        }
       }
     }
   }

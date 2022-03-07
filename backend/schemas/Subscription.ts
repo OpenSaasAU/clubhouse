@@ -41,6 +41,11 @@ export const Subscription = list({
         isRequired: true,
       },
     }),
+    slug: text({
+      isIndexed: "unique",
+      validation: { isRequired: true },
+      isFilterable: true,
+    }),
     autoRenew: checkbox({ defaultValue: false }),
     about: document({
       formatting: true,

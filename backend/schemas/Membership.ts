@@ -20,10 +20,6 @@ export const Membership = list({
       // You can't delete yourself
       delete: permissions.canManageUsers,
     },
-    filter: {
-      query: rules.canOrder,
-      update: rules.canManageUsers,
-    },
   },
   hooks: {
     afterOperation: async ({ listKey, operation, resolvedData, context }) => {

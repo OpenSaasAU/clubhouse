@@ -37,6 +37,7 @@ importers:
       '@apollo/client': ^3.5.9
       '@apollo/react-testing': ^4.0.0
       '@babel/core': ^7.16.12
+      '@babel/eslint-parser': ^7.17.0
       '@babel/plugin-proposal-class-properties': ^7.16.7
       '@babel/plugin-proposal-object-rest-spread': ^7.16.7
       '@babel/plugin-syntax-dynamic-import': ^7.8.3
@@ -46,6 +47,7 @@ importers:
       '@babel/preset-typescript': ^7.16.7
       '@babel/runtime': ^7.16.7
       '@babel/runtime-corejs3': ^7.16.8
+      '@keystone-6/document-renderer': ^1.0.0
       '@next/bundle-analyzer': ^12.0.10
       '@preconstruct/next': ^3.0.1
       '@stripe/react-stripe-js': ^1.7.0
@@ -54,7 +56,6 @@ importers:
       '@testing-library/react': ^12.1.3
       '@testing-library/user-event': ^13.5.0
       apollo-upload-client: ^17.0.0
-      babel-eslint: ^10.1.0
       babel-jest: ^27.4.6
       babel-plugin-styled-components: ^2.0.3
       casual: ^1.6.2
@@ -84,9 +85,10 @@ importers:
       nprogress: ^0.2.0
       prettier: ^2.5.1
       prop-types: ^15.7.2
-      react: ^17.0.2
+      react: 17.0.2
       react-bootstrap: ^2.1.2
       react-dom: ^17.0.2
+      react-player: ^2.9.0
       react-test-renderer: ^17.0.2
       react-transition-group: ^4.4.2
       styled-components: ^5.3.3
@@ -104,6 +106,7 @@ importers:
       '@babel/preset-typescript': 7.16.7_@babel+core@7.17.5
       '@babel/runtime': 7.16.7
       '@babel/runtime-corejs3': 7.16.8
+      '@keystone-6/document-renderer': 1.0.0_react@17.0.2
       '@next/bundle-analyzer': 12.1.0
       '@preconstruct/next': 3.0.1
       '@stripe/react-stripe-js': 1.7.0_2272d46cfb55a1a89dee55cd5776c81d
@@ -126,23 +129,24 @@ importers:
       react: 17.0.2
       react-bootstrap: 2.1.2_react-dom@17.0.2+react@17.0.2
       react-dom: 17.0.2_react@17.0.2
+      react-player: 2.9.0_react@17.0.2
       react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
       styled-components: 5.3.3_react-dom@17.0.2+react@17.0.2
       typescript: 4.6.2
       waait: 1.0.5
     devDependencies:
       '@apollo/react-testing': 4.0.0_graphql@15.8.0+react@17.0.2
+      '@babel/eslint-parser': 7.17.0_@babel+core@7.17.5+eslint@7.32.0
       '@testing-library/jest-dom': 5.16.2
       '@testing-library/react': 12.1.3_react-dom@17.0.2+react@17.0.2
       '@testing-library/user-event': 13.5.0
-      babel-eslint: 10.1.0_eslint@7.32.0
       babel-jest: 27.5.1_@babel+core@7.17.5
       babel-plugin-styled-components: 2.0.6_styled-components@5.3.3
       casual: 1.6.2
       eslint: 7.32.0
       eslint-config-airbnb: 19.0.4_f4d68d32d1f3d2551c39fe7763d2c003
       eslint-config-prettier: 8.5.0_eslint@7.32.0
-      eslint-config-wesbos: 3.0.2_0cc3bca1015c669570d45648b2a1aa40
+      eslint-config-wesbos: 3.0.2_199b4e2cf287033519b77dec44b733c5
       eslint-plugin-html: 6.2.0
       eslint-plugin-import: 2.25.4_eslint@7.32.0
       eslint-plugin-jsx-a11y: 6.5.1_eslint@7.32.0
@@ -162,6 +166,7 @@ importers:
       '@prisma/generator-helper': 3.7.0
       '@sendgrid/mail': 7.6.1
       dotenv: 16.0.0
+      express: 4.17.1
       next: 12.0.7
       prisma: 3.6.0
       react: 17.0.2
@@ -175,6 +180,7 @@ importers:
       '@prisma/client': 3.6.0_prisma@3.6.0
       '@sendgrid/mail': 7.6.1
       dotenv: 16.0.0
+      express: 4.17.1
       stripe: 8.205.0
       typescript: 4.5.4
     devDependencies:
@@ -410,6 +416,20 @@ packages:
       eslint-visitor-keys: 2.1.0
       semver: 6.3.0
     dev: false
+
+  /@babel/eslint-parser/7.17.0_@babel+core@7.17.5+eslint@7.32.0:
+    resolution: {integrity: sha512-PUEJ7ZBXbRkbq3qqM/jZ2nIuakUBqCYc7Qf52Lj7dlZ6zERnqisdHioL0l4wwQZnmskMeasqUNzLBFKs3nylXA==}
+    engines: {node: ^10.13.0 || ^12.13.0 || >=14.0.0}
+    peerDependencies:
+      '@babel/core': '>=7.11.0'
+      eslint: ^7.5.0 || ^8.0.0
+    dependencies:
+      '@babel/core': 7.17.5
+      eslint: 7.32.0
+      eslint-scope: 5.1.1
+      eslint-visitor-keys: 2.1.0
+      semver: 6.3.0
+    dev: true
 
   /@babel/generator/7.16.0:
     resolution: {integrity: sha512-RR8hUCfRQn9j9RPKEVXo9LiwoxLPYn6hNZlvUOR8tSnaxlD0p0+la00ZP9/SnRt6HchKr+X0fO2r8vrETiJGew==}
@@ -3008,6 +3028,7 @@ packages:
 
   /@braintree/sanitize-url/5.0.2:
     resolution: {integrity: sha512-NBEJlHWrhQucLhZGHtSxM2loSaNUMajC7KOYJLyfcdW/6goVoff2HoYI3bz8YCDN0wKGbxtUL0gx2dvHpvnWlw==}
+    deprecated: Potential XSS vulnerability patched in v6.0.0.
     dev: false
 
   /@changesets/apply-release-plan/5.0.3:
@@ -5978,7 +5999,7 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       glob: 7.2.0
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       lazystream: 1.0.1
       lodash.defaults: 4.2.0
       lodash.difference: 4.5.0
@@ -6200,24 +6221,6 @@ packages:
 
   /axobject-query/2.2.0:
     resolution: {integrity: sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA==}
-
-  /babel-eslint/10.1.0_eslint@7.32.0:
-    resolution: {integrity: sha512-ifWaTHQ0ce+448CYop8AdrQiBsGrnC+bMgfyKFdi6EsPLTAWG+QfyDeM6OH+FmWnKvEq5NnBMLvlBUPKQZoDSg==}
-    engines: {node: '>=6'}
-    deprecated: babel-eslint is now @babel/eslint-parser. This package will no longer receive updates.
-    peerDependencies:
-      eslint: '>= 4.12.1'
-    dependencies:
-      '@babel/code-frame': 7.16.0
-      '@babel/parser': 7.16.6
-      '@babel/traverse': 7.16.5
-      '@babel/types': 7.16.0
-      eslint: 7.32.0
-      eslint-visitor-keys: 1.3.0
-      resolve: 1.20.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
 
   /babel-jest/25.5.1_@babel+core@7.16.5:
     resolution: {integrity: sha512-9dA9+GmMjIzgPnYtkhBg73gOo/RHqPmLruP3BaGL4KEX3Dwz6pI8auSN8G8+iuEG90+GSswyKvslN+JYSaacaQ==}
@@ -7500,7 +7503,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       globby: 11.0.4
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       is-glob: 4.0.3
       is-path-cwd: 2.2.0
       is-path-inside: 3.0.3
@@ -7948,7 +7951,7 @@ packages:
       eslint: 7.32.0
     dev: true
 
-  /eslint-config-wesbos/3.0.2_0cc3bca1015c669570d45648b2a1aa40:
+  /eslint-config-wesbos/3.0.2_199b4e2cf287033519b77dec44b733c5:
     resolution: {integrity: sha512-lzyvce/Eprb1dST3c5DMwhm7oqb8TpFCwPb1BrNgdVKp+2jdc/yBVEAnwq/One8Avhy9defQUXrVGBusm2v00w==}
     peerDependencies:
       '@babel/core': ^7.16.0
@@ -7971,7 +7974,7 @@ packages:
       typescript: ^4.5.2
     dependencies:
       '@babel/core': 7.17.5
-      '@babel/eslint-parser': 7.16.5_@babel+core@7.16.5+eslint@7.32.0
+      '@babel/eslint-parser': 7.17.0_@babel+core@7.17.5+eslint@7.32.0
       '@babel/preset-react': 7.16.7_@babel+core@7.17.5
       eslint: 7.32.0
       eslint-config-airbnb: 19.0.4_f4d68d32d1f3d2551c39fe7763d2c003
@@ -10960,7 +10963,7 @@ packages:
     dependencies:
       universalify: 2.0.0
     optionalDependencies:
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
     dev: false
 
   /jsprim/1.4.2:
@@ -11049,6 +11052,10 @@ packages:
 
   /lines-and-columns/1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
+
+  /load-script/1.0.0:
+    resolution: {integrity: sha1-BJGTngvuVkPuSUp+PaPSuscMbKQ=}
+    dev: false
 
   /load-yaml-file/0.2.0:
     resolution: {integrity: sha512-OfCBkGEw4nN6JLtgRidPX6QxjBQGQf72q3si2uvqyFEMbycSFFHwAZeXx6cJgFM9wmLrf9zBwCP3Ivqa+LLZPw==}
@@ -12763,7 +12770,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.16.7
       focus-lock: 0.9.2
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 17.0.2
       react-clientside-effect: 1.2.5_react@17.0.2
       use-callback-ref: 1.2.5_cfedea9b3ed0faf0dded75c187406c5e
@@ -12780,6 +12787,19 @@ packages:
 
   /react-lifecycles-compat/3.0.4:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
+    dev: false
+
+  /react-player/2.9.0_react@17.0.2:
+    resolution: {integrity: sha512-jNUkTfMmUhwPPAktAdIqiBcVUKsFKrVGH6Ocutj6535CNfM91yrvWxHg6fvIX8Y/fjYUPoejddwh7qboNV9vGA==}
+    peerDependencies:
+      react: '>=16.6.0'
+    dependencies:
+      deepmerge: 4.2.2
+      load-script: 1.0.0
+      memoize-one: 5.2.1
+      prop-types: 15.8.1
+      react: 17.0.2
+      react-fast-compare: 3.2.0
     dev: false
 
   /react-popper/2.2.5_dc71eca6f47a6289504c8be4d8a96e45:

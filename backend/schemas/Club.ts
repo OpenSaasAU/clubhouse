@@ -22,7 +22,13 @@ export const Club = list({
         displayMode: "segmented-control",
       },
     }),
-    content: document({
+    slug: text({
+      isIndexed: "unique",
+      validation: { isRequired: true },
+      isFilterable: true,
+    }),
+    description: text(),
+    about: document({
       formatting: true,
       layouts: [
         [1, 1],

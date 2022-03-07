@@ -16,6 +16,7 @@
     "@prisma/client": "3.6.0",
     "@sendgrid/mail": "7.6.1",
     "dotenv": "16.0.0",
+    "express": "4.17.1",
     "stripe": "8.205.0",
     "typescript": "4.5.4"
   },

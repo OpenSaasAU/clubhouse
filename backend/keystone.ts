@@ -31,7 +31,7 @@ let sessionMaxAge = 60 * 60 * 24 * 30; // 30 days
 const auth = createAuth({
   listKey: "User",
   identityField: "subjectId",
-  sessionData: `id name email role { id name } memberships { id status variation { id name } }`,
+  sessionData: `id name email memberships { id name variation { id name subscription { id name }}}`,
   autoCreate: true,
   userMap: { subjectId: "id", name: "name" },
   accountMap: {},
@@ -60,10 +60,6 @@ export default auth.withAuth(
       isAccessAllowed: (context) => !!context.session?.data,
     },
     lists,
-    experimental: {
-      generateNodeAPI: true,
-      enableNextJsGraphqlApiEndpoint: true,
-    },
     extendGraphqlSchema,
     session: statelessSessions({
       maxAge: sessionMaxAge,
@@ -72,26 +68,23 @@ export default auth.withAuth(
     server: {
       extendExpressApp: (app, createContext) => {
         app.use(
+          "/api/stripe-webhook",
           express.json({
             // We need the raw body to verify webhook signatures.
             // Let's compute it only when hitting the Stripe webhook endpoint.
             verify: function (req, res, buf) {
               const pathname = url.parse(req?.url!).pathname;
-              console.log(buf.toString());
 
-              if (
-                pathname?.includes("/api/stripe-webhook") &&
-                req.method === "POST"
-              ) {
+              if (req.method === "POST") {
                 (req as any).rawBody = buf.toString();
               }
             },
           })
-        ),
-          app.use("/rest", async (req, res, next) => {
-            (req as any).context = await createContext(req, res);
-            next();
-          });
+        );
+        app.use("/api/stripe-webhook", async (req, res, next) => {
+          (req as any).context = await createContext(req, res);
+          next();
+        });
         app.get("/get-stripe-session", stripeSession);
         app.post("/api/stripe-webhook", stripeHook);
         app.post("/test", (req, res) => {

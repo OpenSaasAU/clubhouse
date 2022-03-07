@@ -19,6 +19,13 @@
     ],
     "rules": {
       "@typescript-eslint/no-unsafe-assignment": 0,
+      "react/function-component-definition": [
+        2,
+        {
+          "namedComponents": "function-declaration",
+          "unnamedComponents": "function-expression"
+        }
+      ],
       "react/jsx-filename-extension": [
         1,
         {
@@ -27,13 +34,6 @@
             ".jsx",
             "tsx"
           ]
-        }
-      ],
-      "react/function-component-definition": [
-        2,
-        {
-          "namedComponents": "function-declaration",
-          "unnamedComponents": "function-expression"
         }
       ],
       "react/jsx-props-no-spreading": [
@@ -64,6 +64,7 @@
     "@babel/preset-typescript": "^7.16.7",
     "@babel/runtime": "^7.16.7",
     "@babel/runtime-corejs3": "^7.16.8",
+    "@keystone-6/document-renderer": "^1.0.0",
     "@next/bundle-analyzer": "^12.0.10",
     "@preconstruct/next": "^3.0.1",
     "@stripe/react-stripe-js": "^1.7.0",
@@ -83,9 +84,10 @@
     "next-with-apollo": "^5.2.1",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
-    "react": "^17.0.2",
+    "react": "17.0.2",
     "react-bootstrap": "^2.1.2",
     "react-dom": "^17.0.2",
+    "react-player": "^2.9.0",
     "react-transition-group": "^4.4.2",
     "styled-components": "^5.3.3",
     "typescript": "^4.5.5",
@@ -93,10 +95,10 @@
   },
   "devDependencies": {
     "@apollo/react-testing": "^4.0.0",
+    "@babel/eslint-parser": "^7.17.0",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^12.1.3",
     "@testing-library/user-event": "^13.5.0",
-    "babel-eslint": "^10.1.0",
     "babel-jest": "^27.4.6",
     "babel-plugin-styled-components": "^2.0.3",
     "casual": "^1.6.2",

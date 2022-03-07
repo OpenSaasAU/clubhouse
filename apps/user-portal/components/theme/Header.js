@@ -28,16 +28,16 @@ export function Header() {
             {!data ? (
               <Button
                 onClick={() =>
-                  signIn("auth0", {
-                    callbackUrl: `${window.location.origin}`,
-                  })
+                  signIn('auth0', {
+                    callbackUrl: `${window.location.origin}`
+                })
                 }
               >
                 Sign In
               </Button>
             ) : (<>
-              <Link href='/account' passHref>
-                <Nav.Link>Account</Nav.Link>
+              <Link href='/profile' passHref>
+                <Nav.Link>Profile</Nav.Link>
               </Link>
               <Link href='/membership' passHref>
                 <Nav.Link>Membership</Nav.Link>
