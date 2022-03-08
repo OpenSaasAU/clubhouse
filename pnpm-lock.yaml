@@ -48,7 +48,6 @@ importers:
       '@babel/runtime': ^7.16.7
       '@babel/runtime-corejs3': ^7.16.8
       '@emotion/css': ^11.7.1
-      '@keystone-6/core': ^1.0.1
       '@keystone-6/document-renderer': ^1.0.0
       '@keystone-ui/button': ^6.0.0
       '@keystone-ui/fields': ^6.0.0
@@ -78,7 +77,7 @@ importers:
       eslint-plugin-prettier: ^4.0.0
       eslint-plugin-react: ^7.27.1
       eslint-plugin-react-hooks: ^4.3.0
-      graphql: ^15.7.2
+      graphql: 15.8.0
       graphql-tag: ^2.12.6
       graphql-upload: ^13.0.0
       jest: ^27.4.7
@@ -112,7 +111,6 @@ importers:
       '@babel/runtime': 7.16.7
       '@babel/runtime-corejs3': 7.16.8
       '@emotion/css': 11.7.1_@babel+core@7.17.5
-      '@keystone-6/core': 1.0.1
       '@keystone-6/document-renderer': 1.0.0_react@17.0.2
       '@keystone-ui/button': 6.0.0_ee04cb8b04d49922efd65b2acc3d5fcc
       '@keystone-ui/fields': 6.0.0_ee04cb8b04d49922efd65b2acc3d5fcc
@@ -3777,7 +3775,7 @@ packages:
       collect-v8-coverage: 1.0.1
       exit: 0.1.2
       glob: 7.2.0
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       istanbul-lib-coverage: 3.2.0
       istanbul-lib-instrument: 4.0.3
       istanbul-lib-report: 3.0.0
@@ -3841,7 +3839,7 @@ packages:
     engines: {node: '>= 8.3'}
     dependencies:
       callsites: 3.1.0
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       source-map: 0.6.1
     dev: false
 
@@ -3879,7 +3877,7 @@ packages:
     engines: {node: '>= 8.3'}
     dependencies:
       '@jest/test-result': 25.5.0
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       jest-haste-map: 25.5.1
       jest-runner: 25.5.4
       jest-runtime: 25.5.4
@@ -3986,116 +3984,6 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.0.5
       '@jridgewell/sourcemap-codec': 1.4.11
-
-  /@keystone-6/core/1.0.1:
-    resolution: {integrity: sha512-2Pjv71A12j6XrgFwyNycfdO7FInp6jJD2flS4iLhOcqFNhV4ZtmJ3e9ZcGanTIQzHq4xFAxMxWl411ql/n+I5g==}
-    engines: {node: ^14.15 || ^16.13}
-    hasBin: true
-    dependencies:
-      '@apollo/client': 3.4.17_graphql@15.8.0+react@17.0.2
-      '@babel/core': 7.16.5
-      '@babel/runtime': 7.16.5
-      '@emotion/hash': 0.8.0
-      '@emotion/weak-memoize': 0.2.5
-      '@graphql-tools/schema': 8.3.1_graphql@15.8.0
-      '@graphql-ts/extend': 0.4.0_e20193b1cd88d9d42c260b3bff71885d
-      '@graphql-ts/schema': 0.5.0_graphql@15.8.0
-      '@hapi/iron': 6.0.0
-      '@keystone-ui/button': 6.0.0_16b797703ad522942bd3444b068fae09
-      '@keystone-ui/core': 4.0.0_21f7a20a993833ccf025cf2acd1637d1
-      '@keystone-ui/fields': 6.0.0_16b797703ad522942bd3444b068fae09
-      '@keystone-ui/icons': 5.0.0_21f7a20a993833ccf025cf2acd1637d1
-      '@keystone-ui/loading': 5.0.0_16b797703ad522942bd3444b068fae09
-      '@keystone-ui/modals': 5.0.0_16b797703ad522942bd3444b068fae09
-      '@keystone-ui/notice': 5.0.0_16b797703ad522942bd3444b068fae09
-      '@keystone-ui/options': 5.0.0_21f7a20a993833ccf025cf2acd1637d1
-      '@keystone-ui/pill': 6.0.0_21f7a20a993833ccf025cf2acd1637d1
-      '@keystone-ui/popover': 5.0.0_21f7a20a993833ccf025cf2acd1637d1
-      '@keystone-ui/segmented-control': 6.0.0_21f7a20a993833ccf025cf2acd1637d1
-      '@keystone-ui/toast': 5.0.0_21f7a20a993833ccf025cf2acd1637d1
-      '@keystone-ui/tooltip': 5.0.0_21f7a20a993833ccf025cf2acd1637d1
-      '@nodelib/fs.walk': 1.2.8
-      '@preconstruct/next': 3.0.1
-      '@prisma/client': 3.6.0_prisma@3.6.0
-      '@prisma/migrate': 3.6.0_@prisma+sdk@3.6.0
-      '@prisma/sdk': 3.6.0
-      '@sindresorhus/slugify': 1.1.2
-      '@types/apollo-upload-client': 14.1.0_react@17.0.2
-      '@types/bcryptjs': 2.4.2
-      '@types/cookie': 0.4.1
-      '@types/express': 4.17.13
-      '@types/fs-extra': 9.0.13
-      '@types/graphql-upload': 8.0.7
-      '@types/inflection': 1.13.0
-      '@types/node-fetch': 2.5.12
-      '@types/pluralize': 0.0.29
-      '@types/prettier': 2.4.2
-      '@types/prompts': 2.0.14
-      '@types/react': 17.0.37
-      '@types/source-map-support': 0.5.4
-      '@types/supertest': 2.0.11
-      '@types/uid-safe': 2.1.2
-      '@types/uuid': 8.3.3
-      apollo-server-core: 3.5.0_graphql@15.8.0
-      apollo-server-errors: 3.3.0_graphql@15.8.0
-      apollo-server-express: 3.5.0_express@4.17.1+graphql@15.8.0
-      apollo-server-micro: 3.5.0_graphql@15.8.0+micro@9.3.4
-      apollo-server-types: 3.4.0_graphql@15.8.0
-      apollo-upload-client: 17.0.0_2be55a5501891bfc6d28f88d606775e7
-      bcryptjs: 2.4.3
-      bytes: 3.1.1
-      chalk: 4.1.2
-      clipboard-copy: 4.0.1
-      cookie: 0.4.1
-      copy-to-clipboard: 3.3.1
-      cors: 2.8.5
-      cuid: 2.1.8
-      date-fns: 2.27.0
-      decimal.js: 10.3.1
-      dumb-passwords: 0.2.1
-      execa: 5.1.1
-      express: 4.17.1
-      fast-deep-equal: 3.1.3
-      filenamify: 4.3.0
-      form-data: 4.0.0
-      fs-extra: 10.0.0
-      graphql: 15.8.0
-      graphql-type-json: 0.3.2_graphql@15.8.0
-      graphql-upload: 12.0.0_graphql@15.8.0
-      image-size: 1.0.0
-      image-type: 4.1.0
-      inflection: 1.13.1
-      intersection-observer: 0.12.0
-      memoize-one: 6.0.0
-      meow: 9.0.0
-      micro: 9.3.4
-      next: 12.0.7_08e041ced5dbc85933fef7a25e63a057
-      node-fetch: 2.6.6
-      normalize-path: 3.0.0
-      object-hash: 2.2.0
-      p-limit: 2.3.0
-      pirates: 4.0.4
-      pluralize: 8.0.0
-      prettier: 2.5.1
-      prisma: 3.6.0
-      prompts: 2.4.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      resolve: 1.20.0
-      source-map-support: 0.5.21
-      supertest: 6.1.6
-      uid-safe: 2.1.5
-      uuid: 8.3.2
-    transitivePeerDependencies:
-      - '@prisma/generator-helper'
-      - encoding
-      - fibers
-      - node-sass
-      - sass
-      - subscriptions-transport-ws
-      - supports-color
-      - webpack
-    dev: false
 
   /@keystone-6/core/1.0.1_@prisma+generator-helper@3.7.0:
     resolution: {integrity: sha512-2Pjv71A12j6XrgFwyNycfdO7FInp6jJD2flS4iLhOcqFNhV4ZtmJ3e9ZcGanTIQzHq4xFAxMxWl411ql/n+I5g==}
@@ -5210,28 +5098,6 @@ packages:
     dependencies:
       '@prisma/debug': 3.6.0
       '@prisma/generator-helper': 3.7.0
-      '@prisma/get-platform': 3.6.0-24.dc520b92b1ebb2d28dc3161f9f82e875bd35d727
-      '@prisma/sdk': 3.6.0
-      '@sindresorhus/slugify': 1.1.2
-      execa: 5.1.1
-      has-yarn: 2.1.0
-      indent-string: 4.0.0
-      log-update: 4.0.0
-      new-github-issue-url: 0.2.1
-      open: 7.4.2
-      pkg-up: 3.1.0
-      prompts: 2.4.2
-      strip-ansi: 6.0.1
-      strip-indent: 3.0.0
-    dev: false
-
-  /@prisma/migrate/3.6.0_@prisma+sdk@3.6.0:
-    resolution: {integrity: sha512-Y1Y5gv5ZZSHyNpPLdpVVa7XE4ME6b/vrh/Q7NpVjtwHNBH+nx4xWL9LtV8iXCiCXXAgWhKcyJOdCJW1hY0MrTA==}
-    peerDependencies:
-      '@prisma/generator-helper': '*'
-      '@prisma/sdk': '*'
-    dependencies:
-      '@prisma/debug': 3.6.0
       '@prisma/get-platform': 3.6.0-24.dc520b92b1ebb2d28dc3161f9f82e875bd35d727
       '@prisma/sdk': 3.6.0
       '@sindresorhus/slugify': 1.1.2
@@ -10529,7 +10395,7 @@ packages:
       chalk: 3.0.0
       deepmerge: 4.2.2
       glob: 7.2.0
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       jest-environment-jsdom: 25.5.0
       jest-environment-node: 25.5.0
       jest-get-type: 25.2.6
@@ -10720,7 +10586,7 @@ packages:
       '@types/graceful-fs': 4.1.5
       anymatch: 3.1.2
       fb-watchman: 2.0.1
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       jest-serializer: 25.5.0
       jest-util: 25.5.0
       jest-worker: 25.5.0
@@ -10849,7 +10715,7 @@ packages:
       '@jest/types': 25.5.0
       '@types/stack-utils': 1.0.1
       chalk: 3.0.0
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       micromatch: 4.0.4
       slash: 3.0.0
       stack-utils: 1.0.5
@@ -10946,7 +10812,7 @@ packages:
       '@jest/types': 25.5.0
       browser-resolve: 1.11.3
       chalk: 3.0.0
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       jest-pnp-resolver: 1.2.2_jest-resolve@25.5.1
       read-pkg-up: 7.0.1
       realpath-native: 2.0.0
@@ -10980,7 +10846,7 @@ packages:
       '@jest/types': 25.5.0
       chalk: 3.0.0
       exit: 0.1.2
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       jest-config: 25.5.4
       jest-docblock: 25.3.0
       jest-haste-map: 25.5.1
@@ -11049,7 +10915,7 @@ packages:
       collect-v8-coverage: 1.0.1
       exit: 0.1.2
       glob: 7.2.0
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       jest-config: 25.5.4
       jest-haste-map: 25.5.1
       jest-message-util: 25.5.0
@@ -11104,7 +10970,7 @@ packages:
     resolution: {integrity: sha512-LxD8fY1lByomEPflwur9o4e2a5twSQ7TaVNLlFUuToIdoJuBt8tzHfCsZ42Ok6LkKXWzFWf3AGmheuLAA7LcCA==}
     engines: {node: '>= 8.3'}
     dependencies:
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
     dev: false
 
   /jest-serializer/27.5.1:
@@ -11124,7 +10990,7 @@ packages:
       '@types/prettier': 1.19.1
       chalk: 3.0.0
       expect: 25.5.0
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       jest-diff: 25.5.0
       jest-get-type: 25.2.6
       jest-matcher-utils: 25.5.0
@@ -11172,7 +11038,7 @@ packages:
     dependencies:
       '@jest/types': 25.5.0
       chalk: 3.0.0
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       is-ci: 2.0.0
       make-dir: 3.1.0
     dev: false
@@ -11458,7 +11324,7 @@ packages:
   /jsonfile/4.0.0:
     resolution: {integrity: sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=}
     optionalDependencies:
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
     dev: false
 
   /jsonfile/6.1.0:
@@ -11564,7 +11430,7 @@ packages:
     resolution: {integrity: sha512-OfCBkGEw4nN6JLtgRidPX6QxjBQGQf72q3si2uvqyFEMbycSFFHwAZeXx6cJgFM9wmLrf9zBwCP3Ivqa+LLZPw==}
     engines: {node: '>=6'}
     dependencies:
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
       js-yaml: 3.14.1
       pify: 4.0.1
       strip-bom: 3.0.0
