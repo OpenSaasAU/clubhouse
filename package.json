@@ -47,5 +47,8 @@
       "packages/*",
       "services/*"
     ]
+  },
+  "devDependencies": {
+    "turbo": "^1.1.5"
   }
 }

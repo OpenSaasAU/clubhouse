@@ -16,7 +16,7 @@ const renderers: DocumentRendererProps["renderers"] = {
   },
 };
 
-const componentBlockRenderers: any = {
+const componentBlockRenderers: DocumentRendererProps["componentBlocks"] = {
   quote: (props) => (
     <div
       style={{
@@ -54,8 +54,9 @@ export function DocumentBlock({ ...props }) {
   return (
     <DocumentRenderer
       {...props}
+      document={props.document}
       renderers={renderers}
-      componentBlockRenderers={componentBlockRenderers}
+      componentBlocks={componentBlockRenderers}
     />
   );
 }

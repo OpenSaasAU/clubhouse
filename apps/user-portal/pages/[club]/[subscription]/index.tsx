@@ -7,6 +7,15 @@ import gql from "graphql-tag";
 
 import { CURRENT_USER_QUERY, useForm, useUser } from "../../../lib/form";
 
+type User = {
+  id: string;
+  email: string;
+  name: string;
+  preferredName: string;
+  phone: string;
+  householdMembers: string[];
+};
+
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($slug: String!) {
     subscription(where: { slug: $slug }) {
@@ -58,7 +67,7 @@ export default function SubscriptionPage() {
   const [getStripeSession] = useMutation(SUBSCRIPTION_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
-
+  const userSession = userData.date as User;
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   if (!data.subscription)
@@ -90,7 +99,7 @@ export default function SubscriptionPage() {
             const session = await getStripeSession({
               variables: {
                 variationId: variation.id,
-                userId: userData.data.id,
+                userId: userSession.id,
                 returnUrl: `${window.location.origin}/${club}/${subscription}`,
               },
             });

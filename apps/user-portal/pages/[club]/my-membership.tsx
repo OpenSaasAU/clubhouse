@@ -7,7 +7,7 @@ export default function MyMembership() {
   const user = useUser();
   const memberships = user?.memberships || [];
   const router = useRouter();
-  const { club } = router.query;
+  const { club }: { club?: string } = router.query;
 
   const { publicRuntimeConfig } = getConfig();
 
@@ -30,7 +30,7 @@ export default function MyMembership() {
       {memberships.map((membership) => (
         <div key={membership.id}>
           <h4>
-            {club[0].toUpperCase() + club.substring(1)} - Membership -{" "}
+            {club.charAt(0).toUpperCase() + club.substring(1)} - Membership -{" "}
             {membership.variation.subscription.name}
           </h4>
           <p>Variation - {membership.variation.name}</p>

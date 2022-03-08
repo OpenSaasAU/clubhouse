@@ -131,3 +131,9 @@ examples/*/schema.graphql
 examples/*/schema.prisma
 
 .env.*local
+
+## Turbo files
+.turbo
+build/**
+dist/**
+.next/**
