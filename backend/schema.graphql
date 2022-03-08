@@ -406,15 +406,16 @@ type Variation {
     skip: Int! = 0
   ): [Membership!]
   membershipsCount(where: MembershipWhereInput! = {}): Int
-  cost: Int
+  price: Int
   chargeInterval: String
   chargeIntervalCount: Int
-  tatalCount: Int
-  stripePrice: String
+  totalCount: Int
+  stripePriceId: String
 }
 
 input VariationWhereUniqueInput {
   id: ID
+  stripePriceId: String
 }
 
 input VariationWhereInput {
@@ -425,11 +426,11 @@ input VariationWhereInput {
   name: StringFilter
   subscription: SubscriptionWhereInput
   memberships: MembershipManyRelationFilter
-  cost: IntFilter
+  price: IntFilter
   chargeInterval: StringFilter
   chargeIntervalCount: IntFilter
-  tatalCount: IntNullableFilter
-  stripePrice: StringFilter
+  totalCount: IntNullableFilter
+  stripePriceId: StringFilter
 }
 
 input MembershipManyRelationFilter {
@@ -463,22 +464,22 @@ input IntNullableFilter {
 input VariationOrderByInput {
   id: OrderDirection
   name: OrderDirection
-  cost: OrderDirection
+  price: OrderDirection
   chargeInterval: OrderDirection
   chargeIntervalCount: OrderDirection
-  tatalCount: OrderDirection
-  stripePrice: OrderDirection
+  totalCount: OrderDirection
+  stripePriceId: OrderDirection
 }
 
 input VariationUpdateInput {
   name: String
   subscription: SubscriptionRelateToOneForUpdateInput
   memberships: MembershipRelateToManyForUpdateInput
-  cost: Int
+  price: Int
   chargeInterval: String
   chargeIntervalCount: Int
-  tatalCount: Int
-  stripePrice: String
+  totalCount: Int
+  stripePriceId: String
 }
 
 input SubscriptionRelateToOneForUpdateInput {
@@ -503,11 +504,11 @@ input VariationCreateInput {
   name: String
   subscription: SubscriptionRelateToOneForCreateInput
   memberships: MembershipRelateToManyForCreateInput
-  cost: Int
+  price: Int
   chargeInterval: String
   chargeIntervalCount: Int
-  tatalCount: Int
-  stripePrice: String
+  totalCount: Int
+  stripePriceId: String
 }
 
 input SubscriptionRelateToOneForCreateInput {
@@ -537,7 +538,7 @@ type Subscription {
   slug: String
   autoRenew: Boolean
   about: Subscription_about_Document
-  stripeProduct: String
+  stripeProductId: String
 }
 
 type Subscription_about_Document {
@@ -547,6 +548,7 @@ type Subscription_about_Document {
 input SubscriptionWhereUniqueInput {
   id: ID
   slug: String
+  stripeProductId: String
 }
 
 input SubscriptionWhereInput {
@@ -562,7 +564,7 @@ input SubscriptionWhereInput {
   emailTemplate: StringFilter
   slug: StringFilter
   autoRenew: BooleanFilter
-  stripeProduct: StringFilter
+  stripeProductId: StringFilter
 }
 
 input VariationManyRelationFilter {
@@ -579,7 +581,7 @@ input SubscriptionOrderByInput {
   emailTemplate: OrderDirection
   slug: OrderDirection
   autoRenew: OrderDirection
-  stripeProduct: OrderDirection
+  stripeProductId: OrderDirection
 }
 
 input SubscriptionUpdateInput {
@@ -592,7 +594,7 @@ input SubscriptionUpdateInput {
   slug: String
   autoRenew: Boolean
   about: JSON
-  stripeProduct: String
+  stripeProductId: String
 }
 
 input ClubRelateToOneForUpdateInput {
@@ -623,7 +625,7 @@ input SubscriptionCreateInput {
   slug: String
   autoRenew: Boolean
   about: JSON
-  stripeProduct: String
+  stripeProductId: String
 }
 
 input ClubRelateToOneForCreateInput {
@@ -877,6 +879,7 @@ type User {
   ): [Post!]
   postsCount(where: PostWhereInput! = {}): Int
   role: Role
+  householdMembers: JSON
   stripeCustomerId: String
   memberships(
     where: MembershipWhereInput! = {}
@@ -890,6 +893,7 @@ type User {
 input UserWhereUniqueInput {
   id: ID
   subjectId: String
+  stripeCustomerId: String
 }
 
 input UserWhereInput {
@@ -926,6 +930,7 @@ input UserUpdateInput {
   phone: String
   posts: PostRelateToManyForUpdateInput
   role: RoleRelateToOneForUpdateInput
+  householdMembers: JSON
   stripeCustomerId: String
   memberships: MembershipRelateToManyForUpdateInput
 }
@@ -949,6 +954,7 @@ input UserCreateInput {
   phone: String
   posts: PostRelateToManyForCreateInput
   role: RoleRelateToOneForCreateInput
+  householdMembers: JSON
   stripeCustomerId: String
   memberships: MembershipRelateToManyForCreateInput
 }

@@ -1,6 +1,7 @@
 import { Form } from "react-bootstrap";
 import React from "react";
 import getConfig from "next/config";
+import { Field } from "./householdMembers";
 
 export function User({ ...props }) {
   const { inputs, handleChange } = props;
@@ -51,6 +52,13 @@ export function User({ ...props }) {
           placeholder="Phone Number"
           onChange={handleChange}
           value={inputs.phone}
+        />
+      </Form.Group>
+      <Form.Group>
+        <Field
+          label="Household Members"
+          value={inputs.householdMembers}
+          onChange={handleChange}
         />
       </Form.Group>
     </>

@@ -46,28 +46,28 @@ model Variation {
   subscription        Subscription? @relation("Variation_subscription", fields: [subscriptionId], references: [id])
   subscriptionId      String?       @map("subscription")
   memberships         Membership[]  @relation("Membership_variation")
-  cost                Int
+  price               Int
   chargeInterval      String
   chargeIntervalCount Int
-  tatalCount          Int?
-  stripePrice         String        @default("")
+  totalCount          Int?
+  stripePriceId       String        @unique @default("")
 
   @@index([subscriptionId])
 }
 
 model Subscription {
-  id            String      @id @default(cuid())
-  name          String      @default("")
-  description   String      @default("")
-  club          Club?       @relation("Subscription_club", fields: [clubId], references: [id])
-  clubId        String?     @map("club")
-  variations    Variation[] @relation("Variation_subscription")
-  fromEmail     String      @default("")
-  emailTemplate String      @default("")
-  slug          String      @unique @default("")
-  autoRenew     Boolean     @default(false)
-  about         Json        @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  stripeProduct String      @default("")
+  id              String      @id @default(cuid())
+  name            String      @default("")
+  description     String      @default("")
+  club            Club?       @relation("Subscription_club", fields: [clubId], references: [id])
+  clubId          String?     @map("club")
+  variations      Variation[] @relation("Variation_subscription")
+  fromEmail       String      @default("")
+  emailTemplate   String      @default("")
+  slug            String      @unique @default("")
+  autoRenew       Boolean     @default(false)
+  about           Json        @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  stripeProductId String      @unique @default("")
 
   @@index([clubId])
 }
@@ -116,7 +116,8 @@ model User {
   posts            Post[]       @relation("Post_author")
   role             Role?        @relation("User_role", fields: [roleId], references: [id])
   roleId           String?      @map("role")
-  stripeCustomerId String       @default("")
+  householdMembers Json?
+  stripeCustomerId String       @unique @default("")
   memberships      Membership[] @relation("Membership_user")
 
   @@index([email])

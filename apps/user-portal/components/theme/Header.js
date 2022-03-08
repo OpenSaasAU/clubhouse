@@ -20,12 +20,16 @@ export function Header() {
             <Link href="/pantry/posts" passHref>
               <Nav.Link>News</Nav.Link>
             </Link>
-            <Link href="/pantry/membership" passHref>
+            {data && (
+              <>
+            <Link href="/pantry/my-membership" passHref>
               <Nav.Link>Pantry Membership</Nav.Link>
             </Link>
-            {data && (<Link href="/profile" passHref>
+           <Link href="/profile" passHref>
             <Nav.Link>Profile</Nav.Link>
-          </Link>)}
+          </Link>
+          </>
+          )}
 
           <SigninButton />
           </Nav>

@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 import React from "react";
 import getConfig from "next/config";
 
-export function SubscribeForm({ ...props }) {
+export function SubscribeButton({ ...props }) {
   const { inputs, handleChange } = props;
   return (
     <>

@@ -1,6 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import { signIn, signOut, useSession } from "next-auth/react";
-
+import { SubscribeButton } from "../../../components/SubscribeButton";
 import { Container, Row, Button } from "react-bootstrap";
 import { DocumentBlock } from "../../../components/DocumentBlock";
 import { useQuery } from "@apollo/client";
@@ -23,7 +23,7 @@ const SINGLE_ITEM_QUERY = gql`
   }
 `;
 
-export default function SucscriptionPage() {
+export default function SubscriptionPage() {
   const router = useRouter();
   const { data: userData, status } = useSession();
   console.log(userData?.data);
@@ -54,7 +54,7 @@ export default function SucscriptionPage() {
           Start
         </Button>
       ) : (
-        <Subscribe />
+        <SubscribeButton />
       )}
       <Button variant="primary" type="button" onClick={() => router.push("/")}>
         Back to Home

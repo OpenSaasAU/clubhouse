@@ -2,7 +2,10 @@ import { useRouter } from "next/dist/client/router";
 import { Container, Row, Button } from "react-bootstrap";
 import { DocumentBlock } from "../../components/DocumentBlock";
 import { useQuery } from "@apollo/client";
+import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { useUser } from "../../lib/form";
+
 import gql from "graphql-tag";
 
 const SINGLE_ITEM_QUERY = gql`
@@ -19,6 +22,10 @@ const SINGLE_ITEM_QUERY = gql`
         id
         name
         slug
+        description
+        about {
+          document
+        }
       }
     }
   }
@@ -26,6 +33,8 @@ const SINGLE_ITEM_QUERY = gql`
 
 export default function ClubPage() {
   const router = useRouter();
+  const user = useUser();
+  const memberships = user?.memberships || [];
   const { data: userData, status } = useSession();
   console.log(userData?.data);
 
@@ -45,16 +54,15 @@ export default function ClubPage() {
         <DocumentBlock document={data.club.about.document} />
       </Row>
 
-      <br />
-      {!userData ? (
-        <Button onClick={() => router.push(`/clubs/${club}/subscribe`)}>
-          Subscribe
-        </Button>
-      ) : (
-        <Button onClick={() => router.push(`/clubs/${club}/membership`)}>
-          My Membership
-        </Button>
-      )}
+      <h3>Membership</h3>
+      {data.club.subscriptions.map((subscription) => (
+        <Row key={subscription.id}>
+          <h4>{subscription.name}</h4>
+          <p>{subscription.description}</p>
+          <Link href={`/${club}/${subscription.slug}`}>Find out More</Link>
+        </Row>
+      ))}
+
       <Button variant="primary" type="button" onClick={() => router.push("/")}>
         Back to Home
       </Button>

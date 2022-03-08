@@ -17,6 +17,7 @@ const UPDATE_USER_MUTATION = gql`
     $name: String!
     $phone: String
     $prefName: String
+    $householdMembers: JSON
   ) {
     updateUser(
       where: { id: $userId }
@@ -25,6 +26,7 @@ const UPDATE_USER_MUTATION = gql`
         name: $name
         preferredName: $prefName
         phone: $phone
+        householdMembers: $householdMembers
       }
     ) {
       id
@@ -54,7 +56,9 @@ export default function Profile() {
     name: user?.name || "",
     prefName: user?.preferredName || "",
     phone: user?.phone || "",
+    householdMembers: JSON.stringify(user?.householdMembers || []),
   });
+
   const [updateUser, { error: updateError }] = useMutation(
     UPDATE_USER_MUTATION,
     {
@@ -73,6 +77,7 @@ export default function Profile() {
       variables: {
         userId: user.id,
         ...inputs,
+        householdMembers: JSON.parse(inputs.householdMembers),
       },
     });
     setLoading(false);

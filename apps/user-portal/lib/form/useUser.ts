@@ -9,6 +9,8 @@ const CURRENT_USER_QUERY = gql`
         name
         preferredName
         phone
+        stripeCustomerId
+        householdMembers
         memberships {
           id
           status
@@ -18,6 +20,7 @@ const CURRENT_USER_QUERY = gql`
             subscription {
               id
               name
+              slug
             }
           }
         }

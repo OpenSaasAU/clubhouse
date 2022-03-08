@@ -12,6 +12,10 @@
   "dependencies": {
     "@keystone-6/core": "1.0.1",
     "@keystone-6/fields-document": "1.0.1",
+    "@keystone-ui/button": "6.0.0",
+    "@keystone-ui/fields": "6.0.0",
+    "@keystone-ui/icons": "5.0.0",
+    "@emotion/css": "11.7.1",
     "@opensaas/keystone-nextjs-auth": "20.2.0",
     "@prisma/client": "3.6.0",
     "@sendgrid/mail": "7.6.1",

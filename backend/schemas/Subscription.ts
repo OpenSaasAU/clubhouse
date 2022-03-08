@@ -9,15 +9,19 @@ import {
 import { list } from "@keystone-6/core";
 import { rules, isSignedIn, permissions } from "../access";
 import { document } from "@keystone-6/fields-document";
+import stripeConfig from "../lib/stripe";
 
 export const Subscription = list({
-  access: {
-    operation: {
-      create: permissions.canManageProducts,
-      delete: permissions.canManageProducts,
-    },
-    filter: {
-      update: rules.canManageProducts,
+  hooks: {
+    resolveInput: async ({ resolvedData, item }) => {
+      // If the subscription is being created and no stripeProductId is provided, create a new stripe product
+      if (resolvedData.stripeProductId === undefined && item === undefined) {
+        const product = await stripeConfig.products.create({
+          name: resolvedData.name,
+        });
+        resolvedData.stripeProductId = product.id;
+      }
+      return resolvedData;
     },
   },
   fields: {
@@ -59,6 +63,8 @@ export const Subscription = list({
       links: true,
       dividers: true,
     }),
-    stripeProduct: text(),
+    stripeProductId: text({
+      isIndexed: "unique",
+    }),
   },
 });

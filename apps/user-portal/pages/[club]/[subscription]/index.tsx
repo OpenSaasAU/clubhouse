@@ -2,16 +2,24 @@ import { useRouter } from "next/dist/client/router";
 import { Container, Row, Button } from "react-bootstrap";
 import { DocumentBlock } from "../../../components/DocumentBlock";
 import { useQuery } from "@apollo/client";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import gql from "graphql-tag";
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($slug: String!) {
-    subsciption(where: { slug: $slug }) {
+    subscription(where: { slug: $slug }) {
       name
       slug
+      stripeProduct
       about {
         document
+      }
+      variations {
+        id
+        stripePrice
+        cost
+        chargeInterval
+        chargeIntervalCount
       }
       id
       club {
@@ -35,7 +43,8 @@ export default function SucscriptionPage() {
   });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  if (!data.club) return <p>No subscription found for {subscription}</p>;
+  if (!data.subscription)
+    return <p>No subscription found for {subscription}</p>;
   return (
     <Container>
       <Row>
@@ -47,12 +56,12 @@ export default function SucscriptionPage() {
       {!userData ? (
         <Button
           onClick={() =>
-            router.push(
-              `/${data.subscription.club.name}/${subscription}/subscribe`
-            )
+            signIn("auth0", {
+              callbackUrl: `${window.location.origin}`,
+            })
           }
         >
-          Subscribe
+          Get Started
         </Button>
       ) : (
         <Button
@@ -63,6 +72,9 @@ export default function SucscriptionPage() {
           My Membership
         </Button>
       )}
+      <br />
+      <br />
+
       <Button variant="primary" type="button" onClick={() => router.push("/")}>
         Back to Home
       </Button>

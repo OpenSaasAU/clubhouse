@@ -1,5 +1,4 @@
 import { graphQLSchemaExtension } from "@keystone-6/core";
-import becomeFriend from "./becomeFriend";
 import customSignup from "./customSignup";
 
 // make a fake graphql tagged template literal
@@ -37,7 +36,6 @@ export const extendGraphqlSchema = graphQLSchemaExtension({
   `,
   resolvers: {
     Mutation: {
-      becomeFriend,
       customSignup,
     },
   },
