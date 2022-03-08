@@ -36,7 +36,6 @@ const UPDATE_USER_MUTATION = gql`
 
 export default function Profile() {
   const user = useUser();
-  console.log(user);
   const [loading, setLoading] = useState(false);
 
   const {

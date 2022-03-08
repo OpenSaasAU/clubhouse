@@ -24,15 +24,15 @@ model Club {
 
 model Membership {
   id                   String     @id @default(cuid())
-  householdMembers     String     @default("")
   user                 User?      @relation("Membership_user", fields: [userId], references: [id])
   userId               String?    @map("user")
   variation            Variation? @relation("Membership_variation", fields: [variationId], references: [id])
   variationId          String?    @map("variation")
+  signupSessionId      String     @unique @default("")
   status               String?    @default("PENDING")
   startDate            DateTime?  @default(now())
   renewalDate          DateTime?
-  stripeSubscriptionId String     @default("")
+  stripeSubscriptionId String     @unique @default("")
   contactPreference    String?
   receiveRenewal       Boolean    @default(false)
 

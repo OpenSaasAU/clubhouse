@@ -2,19 +2,7 @@
 # Modify your Keystone config when you want to change this.
 
 type Mutation {
-  becomeFriend(
-    email: String!
-    name: String!
-    password: String
-    preferredName: String
-    phone: String!
-    phoneType: String
-    birthYear: Int
-    contact: Boolean
-    feeAmount: Int!
-    token: String!
-    meeting: Boolean
-  ): JSON
+  membershipSignup(variationId: ID!, userId: ID!, returnUrl: String!): JSON
   customSignup(
     email: String!
     name: String!
@@ -283,9 +271,9 @@ input PostRelateToManyForCreateInput {
 type Membership {
   id: ID!
   name: String
-  householdMembers: String
   user: User
   variation: Variation
+  signupSessionId: String
   status: String
   startDate: DateTime
   renewalDate: DateTime
@@ -299,6 +287,8 @@ scalar DateTime
 
 input MembershipWhereUniqueInput {
   id: ID
+  signupSessionId: String
+  stripeSubscriptionId: String
 }
 
 input MembershipWhereInput {
@@ -306,9 +296,9 @@ input MembershipWhereInput {
   OR: [MembershipWhereInput!]
   NOT: [MembershipWhereInput!]
   id: IDFilter
-  householdMembers: StringFilter
   user: UserWhereInput
   variation: VariationWhereInput
+  signupSessionId: StringFilter
   status: StringNullableFilter
   startDate: DateTimeNullableFilter
   renewalDate: DateTimeNullableFilter
@@ -335,7 +325,7 @@ input BooleanFilter {
 
 input MembershipOrderByInput {
   id: OrderDirection
-  householdMembers: OrderDirection
+  signupSessionId: OrderDirection
   status: OrderDirection
   startDate: OrderDirection
   renewalDate: OrderDirection
@@ -345,9 +335,9 @@ input MembershipOrderByInput {
 }
 
 input MembershipUpdateInput {
-  householdMembers: String
   user: UserRelateToOneForUpdateInput
   variation: VariationRelateToOneForUpdateInput
+  signupSessionId: String
   status: String
   startDate: DateTime
   renewalDate: DateTime
@@ -374,9 +364,9 @@ input MembershipUpdateArgs {
 }
 
 input MembershipCreateInput {
-  householdMembers: String
   user: UserRelateToOneForCreateInput
   variation: VariationRelateToOneForCreateInput
+  signupSessionId: String
   status: String
   startDate: DateTime
   renewalDate: DateTime

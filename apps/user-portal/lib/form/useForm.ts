@@ -13,7 +13,6 @@ export function useForm(initial = {}) {
   function handleStageButton(e) {
     const { innerText } = e.target;
     const value = innerText.toLowerCase();
-    console.log(value);
     setInputs({
       ...inputs,
       stage: value,

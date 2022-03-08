@@ -1,5 +1,6 @@
 import { graphQLSchemaExtension } from "@keystone-6/core";
 import customSignup from "./customSignup";
+import membershipSignup from "./membershipSignup";
 
 // make a fake graphql tagged template literal
 const graphql = String.raw;
@@ -7,19 +8,7 @@ const graphql = String.raw;
 export const extendGraphqlSchema = graphQLSchemaExtension({
   typeDefs: graphql`
     type Mutation {
-      becomeFriend(
-        email: String!
-        name: String!
-        password: String
-        preferredName: String
-        phone: String!
-        phoneType: String
-        birthYear: Int
-        contact: Boolean
-        feeAmount: Int!
-        token: String!
-        meeting: Boolean
-      ): JSON
+      membershipSignup(variationId: ID!, userId: ID!, returnUrl: String!): JSON
       customSignup(
         email: String!
         name: String!
@@ -36,6 +25,7 @@ export const extendGraphqlSchema = graphQLSchemaExtension({
   `,
   resolvers: {
     Mutation: {
+      membershipSignup,
       customSignup,
     },
   },

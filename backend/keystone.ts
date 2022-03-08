@@ -1,4 +1,3 @@
-import { stripeSession } from "./lib/stripe";
 //@ts-ignore
 import dotenv from "dotenv";
 import { extendGraphqlSchema } from "./mutations";
@@ -85,7 +84,6 @@ export default auth.withAuth(
           (req as any).context = await createContext(req, res);
           next();
         });
-        app.get("/get-stripe-session", stripeSession);
         app.post("/api/stripe-webhook", stripeHook);
         app.post("/test", (req, res) => {
           console.log(req.body);

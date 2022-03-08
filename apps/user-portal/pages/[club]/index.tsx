@@ -36,7 +36,6 @@ export default function ClubPage() {
   const user = useUser();
   const memberships = user?.memberships || [];
   const { data: userData, status } = useSession();
-  console.log(userData?.data);
 
   const { club } = router.query;
   const { loading, error, data } = useQuery(SINGLE_ITEM_QUERY, {

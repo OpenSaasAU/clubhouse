@@ -7,20 +7,22 @@ const stripeConfig = new Stripe(process.env.STRIPE_SECRET || "", {
   apiVersion: "2020-08-27",
 });
 
+const graphql = String.raw;
+
 export default stripeConfig;
 
 export const stripeSession = async ({
   priceId,
+  customerId,
   frontendUrl,
 }: {
   priceId: string;
+  customerId: string;
   frontendUrl: string;
 }) => {
-  frontendUrl = "http://localhost:3000";
-  priceId = "price_1KZCYnCrhE5hs3QhKlO0hoYN";
   const session = await stripeConfig.checkout.sessions.create({
     mode: "subscription",
-    customer: "cus_LFi0e5cBcLkp9l",
+    customer: customerId,
     line_items: [
       {
         price: priceId,
@@ -34,8 +36,6 @@ export const stripeSession = async ({
     success_url: `${frontendUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${frontendUrl}/canceled`,
   });
-  console.log(session);
-
   return session;
 };
 
@@ -54,8 +54,7 @@ export const stripePortalSession = async ({
 };
 
 export async function stripeHook(req: Request, res: Response) {
-  console.log(req.headers["stripe-signature"]);
-  console.log(process.env.STRIPE_SECRET);
+  const context = (req as any).context as KeystoneContext;
   let data;
   let eventType;
   // Check if webhook signing is configured.
@@ -77,21 +76,38 @@ export async function stripeHook(req: Request, res: Response) {
       res.sendStatus(400);
     }
     // Extract the object from the event.
-    data = event.data;
-    eventType = event.type;
+    data = event?.data;
+    eventType = event?.type;
   } else {
     // Webhook signing is recommended, but if the secret is not configured in `config.js`,
     // retrieve the event data directly from the request body.
-    console.log(req.body);
 
     data = req.body.data;
     eventType = req.body.type;
   }
-  console.log(data);
+  console.log("Stripe Webhook Data", data);
+  console.log("Stripe Webhook Event Type", eventType);
 
   switch (eventType) {
     case "checkout.session.completed":
+      const membership = await context.query.Membership.findOne({
+        where: { signupSessionId: data.object.id },
+        query: graphql`
+                id
+                user {
+                  id
+                }
+                `,
+      });
+      await context.query.Membership.updateOne({
+        where: { id: membership.id },
+        data: {
+          status: "PAID",
+          stripeSubscriptionId: data.object.subscription,
+        },
+      });
       // Payment is successful and the subscription is created.
+
       // You should provision the subscription and save the customer ID to your database.
       break;
     case "invoice.paid":
@@ -100,6 +116,22 @@ export async function stripeHook(req: Request, res: Response) {
       // This approach helps you avoid hitting rate limits.
       break;
     case "invoice.payment_failed":
+      const failedMembership = await context.query.Membership.findOne({
+        where: { stripeSubscriptionId: data.object.subscription },
+        query: graphql`
+                id
+                user {
+                  id
+                }
+                `,
+      });
+      await context.query.Membership.updateOne({
+        where: { id: failedMembership.id },
+        data: {
+          status: "FAILED",
+          stripeSubscriptionId: data.object.subscription,
+        },
+      });
       // The payment failed or the customer does not have a valid payment method.
       // The subscription becomes past_due. Notify your customer and send them to the
       // customer portal to update their payment information.

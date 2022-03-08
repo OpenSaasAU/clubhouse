@@ -12,7 +12,6 @@ export default function MyMembership() {
   const { publicRuntimeConfig } = getConfig();
 
   // if user has membership
-  console.log(memberships);
   if (memberships.length === 0) {
     return (
       <>

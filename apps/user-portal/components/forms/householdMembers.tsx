@@ -69,7 +69,6 @@ export const Field = ({ label, value, onChange, autoFocus }: any) => {
   const [index, setIndex] = useState<number | null>(null);
 
   const relatedLinks: RelatedLink[] = value ? JSON.parse(value) : [];
-  console.log(value);
 
   const onSubmitNewRelatedLink = () => {
     if (onChange) {
@@ -82,7 +81,6 @@ export const Field = ({ label, value, onChange, autoFocus }: any) => {
         },
       });
       onCancelRelatedLink();
-      console.log(relatedLinksCopy);
     }
   };
 

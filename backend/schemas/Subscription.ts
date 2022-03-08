@@ -15,9 +15,9 @@ export const Subscription = list({
   hooks: {
     resolveInput: async ({ resolvedData, item }) => {
       // If the subscription is being created and no stripeProductId is provided, create a new stripe product
-      if (resolvedData.stripeProductId === undefined && item === undefined) {
+      if (!resolvedData.stripeProductId && !item?.stripeProductId) {
         const product = await stripeConfig.products.create({
-          name: resolvedData.name,
+          name: item?.name || resolvedData.name,
         });
         resolvedData.stripeProductId = product.id;
       }

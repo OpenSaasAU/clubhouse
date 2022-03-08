@@ -21,6 +21,6 @@ export default function sendEmail(data: emailData) {
       console.log("Email sent");
     })
     .catch((error) => {
-      throw new Error(error);
+      console.error("Email Error: ", error);
     });
 }

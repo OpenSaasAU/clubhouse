@@ -8,7 +8,7 @@ export const User = list({
       // If the User is being created and no stripeCutomerId is provided create the stripe customer
       console.log(resolvedData);
 
-      if (resolvedData.stripeCustomerId === undefined) {
+      if (!resolvedData.stripeCustomerId && !item?.stripeCustomerId) {
         const customer = await stripeConfig.customers.create({
           email: resolvedData.email,
           name: resolvedData.name,

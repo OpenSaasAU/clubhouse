@@ -8,7 +8,7 @@ import gql from "graphql-tag";
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($slug: String!) {
-    subsciption(where: { slug: $slug }) {
+    subscription(where: { slug: $slug }) {
       name
       slug
       about {
@@ -27,34 +27,45 @@ export default function SubscriptionPage() {
   const router = useRouter();
   const { data: userData, status } = useSession();
 
-  const { subscription } = router.query;
+  const { subscription, club, returnStatus } = router.query;
+  console.log(subscription, club, returnStatus);
+
   const { loading, error, data } = useQuery(SINGLE_ITEM_QUERY, {
     variables: {
       slug: subscription,
     },
   });
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  if (!data.club) return <p>No subscription found for {subscription}</p>;
+  if (!data.subscription)
+    return <p>No subscription found for {subscription}</p>;
+
+  if (returnStatus === "success") {
+    return (
+      <Container>
+        <Row>
+          <h2>Thanks for becoming a member</h2>
+        </Row>
+        <br />
+        <Button
+          variant="primary"
+          type="button"
+          onClick={() => router.push("/")}
+        >
+          Back to Home
+        </Button>
+      </Container>
+    );
+  }
   return (
     <Container>
       <Row>
-        <h2>Add Membership - {data.subscription.name}</h2>
+        <h2>
+          Opps - either something went wrong, or the process was cancelled
+        </h2>
+        <p> Maybe try again or contact the ${club}</p>
       </Row>
-      <br />
-      {!userData ? (
-        <Button
-          onClick={() =>
-            signIn("auth0", {
-              callbackUrl: `${window.location.origin}`,
-            })
-          }
-        >
-          Start
-        </Button>
-      ) : (
-        <SubscribeButton />
-      )}
       <Button variant="primary" type="button" onClick={() => router.push("/")}>
         Back to Home
       </Button>

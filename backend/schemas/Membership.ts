@@ -33,18 +33,20 @@ export const Membership = list({
                             preferredName
                             email`,
         });
-        const membershipType = await sudo.query.MembershipType.findOne({
-          where: { id: resolvedData?.membershipType?.connect?.id },
+        const variation = await sudo.query.Variation.findOne({
+          where: { id: resolvedData?.variation?.connect?.id },
           query: `
                             id
                             name
-                            fromEmail
-                            emailTemplate`,
+                            subscription { 
+                              fromEmail
+                              emailTemplate
+                            }`,
         });
         const data = {
           to: user.email,
-          from: membershipType.fromEmail,
-          templateId: membershipType.emailTemplate,
+          from: variation.subscription.fromEmail,
+          templateId: variation.subscription.emailTemplate,
           dynamicTemplateData: {
             firstName: user.preferredName,
           },
@@ -63,7 +65,6 @@ export const Membership = list({
         },
       }),
     }),
-    householdMembers: text(),
     user: relationship({
       ref: "User.memberships",
       many: false,
@@ -72,11 +73,18 @@ export const Membership = list({
       ref: "Variation.memberships",
       many: false,
     }),
+    signupSessionId: text({
+      validation: {
+        isRequired: true,
+      },
+      isIndexed: "unique",
+    }),
     status: select({
       options: [
         { label: "Pending", value: "PENDING" },
         { label: "Approved", value: "APPROVED" },
         { label: "Paid", value: "PAID" },
+        { label: "Payment Failed", value: "FAILED" },
         { label: "Rejected", value: "REJECTED" },
         { label: "Cancelled", value: "CANCELLED" },
         { label: "Expired", value: "EXPIRED" },
@@ -87,7 +95,12 @@ export const Membership = list({
       defaultValue: { kind: "now" },
     }),
     renewalDate: timestamp(),
-    stripeSubscriptionId: text(),
+    stripeSubscriptionId: text({
+      validation: {
+        isRequired: true,
+      },
+      isIndexed: "unique",
+    }),
     ...preferenceFields,
   },
 });

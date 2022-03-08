@@ -12,26 +12,39 @@ import stripeConfig from "../lib/stripe";
 
 export const Variation = list({
   hooks: {
-    resolveInput: async ({ resolvedData, item }) => {
+    resolveInput: async ({ resolvedData, item, context }) => {
       // If the User is being created and no stripeCutomerId is provided create the stripe customer
-      if (resolvedData.stripePriceId === undefined && item === undefined) {
-        const stripeProductId = resolvedData.subscription.stripeProductId;
+      if (!resolvedData.stripePriceId && !item?.stripePriceId) {
+        console.log(resolvedData);
+        const subscription = await context.query.Subscription.findOne({
+          where: { id: resolvedData.subscription.connect.id },
+          query: `
+                id
+                stripeProductId`,
+        });
+        const stripeProductId = subscription.stripeProductId;
         const price = await stripeConfig.prices.create({
           product: stripeProductId,
           currency: "aud",
-          unit_amount: resolvedData.price,
+          unit_amount: resolvedData.price || item?.price,
           recurring: {
-            interval: resolvedData.chargeInterval,
-            interval_count: resolvedData.chargeIntervalCount,
+            interval: resolvedData.chargeInterval || item?.chargeInterval,
+            interval_count:
+              resolvedData.chargeIntervalCount || item?.chargeIntervalCount,
             usage_type: "licensed",
           },
         });
-        resolvedData.stripeCustomerId = price.id;
+        resolvedData.stripePriceId = price.id;
       }
       return resolvedData;
     },
-    validateInput: ({ resolvedData, addValidationError }) => {
-      const { subscription } = resolvedData;
+    validateInput: async ({ resolvedData, addValidationError, context }) => {
+      const subscription = await context.query.Subscription.findOne({
+        where: { id: resolvedData.subscription.connect.id },
+        query: `
+              id
+              stripeProductId`,
+      });
       if (!subscription || !subscription.stripeProductId) {
         // We call addValidationError to indicate an invalid value.
         addValidationError(

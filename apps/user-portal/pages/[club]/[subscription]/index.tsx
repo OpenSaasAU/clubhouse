@@ -1,23 +1,25 @@
 import { useRouter } from "next/dist/client/router";
 import { Container, Row, Button } from "react-bootstrap";
 import { DocumentBlock } from "../../../components/DocumentBlock";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useSession, signIn } from "next-auth/react";
 import gql from "graphql-tag";
+
+import { CURRENT_USER_QUERY, useForm, useUser } from "../../../lib/form";
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($slug: String!) {
     subscription(where: { slug: $slug }) {
       name
       slug
-      stripeProduct
+      stripeProductId
       about {
         document
       }
       variations {
         id
-        stripePrice
-        cost
+        stripePriceId
+        price
         chargeInterval
         chargeIntervalCount
       }
@@ -29,18 +31,34 @@ const SINGLE_ITEM_QUERY = gql`
     }
   }
 `;
+const SUBSCRIPTION_MUTATION = gql`
+  mutation SUBSCRIPTION_MUTATION(
+    $variationId: ID!
+    $userId: ID!
+    $returnUrl: String!
+  ) {
+    membershipSignup(
+      userId: $userId
+      returnUrl: $returnUrl
+      variationId: $variationId
+    )
+  }
+`;
 
-export default function SucscriptionPage() {
+export default function SubscriptionPage() {
   const router = useRouter();
   const { data: userData, status } = useSession();
-  console.log(userData?.data);
 
-  const { subscription } = router.query;
+  const { subscription, club } = router.query;
   const { loading, error, data } = useQuery(SINGLE_ITEM_QUERY, {
     variables: {
       slug: subscription,
     },
   });
+  const [getStripeSession] = useMutation(SUBSCRIPTION_MUTATION, {
+    refetchQueries: [{ query: CURRENT_USER_QUERY }],
+  });
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   if (!data.subscription)
@@ -53,7 +71,7 @@ export default function SucscriptionPage() {
       </Row>
 
       <br />
-      {!userData ? (
+      {!userData && (
         <Button
           onClick={() =>
             signIn("auth0", {
@@ -63,15 +81,27 @@ export default function SucscriptionPage() {
         >
           Get Started
         </Button>
-      ) : (
-        <Button
-          onClick={() =>
-            router.push(`/${data.subscription.club.name}/membership`)
-          }
-        >
-          My Membership
-        </Button>
       )}
+      {data.subscription.variations.map((variation) => (
+        <Button
+          onClick={async () => {
+            console.log(userData.id);
+
+            const session = await getStripeSession({
+              variables: {
+                variationId: variation.id,
+                userId: userData.data.id,
+                returnUrl: `${window.location.origin}/${club}/${subscription}`,
+              },
+            });
+            console.log(JSON.stringify(session));
+            router.push(session.data.membershipSignup.url);
+          }}
+        >
+          Subscribe
+        </Button>
+      ))}
+
       <br />
       <br />
 
