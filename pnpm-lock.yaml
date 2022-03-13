@@ -85,7 +85,7 @@ importers:
       graphql-upload: ^13.0.0
       jest: ^27.4.7
       lodash.debounce: ^4.0.8
-      next: ^12.0.10
+      next: ^12.1.0
       next-auth: ^4.2.1
       next-transpile-modules: ^9.0.0
       next-with-apollo: ^5.2.1
@@ -184,7 +184,7 @@ importers:
       cuid: 2.1.8
       dotenv: 16.0.0
       express: 4.17.1
-      next: ^12.0.10
+      next: ^12.0.7
       prisma: 3.6.0
       react: 17.0.2
       react-dom: ^17.0.2
@@ -5205,7 +5205,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001286
+      caniuse-lite: 1.0.30001312
       electron-to-chromium: 1.4.15
       escalade: 3.1.1
       node-releases: 2.0.1
@@ -5341,12 +5341,8 @@ packages:
     resolution: {integrity: sha1-FkpUg+Yw+kMh5a8HAg5TGDGyYJs=}
     dev: false
 
-  /caniuse-lite/1.0.30001286:
-    resolution: {integrity: sha512-zaEMRH6xg8ESMi2eQ3R4eZ5qw/hJiVsO/HlLwniIwErij0JDr9P+8V4dtx1l+kLq6j3yy8l8W4fst1lBnat5wQ==}
-
   /caniuse-lite/1.0.30001312:
     resolution: {integrity: sha512-Wiz1Psk2MEK0pX3rUzWaunLTZzqS2JYZFzNKqAiJGiuxIjRPLgV6+VDPOg6lQOUxmDwhTlh198JsTTi8Hzw6aQ==}
-    dev: false
 
   /casual/1.6.2:
     resolution: {integrity: sha512-NQObL800rg32KZ9bBajHbyDjxLXxxuShChQg7A4tbSeG3n1t7VYGOSkzFSI9gkSgOHp+xilEJ7G0L5l6M30KYA==}
@@ -9252,7 +9248,7 @@ packages:
         optional: true
     dependencies:
       '@next/env': 12.1.0
-      caniuse-lite: 1.0.30001286
+      caniuse-lite: 1.0.30001312
       postcss: 8.4.5
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -9294,7 +9290,7 @@ packages:
         optional: true
     dependencies:
       '@next/env': 12.1.0
-      caniuse-lite: 1.0.30001286
+      caniuse-lite: 1.0.30001312
       postcss: 8.4.5
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
