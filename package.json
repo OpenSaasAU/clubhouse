@@ -48,5 +48,6 @@
       "packages/*",
       "services/*"
     ]
-  }
+  },
+  "packageManager": "pnpm@6.32.3"
 }
