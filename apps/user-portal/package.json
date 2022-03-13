@@ -107,7 +107,7 @@
     "babel-jest": "^27.4.6",
     "babel-plugin-styled-components": "^2.0.3",
     "casual": "^1.6.2",
-    "eslint": "<8.0.0",
+    "eslint": "7.32.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.4.0",
     "eslint-config-wesbos": "^3.0.2",
@@ -120,5 +120,6 @@
     "jest": "^27.4.7",
     "prettier": "^2.5.1",
     "react-test-renderer": "^17.0.2"
-  }
+  },
+  "repository": "https://github.com/OpenSaasAU/clubhouse/tree/master/apps/user-portal"
 }

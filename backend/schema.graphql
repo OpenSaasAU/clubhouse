@@ -15,6 +15,7 @@ type Mutation {
     createUser: Boolean
     suburb: String
   ): JSON
+  stripeManage(userId: ID!, returnUrl: String!): JSON
   createClub(data: ClubCreateInput!): Club
   createClubs(data: [ClubCreateInput!]!): [Club]
   updateClub(where: ClubWhereUniqueInput!, data: ClubUpdateInput!): Club
