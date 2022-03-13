@@ -19,6 +19,7 @@
     "@opensaas/keystone-nextjs-auth": "20.2.0",
     "@prisma/client": "3.6.0",
     "@sendgrid/mail": "7.6.1",
+    "cuid": "2.1.8",
     "dotenv": "16.0.0",
     "express": "4.17.1",
     "stripe": "8.205.0",

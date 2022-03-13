@@ -1,7 +1,8 @@
-import { useRouter } from "next/dist/client/router";
-import { useForm, useUser } from "../../lib/form";
-import getConfig from "next/config";
-import Link from "next/link";
+import { useRouter } from 'next/dist/client/router';
+import { useForm, useUser } from '../../lib/form';
+import getConfig from 'next/config';
+import Link from 'next/link';
+import { ManageStripeButton } from '../../components/ManageStripeButton';
 
 export default function MyMembership() {
   const user = useUser();
@@ -30,12 +31,14 @@ export default function MyMembership() {
       {memberships.map((membership) => (
         <div key={membership.id}>
           <h4>
-            {club.charAt(0).toUpperCase() + club.substring(1)} - Membership -{" "}
+            {club.charAt(0).toUpperCase() + club.substring(1)} - Membership -{' '}
             {membership.variation.subscription.name}
           </h4>
           <p>Variation - {membership.variation.name}</p>
           <p>Status - {membership.status}</p>
-          <p>Cancel</p> <p>Renew</p>
+
+          <ManageStripeButton />
+          <br />
           <Link href={`/${club}/${membership.variation.subscription.slug}`}>
             Find out More
           </Link>

@@ -182,6 +182,7 @@ importers:
       '@prisma/client': 3.6.0
       '@prisma/generator-helper': 3.7.0
       '@sendgrid/mail': 7.6.1
+      cuid: 2.1.8
       dotenv: 16.0.0
       express: 4.17.1
       next: 12.0.7
@@ -200,6 +201,7 @@ importers:
       '@opensaas/keystone-nextjs-auth': 20.2.0_416222cd89d0a0aa212204a35dea4aa4
       '@prisma/client': 3.6.0_prisma@3.6.0
       '@sendgrid/mail': 7.6.1
+      cuid: 2.1.8
       dotenv: 16.0.0
       express: 4.17.1
       stripe: 8.205.0

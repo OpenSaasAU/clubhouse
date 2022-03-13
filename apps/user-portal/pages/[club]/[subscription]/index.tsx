@@ -1,20 +1,11 @@
-import { useRouter } from "next/dist/client/router";
-import { Container, Row, Button } from "react-bootstrap";
-import { DocumentBlock } from "../../../components/DocumentBlock";
-import { useMutation, useQuery } from "@apollo/client";
-import { useSession, signIn } from "next-auth/react";
-import gql from "graphql-tag";
+import { useRouter } from 'next/dist/client/router';
+import { Container, Row, Button } from 'react-bootstrap';
+import { DocumentBlock } from '../../../components/DocumentBlock';
+import { useQuery } from '@apollo/client';
+import { useSession, signIn } from 'next-auth/react';
+import gql from 'graphql-tag';
 
-import { CURRENT_USER_QUERY, useForm, useUser } from "../../../lib/form";
-
-type User = {
-  id: string;
-  email: string;
-  name: string;
-  preferredName: string;
-  phone: string;
-  householdMembers: string[];
-};
+import { SubscribeButton } from '../../../components/SubscribeButton';
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($slug: String!) {
@@ -40,19 +31,6 @@ const SINGLE_ITEM_QUERY = gql`
     }
   }
 `;
-const SUBSCRIPTION_MUTATION = gql`
-  mutation SUBSCRIPTION_MUTATION(
-    $variationId: ID!
-    $userId: ID!
-    $returnUrl: String!
-  ) {
-    membershipSignup(
-      userId: $userId
-      returnUrl: $returnUrl
-      variationId: $variationId
-    )
-  }
-`;
 
 export default function SubscriptionPage() {
   const router = useRouter();
@@ -64,10 +42,7 @@ export default function SubscriptionPage() {
       slug: subscription,
     },
   });
-  const [getStripeSession] = useMutation(SUBSCRIPTION_MUTATION, {
-    refetchQueries: [{ query: CURRENT_USER_QUERY }],
-  });
-  const userSession = userData.date as User;
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   if (!data.subscription)
@@ -83,7 +58,7 @@ export default function SubscriptionPage() {
       {!userData && (
         <Button
           onClick={() =>
-            signIn("auth0", {
+            signIn('auth0', {
               callbackUrl: `${window.location.origin}`,
             })
           }
@@ -92,29 +67,25 @@ export default function SubscriptionPage() {
         </Button>
       )}
       {data.subscription.variations.map((variation) => (
-        <Button
-          onClick={async () => {
-            console.log(userData.id);
-
-            const session = await getStripeSession({
-              variables: {
-                variationId: variation.id,
-                userId: userSession.id,
-                returnUrl: `${window.location.origin}/${club}/${subscription}`,
-              },
-            });
-            console.log(JSON.stringify(session));
-            router.push(session.data.membershipSignup.url);
-          }}
-        >
-          Subscribe
-        </Button>
+        <Row key={variation.id}>
+          <h2>{variation.name}</h2>
+          <p>
+            Cost - {variation.price} every {variation.chargeIntervalCount}{' '}
+            {variation.chageInterval}
+          </p>
+          <SubscribeButton
+            variation={variation}
+            club={club}
+            subscription={subscription}
+          />
+          <br />
+        </Row>
       ))}
 
       <br />
       <br />
 
-      <Button variant="primary" type="button" onClick={() => router.push("/")}>
+      <Button variant='primary' type='button' onClick={() => router.push('/')}>
         Back to Home
       </Button>
     </Container>

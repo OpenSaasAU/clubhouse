@@ -1,14 +1,15 @@
-import { User } from "../components/forms";
-import { Button, Form, Alert } from "react-bootstrap";
-import { FormEvent, useState } from "react";
+import { User } from '../components/forms';
+import { Button, Form, Alert, Row } from 'react-bootstrap';
+import { FormEvent, useState } from 'react';
 
-import { useQuery, useMutation } from "@apollo/client";
-import { useRouter } from "next/dist/client/router";
-import gql from "graphql-tag";
-import nProgress from "nprogress";
-import { CURRENT_USER_QUERY, useForm, useUser } from "../lib/form";
-import getConfig from "next/config";
-import { SigninButton } from "../components/SigninButton";
+import { useQuery, useMutation } from '@apollo/client';
+import { useRouter } from 'next/dist/client/router';
+import gql from 'graphql-tag';
+import nProgress from 'nprogress';
+import { CURRENT_USER_QUERY, useForm, useUser } from '../lib/form';
+import getConfig from 'next/config';
+import { SigninButton } from '../components/SigninButton';
+import { ManageStripeButton } from '../components/ManageStripeButton';
 
 const UPDATE_USER_MUTATION = gql`
   mutation UPDATE_USER_MUTATION(
@@ -51,10 +52,10 @@ export default function Profile() {
     handleStageButton: any;
     clearForm: any;
   } = useForm({
-    email: user?.email || "",
-    name: user?.name || "",
-    prefName: user?.preferredName || "",
-    phone: user?.phone || "",
+    email: user?.email || '',
+    name: user?.name || '',
+    prefName: user?.preferredName || '',
+    phone: user?.phone || '',
     householdMembers: JSON.stringify(user?.householdMembers || []),
   });
 
@@ -90,8 +91,21 @@ export default function Profile() {
       <Form onSubmit={handleSubmit}>
         <User inputs={inputs} handleChange={handleChange} />
         <br />
-        <Button type="submit">Update...</Button>
+        <Button type='submit'>Update...</Button>
       </Form>
+      {user.memberships.map((membership) => (
+        <Row key={membership.id}>
+          <br />
+          <h2>{membership.variation.name}</h2>
+          <p>
+            Status - {membership.status}
+            <br />
+            Renewal Date - {membership.renewalDate}
+          </p>
+          <ManageStripeButton />
+          <br />
+        </Row>
+      ))}
     </>
   );
 }
