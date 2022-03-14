@@ -1,6 +1,6 @@
-import { list } from "@keystone-6/core";
-import { text, relationship, json } from "@keystone-6/core/fields";
-import stripeConfig from "../lib/stripe";
+import { list } from '@keystone-6/core';
+import { text, relationship, json } from '@keystone-6/core/fields';
+import stripeConfig from '../lib/stripe';
 
 export const User = list({
   hooks: {
@@ -22,27 +22,27 @@ export const User = list({
   fields: {
     name: text({ validation: { isRequired: true } }),
     email: text({ validation: { isRequired: true }, isIndexed: true }),
-    subjectId: text({ validation: { isRequired: true }, isIndexed: "unique" }),
+    subjectId: text({ validation: { isRequired: true }, isIndexed: 'unique' }),
     preferredName: text(),
     phone: text(),
-    posts: relationship({ ref: "Post.author", many: true }),
+    posts: relationship({ ref: 'Post.author', many: true }),
     role: relationship({
-      ref: "Role.assignedTo",
+      ref: 'Role.assignedTo',
       many: false,
     }),
     householdMembers: json({
       ui: {
-        views: require.resolve("../custom-views/household-members.tsx"),
-        createView: { fieldMode: "edit" },
-        listView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "edit" },
+        views: require.resolve('../custom-views/household-members.tsx'),
+        createView: { fieldMode: 'edit' },
+        listView: { fieldMode: 'hidden' },
+        itemView: { fieldMode: 'edit' },
       },
     }),
     stripeCustomerId: text({
-      isIndexed: "unique",
+      isIndexed: 'unique',
     }),
     memberships: relationship({
-      ref: "Membership.user",
+      ref: 'Membership.user',
       many: true,
     }),
   },

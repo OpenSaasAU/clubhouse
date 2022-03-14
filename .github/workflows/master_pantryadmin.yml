@@ -28,15 +28,20 @@ jobs:
 
       - name: pnpm install, build, and test
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          pnpm install
+          pnpm turbo run build
 
-      - name: Upload artifact for deployment job
+      - name: Upload baclend artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: node-app
-          path: .
+          name: pantry-backend
+          path: ./backend/.
+      
+      - name: Upload frontend artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: pantry-frontend
+          path: ./apps/user-portal/.
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,7 +54,14 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: node-app
+          name: pantry-frontend
+          path: ./frontend/.
+
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: pantry-backend
+          path: ./backend/.
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -58,4 +70,4 @@ jobs:
           app-name: 'pantryadmin'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5104BAEE3CAC49E1906894C4027DA2EC }}
-          package: .
+          package: ./backend/.

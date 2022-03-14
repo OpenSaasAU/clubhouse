@@ -16,7 +16,7 @@
   "scripts": {
     "build": "preconstruct build",
     "build:backend": "manypkg run backend build",
-    "clean": "manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
+    "clean": "manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && manypkg exec rm -rf .turbo && manypkg exec rm -rf .next && manypkg exec rm -rf .keystone && rm -rf node_modules",
     "dev:backend": "manypkg run backend dev",
     "dev:frontend": "manypkg run frontend dev",
     "postinstall": "preconstruct dev",
@@ -40,6 +40,7 @@
     "eslint": "7.32.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.4.7",
+    "next": "12.0.7",
     "prettier": "^2.5.1",
     "turbo": "^1.1.5"
   },
