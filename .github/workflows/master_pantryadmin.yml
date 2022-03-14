@@ -11,8 +11,8 @@ on:
 
 
 env:
-  BACKLEND_BASE_URL: http://localhost:3000
-  
+  BACKEND_BASE_URL: http://localhost:3000
+
 jobs:
   build:
     runs-on: ubuntu-latest
