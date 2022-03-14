@@ -9,11 +9,13 @@ on:
       - master
   workflow_dispatch:
 
+
+env:
+  BACKLEND_BASE_URL: http://localhost:3000
+  
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      BACKLEND_BASE_URL: http://localhost:3000
 
     steps:
       - uses: actions/checkout@v2
