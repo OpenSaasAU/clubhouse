@@ -71,3 +71,12 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5104BAEE3CAC49E1906894C4027DA2EC }}
           package: ./backend/.
+
+      - name: 'Deploy Frontend to Azure Web App'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'pantryfrontend'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5104BAEE3CAC49E1906894C4027DA2EC }}
+          package: ./frontend/.
