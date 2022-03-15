@@ -22,9 +22,9 @@
     "postinstall": "preconstruct dev",
     "lint": "yarn eslint .",
     "release": "yarn build && changeset publish",
-    "start": "node ./node_modules/.bin/manypkg run $APP_NAME start",
-    "start:backend": "manypkg run backend start",
-    "start:next": "yarn manypkg run next-app start",
+    "start": "yarn start:$APP_NAME",
+    "start:backend": "cd backend && yarn start",
+    "start:frontend": "cd apps/user-portal && yarn start",
     "test": "jest"
   },
   "dependencies": {
