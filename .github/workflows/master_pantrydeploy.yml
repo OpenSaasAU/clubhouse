@@ -35,22 +35,22 @@ jobs:
           pnpm turbo run build
 
       - name: Zip Backend for deployment
-        run: cd backend && zip backend.zip . -r
+        run: cd backend && zip backend.zip . -r && cd ..
 
       - name: Zip Backend for deployment
-        run: cd apps/user-portal zip frontend.zip . -r
+        run: cd apps/user-portal && zip frontend.zip . -r  && cd ../..
 
       - name: Upload backend artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: pantry-backend
-          path: backend.zip
+          path: backend/backend.zip
       
       - name: Upload frontend artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: pantry-frontend
-          path: frontend.zip
+          path: apps/user-portal/frontend.zip
 
   deploy:
     runs-on: ubuntu-latest
