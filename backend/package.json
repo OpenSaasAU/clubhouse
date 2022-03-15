@@ -7,7 +7,7 @@
     "build": "keystone build",
     "dev": "keystone dev",
     "postinstall": "keystone postinstall",
-    "start": "keystone start"
+    "start": "node ../node_modules/@keystone-6/core/bin/cli.js start"
   },
   "dependencies": {
     "@emotion/css": "^11.7.1",
