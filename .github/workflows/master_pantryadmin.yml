@@ -34,17 +34,23 @@ jobs:
         run: |
           pnpm turbo run build
 
-      - name: Upload baclend artifact for deployment job
+      - name: Zip Backend for deployment
+        run: zip backend.zip ./backend -r
+
+      - name: Zip Backend for deployment
+        run: zip frontend.zip ./apps/user-portal -r
+
+      - name: Upload backend artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: pantry-backend
-          path: backend/
+          path: backend.zip
       
       - name: Upload frontend artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: pantry-frontend
-          path: apps/user-portal/
+          path: frontend.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -58,14 +64,18 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: pantry-frontend
-          path: frontend/
 
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
           name: pantry-backend
-          path: backend/
 
+      - name: unzip backend artifact for deployment
+        run: unzip backend.zip
+
+      - name: unzip frontend artifact for deployment
+        run: unzip frontend.zip
+        
       - name: 'Deploy to Azure Web App'
         id: deploy-backend-to-webapp
         uses: azure/webapps-deploy@v2
