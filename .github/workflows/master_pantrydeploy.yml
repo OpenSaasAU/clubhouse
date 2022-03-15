@@ -35,10 +35,10 @@ jobs:
           pnpm turbo run build
 
       - name: Zip Backend for deployment
-        run: zip backend.zip ./backend/* -r
+        run: cd backend && zip backend.zip . -r
 
       - name: Zip Backend for deployment
-        run: zip frontend.zip ./apps/user-portal/* -r
+        run: cd apps/user-portal zip frontend.zip . -r
 
       - name: Upload backend artifact for deployment job
         uses: actions/upload-artifact@v2
