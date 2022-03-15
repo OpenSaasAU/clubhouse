@@ -22,7 +22,7 @@
     "postinstall": "preconstruct dev",
     "lint": "yarn eslint .",
     "release": "yarn build && changeset publish",
-    "start": "yarn manypkg run $APP_NAME start",
+    "start": "node ./node_modules/.bin/manypkg run $APP_NAME start",
     "start:backend": "manypkg run backend start",
     "start:next": "yarn manypkg run next-app start",
     "test": "jest"
