@@ -75,7 +75,7 @@ jobs:
 
       - name: unzip frontend artifact for deployment
         run: unzip frontend.zip
-        
+
       - name: 'Deploy to Azure Web App'
         id: deploy-backend-to-webapp
         uses: azure/webapps-deploy@v2
@@ -91,5 +91,5 @@ jobs:
         with:
           app-name: 'pantryfrontend'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5104BAEE3CAC49E1906894C4027DA2EC }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_274F441433E14AF6B1CAD86B2ADDE8D9 }}
           package: frontend/
