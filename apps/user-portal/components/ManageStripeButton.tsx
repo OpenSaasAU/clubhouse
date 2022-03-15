@@ -1,5 +1,4 @@
 import { Button } from 'react-bootstrap';
-import React from 'react';
 import getConfig from 'next/config';
 import { useMutation } from '@apollo/client';
 import { useSession } from 'next-auth/react';
@@ -20,7 +19,7 @@ export function ManageStripeButton() {
   `;
 
   const [getPortalSession] = useMutation(MANAGE_STRIPE_MUTATION, {
-    //refetchQueries: [{ query: CURRENT_USER_QUERY }],
+    // refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
   if (!userData.id) {
     return <SigninButton />;

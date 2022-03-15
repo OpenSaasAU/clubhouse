@@ -1,12 +1,12 @@
-import { useRouter } from "next/dist/client/router";
-import { Container, Row, Button } from "react-bootstrap";
-import { DocumentBlock } from "../../components/DocumentBlock";
-import { useQuery } from "@apollo/client";
-import Link from "next/link";
-import { useSession } from "next-auth/react";
-import { useUser } from "../../lib/form";
+import { useRouter } from 'next/dist/client/router';
+import { Container, Row, Button } from 'react-bootstrap';
+import { useQuery } from '@apollo/client';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import gql from 'graphql-tag';
+import { useUser } from '../../lib/form';
 
-import gql from "graphql-tag";
+import { DocumentBlock } from '../../components/DocumentBlock';
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($slug: String!) {
@@ -62,7 +62,7 @@ export default function ClubPage() {
         </Row>
       ))}
 
-      <Button variant="primary" type="button" onClick={() => router.push("/")}>
+      <Button variant="primary" type="button" onClick={() => router.push('/')}>
         Back to Home
       </Button>
     </Container>

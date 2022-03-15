@@ -9,7 +9,6 @@ on:
       - master
   workflow_dispatch:
 
-
 env:
   BACKEND_BASE_URL: http://localhost:3000
 
@@ -23,67 +22,49 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
-          node-version: '16.x'
-
-      - uses: pnpm/action-setup@v2.1.0
-        with:
-          version: 6.32.3
-          run_install: true
+          node-version: "16.x"
 
       - name: Turbo build
         run: |
-          pnpm turbo run build
+          yarn install
+          yarn turbo run build
 
-      - name: Zip Backend for deployment
-        run: cd backend && zip backend.zip . -r && cd ..
+      - name: Zip Package for deployment
+        run: zip app.zip . -r
 
-      - name: Zip Backend for deployment
-        run: cd apps/user-portal && zip frontend.zip . -r  && cd ../..
-
-      - name: Upload backend artifact for deployment job
+      - name: Upload app artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
-          name: pantry-backend
-          path: backend/backend.zip
-      
-      - name: Upload frontend artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: pantry-frontend
-          path: apps/user-portal/frontend.zip
+          name: pantry-app
+          path: app.zip
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: "Production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
-          name: pantry-frontend
+          name: pantry-app
 
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: pantry-backend
-
-      - name: 'Deploy Backend to Azure Web App'
+      - name: "Deploy Backend to Azure Web App"
         id: deploy-backend-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'pantryadmin'
-          slot-name: 'Production'
+          app-name: "pantryadmin"
+          slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5104BAEE3CAC49E1906894C4027DA2EC }}
-          package: backend.zip
+          package: app.zip
 
-      - name: 'Deploy Frontend to Azure Web App'
+      - name: "Deploy Frontend to Azure Web App"
         id: deploy-frontend-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'pantryfrontend'
-          slot-name: 'Production'
+          app-name: "pantryfrontend"
+          slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_274F441433E14AF6B1CAD86B2ADDE8D9 }}
-          package: frontend.zip
+          package: app.zip

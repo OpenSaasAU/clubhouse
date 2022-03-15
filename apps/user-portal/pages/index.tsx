@@ -1,13 +1,13 @@
 /* eslint-disable react/function-component-definition */
-import { Container, Button } from "react-bootstrap";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { useUser, CURRENT_USER_QUERY } from "../lib/form";
+import { Container, Button } from 'react-bootstrap';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { useUser, CURRENT_USER_QUERY } from '../lib/form';
 
 export default function SignupPage({ ...props }) {
   const user = useUser();
 
   const { data, status } = useSession();
-  if (status === "loading") return <Container>Loading... </Container>;
+  if (status === 'loading') return <Container>Loading... </Container>;
 
   return (
     <Container>
@@ -39,7 +39,7 @@ export default function SignupPage({ ...props }) {
           <br />
           <Button
             onClick={() =>
-              signIn("auth0", {
+              signIn('auth0', {
                 callbackUrl: `${window.location.origin}`,
               })
             }

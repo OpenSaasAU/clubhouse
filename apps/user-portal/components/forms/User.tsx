@@ -1,7 +1,6 @@
-import { Form } from "react-bootstrap";
-import React from "react";
-import getConfig from "next/config";
-import { Field } from "./householdMembers";
+import { Form } from 'react-bootstrap';
+import getConfig from 'next/config';
+import { Field } from './householdMembers';
 
 export function User({ ...props }) {
   const { inputs, handleChange } = props;

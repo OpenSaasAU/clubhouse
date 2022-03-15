@@ -1,9 +1,8 @@
-import React from "react";
-import { css } from "@emotion/css";
-import { Button } from "@keystone-ui/button";
-import { FieldContainer, FieldLabel, TextInput } from "@keystone-ui/fields";
-import { MinusCircleIcon, EditIcon } from "@keystone-ui/icons";
-import { Fragment, useState } from "react";
+import { Fragment, useState } from 'react';
+import { css } from '@emotion/css';
+import { Button } from '@keystone-ui/button';
+import { FieldContainer, FieldLabel, TextInput } from '@keystone-ui/fields';
+import { MinusCircleIcon, EditIcon } from '@keystone-ui/icons';
 
 interface RelatedLink {
   name: string;
@@ -64,19 +63,24 @@ const styles = {
   },
 };
 
-export const Field = ({ label, value, onChange, autoFocus }: any) => {
-  const [nameValue, setNameValue] = useState("");
+export function Field({ label, value, onChange, autoFocus }: any) {
+  const [nameValue, setNameValue] = useState('');
   const [index, setIndex] = useState<number | null>(null);
 
   const relatedLinks: RelatedLink[] = value ? JSON.parse(value) : [];
+
+  const onCancelRelatedLink = () => {
+    setIndex(null);
+    setNameValue('');
+  };
 
   const onSubmitNewRelatedLink = () => {
     if (onChange) {
       const relatedLinksCopy = [...relatedLinks, { name: nameValue }];
       onChange({
         target: {
-          name: "householdMembers",
-          type: "JSON",
+          name: 'householdMembers',
+          type: 'JSON',
           value: JSON.stringify(relatedLinksCopy),
         },
       });
@@ -84,14 +88,14 @@ export const Field = ({ label, value, onChange, autoFocus }: any) => {
     }
   };
 
-  const onDeleteRelatedLink = (index: number) => {
+  const onDeleteRelatedLink = (delIndex: number) => {
     if (onChange) {
       const relatedLinksCopy = [...relatedLinks];
-      relatedLinksCopy.splice(index, 1);
+      relatedLinksCopy.splice(delIndex, 1);
       onChange({
         target: {
-          name: "householdMembers",
-          type: "JSON",
+          name: 'householdMembers',
+          type: 'JSON',
           value: JSON.stringify(relatedLinksCopy),
         },
       });
@@ -99,10 +103,10 @@ export const Field = ({ label, value, onChange, autoFocus }: any) => {
     }
   };
 
-  const onEditRelatedLink = (index: number) => {
+  const onEditRelatedLink = (editIndex: number) => {
     if (onChange) {
-      setIndex(index);
-      setNameValue(relatedLinks[index].name);
+      setIndex(editIndex);
+      setNameValue(relatedLinks[editIndex].name);
     }
   };
 
@@ -112,8 +116,8 @@ export const Field = ({ label, value, onChange, autoFocus }: any) => {
       relatedLinksCopy[index] = { name: nameValue };
       onChange({
         target: {
-          name: "householdMembers",
-          type: "JSON",
+          name: 'householdMembers',
+          type: 'JSON',
           value: JSON.stringify(relatedLinksCopy),
         },
       });
@@ -121,16 +125,11 @@ export const Field = ({ label, value, onChange, autoFocus }: any) => {
     }
   };
 
-  const onCancelRelatedLink = () => {
-    setIndex(null);
-    setNameValue("");
-  };
-
   return (
     <FieldContainer>
       <FieldLabel>{label}</FieldLabel>
       {onChange && (
-        <Fragment>
+        <>
           <div className={styles.form.field}>
             <FieldLabel className={styles.form.label}>
               Household Member Name
@@ -144,7 +143,7 @@ export const Field = ({ label, value, onChange, autoFocus }: any) => {
           </div>
 
           {index !== null ? (
-            <Fragment>
+            <>
               <Button
                 onClick={onUpdateRelatedLink}
                 className={styles.form.button}
@@ -157,7 +156,7 @@ export const Field = ({ label, value, onChange, autoFocus }: any) => {
               >
                 Cancel Household Member
               </Button>
-            </Fragment>
+            </>
           ) : (
             <Button
               onClick={onSubmitNewRelatedLink}
@@ -166,37 +165,35 @@ export const Field = ({ label, value, onChange, autoFocus }: any) => {
               Add Household Member
             </Button>
           )}
-        </Fragment>
+        </>
       )}
       <ul className={styles.list.ul}>
-        {relatedLinks.map((relatedLink: RelatedLink, i: number) => {
-          return (
-            <li key={`related-link-${i}`} className={styles.list.li}>
-              <div className={styles.list.data}>
-                <div className={styles.list.dataLabel}>{relatedLink.name}</div>
-              </div>
-              {onChange && (
-                <div>
-                  <Button
+        {relatedLinks.map((relatedLink: RelatedLink, i: number) => (
+          <li key={`related-link-${i}`} className={styles.list.li}>
+            <div className={styles.list.data}>
+              <div className={styles.list.dataLabel}>{relatedLink.name}</div>
+            </div>
+            {onChange && (
+              <div>
+                <Button
+                  size="small"
+                  onClick={() => onEditRelatedLink(i)}
+                  className={styles.list.optionButton}
+                >
+                  <EditIcon size="small" color="blue" />
+                </Button>
+                <Button size="small" className={styles.list.optionButton}>
+                  <MinusCircleIcon
                     size="small"
-                    onClick={() => onEditRelatedLink(i)}
-                    className={styles.list.optionButton}
-                  >
-                    <EditIcon size="small" color="blue" />
-                  </Button>
-                  <Button size="small" className={styles.list.optionButton}>
-                    <MinusCircleIcon
-                      size="small"
-                      color="red"
-                      onClick={() => onDeleteRelatedLink(i)}
-                    />
-                  </Button>
-                </div>
-              )}
-            </li>
-          );
-        })}
+                    color="red"
+                    onClick={() => onDeleteRelatedLink(i)}
+                  />
+                </Button>
+              </div>
+            )}
+          </li>
+        ))}
       </ul>
     </FieldContainer>
   );
-};
+}

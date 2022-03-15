@@ -6,7 +6,7 @@ module.exports = withPreconstruct({
     stripeKey: process.env.STRIPE_KEY,
     backendBaseUrl: process.env.BACKEND_BASE_URL,
     publicUrl: process.env.PUBLIC_URL,
-    supportEmail: process.env.SUPPORT_EMAIL
+    supportEmail: process.env.SUPPORT_EMAIL,
   },
   async rewrites() {
     return [

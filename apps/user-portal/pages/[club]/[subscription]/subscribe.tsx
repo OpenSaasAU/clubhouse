@@ -1,10 +1,10 @@
-import { useRouter } from "next/dist/client/router";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { SubscribeButton } from "../../../components/SubscribeButton";
-import { Container, Row, Button } from "react-bootstrap";
-import { DocumentBlock } from "../../../components/DocumentBlock";
-import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
+import { useRouter } from 'next/dist/client/router';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { Container, Row, Button } from 'react-bootstrap';
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
+import { DocumentBlock } from '../../../components/DocumentBlock';
+import { SubscribeButton } from '../../../components/SubscribeButton';
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($slug: String!) {
@@ -45,7 +45,7 @@ export default function SubscriptionPage() {
       {!userData ? (
         <Button
           onClick={() =>
-            signIn("auth0", {
+            signIn('auth0', {
               callbackUrl: `${window.location.origin}`,
             })
           }
@@ -55,7 +55,7 @@ export default function SubscriptionPage() {
       ) : (
         <SubscribeButton />
       )}
-      <Button variant="primary" type="button" onClick={() => router.push("/")}>
+      <Button variant="primary" type="button" onClick={() => router.push('/')}>
         Back to Home
       </Button>
     </Container>

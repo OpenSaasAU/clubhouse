@@ -1,5 +1,4 @@
 import { Button } from 'react-bootstrap';
-import React from 'react';
 import getConfig from 'next/config';
 import { useMutation } from '@apollo/client';
 import { useSession } from 'next-auth/react';
@@ -28,7 +27,7 @@ export function SubscribeButton({ ...props }) {
   `;
 
   const [getStripeSession] = useMutation(SUBSCRIPTION_MUTATION, {
-    //refetchQueries: [{ query: CURRENT_USER_QUERY }],
+    // refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
   const existingVariation = userSession.memberships.find(
     (m) => m.variation.id === variation.id
@@ -38,7 +37,9 @@ export function SubscribeButton({ ...props }) {
       <>
         <p>You already have this one and is it {existingVariation.status}</p>
         <Button
+          // eslint-disable-next-line prettier/prettier
           variant='primary'
+          // eslint-disable-next-line prettier/prettier
           type='button'
           onClick={() => router.push(`/${club}/my-membership`)}
         >

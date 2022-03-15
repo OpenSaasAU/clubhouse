@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export function useForm(initial = {}) {
   // create a state object for our inputs
   const [inputs, setInputs] = useState(initial);
-  const initialValues = Object.values(initial).join("");
+  const initialValues = Object.values(initial).join('');
 
   useEffect(() => {
     // This function runs when the things we are watching change
@@ -22,22 +22,22 @@ export function useForm(initial = {}) {
   function handleChange(e) {
     let { value, name, type } = e.target;
 
-    if (type === "number") {
+    if (type === 'number') {
       value = parseInt(value);
     }
-    if (type === "checkbox") {
+    if (type === 'checkbox') {
       value = !inputs[name];
     }
-    if (type === "radio") {
-      if (value === "yes") {
+    if (type === 'radio') {
+      if (value === 'yes') {
         value = true;
-      } else if (value === "no") {
+      } else if (value === 'no') {
         value = false;
-      } else if (name === "feeAmount") {
+      } else if (name === 'feeAmount') {
         value = parseInt(value);
       }
     }
-    if (type === "file") {
+    if (type === 'file') {
       [value] = e.target.files;
     }
 
@@ -54,7 +54,7 @@ export function useForm(initial = {}) {
 
   function clearForm() {
     const blankState = Object.fromEntries(
-      Object.entries(inputs).map(([key, value]) => [key, ""])
+      Object.entries(inputs).map(([key, value]) => [key, ''])
     );
     setInputs(blankState);
   }

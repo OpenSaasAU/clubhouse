@@ -1,9 +1,9 @@
 import { useRouter } from 'next/dist/client/router';
 import { Container, Row, Button } from 'react-bootstrap';
-import { DocumentBlock } from '../../../components/DocumentBlock';
 import { useQuery } from '@apollo/client';
 import { useSession, signIn } from 'next-auth/react';
 import gql from 'graphql-tag';
+import { DocumentBlock } from '../../../components/DocumentBlock';
 
 import { SubscribeButton } from '../../../components/SubscribeButton';
 
@@ -85,7 +85,7 @@ export default function SubscriptionPage() {
       <br />
       <br />
 
-      <Button variant='primary' type='button' onClick={() => router.push('/')}>
+      <Button variant="primary" type="button" onClick={() => router.push('/')}>
         Back to Home
       </Button>
     </Container>
