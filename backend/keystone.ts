@@ -60,6 +60,10 @@ export default auth.withAuth(
     },
     lists,
     extendGraphqlSchema,
+    experimental: {
+      enableNextJsGraphqlApiEndpoint: true,
+      generateNextGraphqlAPI: true,
+    },
     session: statelessSessions({
       maxAge: sessionMaxAge,
       secret: sessionSecret,

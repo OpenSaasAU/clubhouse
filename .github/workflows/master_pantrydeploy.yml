@@ -35,10 +35,10 @@ jobs:
           pnpm turbo run build
 
       - name: Zip Backend for deployment
-        run: zip backend.zip ./backend -r
+        run: zip backend.zip ./backend/* -r
 
       - name: Zip Backend for deployment
-        run: zip frontend.zip ./apps/user-portal -r
+        run: zip frontend.zip ./apps/user-portal/* -r
 
       - name: Upload backend artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -70,20 +70,14 @@ jobs:
         with:
           name: pantry-backend
 
-      - name: unzip backend artifact for deployment
-        run: unzip backend.zip
-
-      - name: unzip frontend artifact for deployment
-        run: unzip frontend.zip
-
-      - name: 'Deploy to Azure Web App'
+      - name: 'Deploy Backend to Azure Web App'
         id: deploy-backend-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'pantryadmin'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5104BAEE3CAC49E1906894C4027DA2EC }}
-          package: backend/
+          package: backend.zip
 
       - name: 'Deploy Frontend to Azure Web App'
         id: deploy-frontend-to-webapp
@@ -92,4 +86,4 @@ jobs:
           app-name: 'pantryfrontend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_274F441433E14AF6B1CAD86B2ADDE8D9 }}
-          package: frontend/
+          package: frontend.zip
