@@ -8,7 +8,7 @@ export function SigninButton() {
     return (
       <Button
         onClick={() =>
-          signIn('auth0', {
+          signIn('azure-ad-b2c', {
             callbackUrl: `${window.location.origin}`,
           })
         }

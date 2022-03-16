@@ -7,7 +7,7 @@
     "build": "keystone build",
     "dev": "keystone dev",
     "postinstall": "keystone postinstall",
-    "start": "node ../node_modules/@keystone-6/core/bin/cli.js start"
+    "start": "node ../node_modules/@keystone-6/core/bin/cli.js migrate deploy && node ../node_modules/@keystone-6/core/bin/cli.js start"
   },
   "dependencies": {
     "@emotion/css": "^11.7.1",
@@ -16,7 +16,7 @@
     "@keystone-ui/button": "^6.0.0",
     "@keystone-ui/fields": "^6.0.0",
     "@keystone-ui/icons": "^5.0.0",
-    "@opensaas/keystone-nextjs-auth": "20.3.0",
+    "@opensaas/keystone-nextjs-auth": "20.4.0",
     "@sendgrid/mail": "7.6.1",
     "cuid": "2.1.8",
     "dotenv": "16.0.0",

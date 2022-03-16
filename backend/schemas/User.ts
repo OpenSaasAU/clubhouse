@@ -32,7 +32,7 @@ export const User = list({
     }),
     householdMembers: json({
       ui: {
-        views: require.resolve('../custom-views/household-members.tsx'),
+        //views: require.resolve('../custom-views/household-members.tsx'),
         createView: { fieldMode: 'edit' },
         listView: { fieldMode: 'hidden' },
         itemView: { fieldMode: 'edit' },

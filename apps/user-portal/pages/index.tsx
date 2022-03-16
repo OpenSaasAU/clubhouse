@@ -39,7 +39,7 @@ export default function SignupPage({ ...props }) {
           <br />
           <Button
             onClick={() =>
-              signIn('auth0', {
+              signIn('azure-ad-b2c', {
                 callbackUrl: `${window.location.origin}`,
               })
             }
