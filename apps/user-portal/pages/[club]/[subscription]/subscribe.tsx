@@ -40,7 +40,7 @@ export default function SubscriptionPage() {
   });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  if (!data.club) return <p>No subscription found for {subscription}</p>;
+  if (!data.variation) return <p>No subscription found for {subscription}</p>;
   return (
     <Container>
       <Row>
