@@ -8,7 +8,7 @@ import { SubscribeButton } from '../../../components/SubscribeButton';
 import { SigninButton } from '../../../components/SigninButton';
 
 const SINGLE_ITEM_QUERY = gql`
-  query SINGLE_ITEM_QUERY($variationId: String!) {
+  query SINGLE_ITEM_QUERY($variationId: ID!) {
     variation(where: { id: $variationId }) {
       name
       about {
