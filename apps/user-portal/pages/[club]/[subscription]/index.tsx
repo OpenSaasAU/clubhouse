@@ -18,6 +18,7 @@ const SINGLE_ITEM_QUERY = gql`
       }
       variations {
         id
+        name
         stripePriceId
         about {
           document
