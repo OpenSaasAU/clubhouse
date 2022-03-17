@@ -31,7 +31,11 @@ export function SubscribeButton({ ...props }) {
     // refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
   if (!userData) {
-    return <SigninButton />;
+    return (
+      <SigninButton
+        returnUrl={`/${club}/${subscription}/subscribe?variationId=${variation.id}`}
+      />
+    );
   }
 
   const existingVariation = userSession.memberships.find(

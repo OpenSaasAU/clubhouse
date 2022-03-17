@@ -8,17 +8,21 @@ import { SubscribeButton } from '../../../components/SubscribeButton';
 import { SigninButton } from '../../../components/SigninButton';
 
 const SINGLE_ITEM_QUERY = gql`
-  query SINGLE_ITEM_QUERY($slug: String!) {
-    subsciption(where: { slug: $slug }) {
+  query SINGLE_ITEM_QUERY($variationId: String!) {
+    variation(where: { id: $variationId }) {
       name
-      slug
       about {
         document
       }
       id
-      club {
+      subscription {
         id
         name
+        slug
+        club {
+          id
+          name
+        }
       }
     }
   }
@@ -28,10 +32,10 @@ export default function SubscriptionPage() {
   const router = useRouter();
   const { data: userData, status } = useSession();
 
-  const { subscription, club } = router.query;
+  const { subscription, club, variationId } = router.query;
   const { loading, error, data } = useQuery(SINGLE_ITEM_QUERY, {
     variables: {
-      slug: subscription,
+      id: variationId,
     },
   });
   if (loading) return <p>Loading...</p>;
@@ -40,16 +44,24 @@ export default function SubscriptionPage() {
   return (
     <Container>
       <Row>
-        <h2>Add Membership - {data.subscription.name}</h2>
+        <h2>Add Membership - {data.variation.name}</h2>
       </Row>
       <br />
       {!userData ? (
         <SigninButton returnUrl={`/${club}/${subscription}`} />
       ) : (
-        <SubscribeButton />
+        <SubscribeButton
+          variation={data.variation}
+          subscription={subscription}
+          club={club}
+        />
       )}
-      <Button variant="primary" type="button" onClick={() => router.push('/')}>
-        Back to Home
+      <Button
+        variant="primary"
+        type="button"
+        onClick={() => router.push(`/${club}`)}
+      >
+        Back to ${data.variation.subscription.club.name}
       </Button>
     </Container>
   );

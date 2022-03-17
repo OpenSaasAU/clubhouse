@@ -14,7 +14,7 @@ export function SigninButton({ ...props }) {
           })
         }
       >
-        Sign In/Sign Up
+        Get Started/Sign In
       </Button>
     );
   return (

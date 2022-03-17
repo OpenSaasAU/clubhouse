@@ -19,6 +19,9 @@ const SINGLE_ITEM_QUERY = gql`
       variations {
         id
         stripePriceId
+        about {
+          document
+        }
         price
         chargeInterval
         chargeIntervalCount
@@ -58,10 +61,7 @@ export default function SubscriptionPage() {
       {data.subscription.variations.map((variation) => (
         <Row key={variation.id}>
           <h2>{variation.name}</h2>
-          <p>
-            Cost - ${variation.price} every {variation.chargeIntervalCount}{' '}
-            {variation.chargeInterval}
-          </p>
+          <DocumentBlock document={variation.about.document} />
           <SubscribeButton
             variation={variation}
             club={club}

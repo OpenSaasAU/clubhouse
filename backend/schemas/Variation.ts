@@ -8,6 +8,7 @@ import {
 } from "@keystone-6/core/fields";
 import { list } from "@keystone-6/core";
 import { rules, isSignedIn, permissions } from "../access";
+import { document } from "@keystone-6/fields-document";
 import stripeConfig from "../lib/stripe";
 
 export const Variation = list({
@@ -77,6 +78,18 @@ export const Variation = list({
       validation: {
         isRequired: true,
       },
+    }),    
+    about: document({
+      formatting: true,
+      layouts: [
+        [1, 1],
+        [1, 1, 1],
+        [2, 1],
+        [1, 2],
+        [1, 2, 1],
+      ],
+      links: true,
+      dividers: true,
     }),
     chargeInterval: select({
       options: [

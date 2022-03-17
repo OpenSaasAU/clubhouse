@@ -398,10 +398,15 @@ type Variation {
   ): [Membership!]
   membershipsCount(where: MembershipWhereInput! = {}): Int
   price: Int
+  about: Variation_about_Document
   chargeInterval: String
   chargeIntervalCount: Int
   totalCount: Int
   stripePriceId: String
+}
+
+type Variation_about_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
 }
 
 input VariationWhereUniqueInput {
@@ -467,6 +472,7 @@ input VariationUpdateInput {
   subscription: SubscriptionRelateToOneForUpdateInput
   memberships: MembershipRelateToManyForUpdateInput
   price: Int
+  about: JSON
   chargeInterval: String
   chargeIntervalCount: Int
   totalCount: Int
@@ -496,6 +502,7 @@ input VariationCreateInput {
   subscription: SubscriptionRelateToOneForCreateInput
   memberships: MembershipRelateToManyForCreateInput
   price: Int
+  about: JSON
   chargeInterval: String
   chargeIntervalCount: Int
   totalCount: Int
