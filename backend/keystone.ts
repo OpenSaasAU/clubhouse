@@ -71,6 +71,7 @@ export default auth.withAuth(
       secret: sessionSecret,
     }),
     server: {
+      healthCheck: true,
       extendExpressApp: (app, createContext) => {
         app.use(
           '/api/stripe-webhook',
