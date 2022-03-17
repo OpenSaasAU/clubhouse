@@ -57,7 +57,7 @@ jobs:
 
     steps:
       - name: Deploy Backend to Azure Web App
-        id: deploy-to-webapp
+        id: backend-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: "pantryadmin-docker"
@@ -66,7 +66,7 @@ jobs:
           images: "collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_28d39508e5734f558fc68a409d6d0fac }}/pantry-backend:${{ github.sha }}"
 
       - name: Deploy Frontend to Azure Web App
-        id: deploy-to-webapp
+        id: frontend-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: "pantryfrontend"
