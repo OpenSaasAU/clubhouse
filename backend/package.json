@@ -7,7 +7,7 @@
     "build": "keystone build",
     "dev": "keystone dev",
     "postinstall": "keystone postinstall",
-    "start": "node ../node_modules/@keystone-6/core/bin/cli.js prisma migrate deploy && node ../node_modules/@keystone-6/core/bin/cli.js start"
+    "start": "node ../node_modules/@keystone-6/core/bin/cli.js prisma migrate deploy && node --max-http-header-size 15000 ../node_modules/@keystone-6/core/bin/cli.js start"
   },
   "dependencies": {
     "@emotion/css": "^11.7.1",
