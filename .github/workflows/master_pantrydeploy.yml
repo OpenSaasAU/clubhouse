@@ -41,19 +41,12 @@ jobs:
           tags: collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_28d39508e5734f558fc68a409d6d0fac }}/pantry-backend:${{ github.sha }}
           file: ./backend/Dockerfile
 
-      - name: Turbo build
-        run: |
-          yarn install
-          yarn turbo run build
-
-      - name: Zip Package for deployment
-        run: zip app.zip . -r
-
-      - name: Upload app artifact for deployment job
-        uses: actions/upload-artifact@v2
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v2
         with:
-          name: pantry-app
-          path: app.zip
+          push: true
+          tags: collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e63bb1905c6a4a45b5a231dfb2e20209 }}/pantry-frontend:${{ github.sha }}
+          file: ./apps/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
@@ -63,12 +56,7 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: pantry-app
-
-      - name: Deploy to Azure Web App
+      - name: Deploy Backend to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
@@ -77,11 +65,11 @@ jobs:
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_d7e475cd12ae435193e3f0efff1d8394 }}
           images: "collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_28d39508e5734f558fc68a409d6d0fac }}/pantry-backend:${{ github.sha }}"
 
-      - name: "Deploy Frontend to Azure Web App"
-        id: deploy-frontend-to-webapp
+      - name: Deploy Frontend to Azure Web App
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: "pantryfrontend"
-          slot-name: "Production"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_274F441433E14AF6B1CAD86B2ADDE8D9 }}
-          package: app.zip
+          slot-name: "production"
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_4d2ccba4715b4bfe9af97028f357c793 }}
+          images: "collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e63bb1905c6a4a45b5a231dfb2e20209 }}/pantry-frontend:${{ github.sha }}"
