@@ -1,18 +1,18 @@
 version: '3.7'
 
 services:
-    next-app:
-        image: "${DOCKER_REGISTRY}/next-app:${TAG}"
+    frontend:
+        image: "${DOCKER_REGISTRY}/pantry-frontend:${TAG}"
         build:
             context: .
             dockerfile: ./apps/Dockerfile
             args:
-                APP: next-app
-                DOCKER_REGISTRY: ${DOCKER_REGISTRY}   
-                TAG: ${TAG}          
+                APP: user-portal
+                DOCKER_REGISTRY: ${DOCKER_REGISTRY}
+                TAG: ${TAG}
 
     backend:
-        image: "${DOCKER_REGISTRY}/backend:${TAG}"
+        image: "${DOCKER_REGISTRY}/pantry-backend:${TAG}"
         build:
-            context: ./backend/
-            dockerfile: ./Dockerfile
+            context: .
+            dockerfile: ./backend/Dockerfile

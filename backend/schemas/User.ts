@@ -10,9 +10,9 @@ export const User = list({
 
       if (!resolvedData.stripeCustomerId && !item?.stripeCustomerId) {
         const customer = await stripeConfig.customers.create({
-          email: resolvedData.email,
-          name: resolvedData.name,
-          phone: resolvedData.phone,
+          email: resolvedData.email || item.email,
+          name: resolvedData.name || item.name,
+          phone: resolvedData.phone || item.phone,
         });
         resolvedData.stripeCustomerId = customer.id;
       }

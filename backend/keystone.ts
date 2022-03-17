@@ -32,9 +32,9 @@ const auth = createAuth({
   identityField: 'subjectId',
   sessionData: `id name email memberships { id name status startDate renewalDate variation { id name subscription { id name }}}`,
   autoCreate: true,
-  userMap: { subjectId: 'id' },
+  userMap: { subjectId: 'id', email: 'email', name: 'name',},
   accountMap: {},
-  profileMap: { email: 'email', name: 'name', preferredName: 'nickname' },
+  profileMap: {preferredName: 'given_name', phone: 'extension_PhoneNumber'},
   sessionSecret,
   keystonePath: '/admin',
   providers: [

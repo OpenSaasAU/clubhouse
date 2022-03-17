@@ -53,18 +53,20 @@ export default function ClubPage() {
         <DocumentBlock document={data.club.about.document} />
       </Row>
 
-      <h3>Membership</h3>
+      <h3>Available Subscriptions</h3>
       {data.club.subscriptions.map((subscription) => (
         <Row key={subscription.id}>
           <h4>{subscription.name}</h4>
           <p>{subscription.description}</p>
-          <Link href={`/${club}/${subscription.slug}`}>Find out More</Link>
+          <Button
+            variant="primary"
+            type="button"
+            onClick={() => router.push(`/${club}/${subscription.slug}`)}
+          >
+            Find out More/Subscribe
+          </Button>
         </Row>
       ))}
-
-      <Button variant="primary" type="button" onClick={() => router.push('/')}>
-        Back to Home
-      </Button>
     </Container>
   );
 }

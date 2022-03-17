@@ -2,19 +2,22 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import Link from 'next/link';
 
-export function SigninButton({ ...props }) {
-  const { returnUrl } = props;
+export function SignupButton() {
   const { data, status } = useSession();
   if (!data)
     return (
       <Button
         onClick={() =>
-          signIn('azure-ad-b2c', {
-            callbackUrl: `${window.location.origin}${returnUrl || '/'}`,
-          })
+          signIn(
+            'azure-ad-b2c',
+            {
+              callbackUrl: `${window.location.origin}`,
+            },
+            { p: 'B2C_1_oldhcurchpantrysignup' }
+          )
         }
       >
-        Sign In/Sign Up
+        Sign Up
       </Button>
     );
   return (

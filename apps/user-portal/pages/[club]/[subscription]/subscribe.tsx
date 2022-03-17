@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import { DocumentBlock } from '../../../components/DocumentBlock';
 import { SubscribeButton } from '../../../components/SubscribeButton';
+import { SigninButton } from '../../../components/SigninButton';
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($slug: String!) {
@@ -27,7 +28,7 @@ export default function SubscriptionPage() {
   const router = useRouter();
   const { data: userData, status } = useSession();
 
-  const { subscription } = router.query;
+  const { subscription, club } = router.query;
   const { loading, error, data } = useQuery(SINGLE_ITEM_QUERY, {
     variables: {
       slug: subscription,
@@ -43,15 +44,7 @@ export default function SubscriptionPage() {
       </Row>
       <br />
       {!userData ? (
-        <Button
-          onClick={() =>
-            signIn('auth0', {
-              callbackUrl: `${window.location.origin}`,
-            })
-          }
-        >
-          Start
-        </Button>
+        <SigninButton returnUrl={`/${club}/${subscription}`} />
       ) : (
         <SubscribeButton />
       )}

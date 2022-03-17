@@ -1,7 +1,7 @@
 import { useRouter } from 'next/dist/client/router';
 import { Container, Row, Button } from 'react-bootstrap';
 import { useQuery } from '@apollo/client';
-import { useSession, signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import gql from 'graphql-tag';
 import { DocumentBlock } from '../../../components/DocumentBlock';
 
@@ -55,23 +55,12 @@ export default function SubscriptionPage() {
       </Row>
 
       <br />
-      {!userData && (
-        <Button
-          onClick={() =>
-            signIn('auth0', {
-              callbackUrl: `${window.location.origin}`,
-            })
-          }
-        >
-          Get Started
-        </Button>
-      )}
       {data.subscription.variations.map((variation) => (
         <Row key={variation.id}>
           <h2>{variation.name}</h2>
           <p>
-            Cost - {variation.price} every {variation.chargeIntervalCount}{' '}
-            {variation.chageInterval}
+            Cost - ${variation.price} every {variation.chargeIntervalCount}{' '}
+            {variation.chargeInterval}
           </p>
           <SubscribeButton
             variation={variation}
@@ -85,8 +74,12 @@ export default function SubscriptionPage() {
       <br />
       <br />
 
-      <Button variant="primary" type="button" onClick={() => router.push('/')}>
-        Back to Home
+      <Button
+        variant="primary"
+        type="button"
+        onClick={() => router.push(`/${club}`)}
+      >
+        Back to {data.subscription.club.name}
       </Button>
     </Container>
   );
