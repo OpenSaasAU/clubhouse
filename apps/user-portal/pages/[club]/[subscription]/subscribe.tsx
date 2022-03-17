@@ -56,12 +56,14 @@ export default function SubscriptionPage() {
           club={club}
         />
       )}
+      <br />
+      <br />
       <Button
         variant="primary"
         type="button"
         onClick={() => router.push(`/${club}`)}
       >
-        Back to ${data.variation.subscription.club.name}
+        Back to {data.variation.subscription.club.name}
       </Button>
     </Container>
   );
