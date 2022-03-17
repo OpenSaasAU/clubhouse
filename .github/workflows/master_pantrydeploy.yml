@@ -24,6 +24,23 @@ jobs:
         with:
           node-version: "16.x"
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to registry
+        uses: docker/login-action@v1
+        with:
+          registry: https://collectivereg.azurecr.io/
+          username: ${{ secrets.AzureAppService_ContainerUsername_28d39508e5734f558fc68a409d6d0fac }}
+          password: ${{ secrets.AzureAppService_ContainerPassword_807a7babf8fc4bbab3814a0bd2d77375 }}
+
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_28d39508e5734f558fc68a409d6d0fac }}/pantry-backend:${{ github.sha }}
+          file: ./backend/Dockerfile
+
       - name: Turbo build
         run: |
           yarn install
@@ -51,14 +68,14 @@ jobs:
         with:
           name: pantry-app
 
-      - name: "Deploy Backend to Azure Web App"
-        id: deploy-backend-to-webapp
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "pantryadmin"
-          slot-name: "Production"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5104BAEE3CAC49E1906894C4027DA2EC }}
-          package: app.zip
+          app-name: "pantryadmin-docker"
+          slot-name: "production"
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_d7e475cd12ae435193e3f0efff1d8394 }}
+          images: "collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_28d39508e5734f558fc68a409d6d0fac }}/pantry-backend:${{ github.sha }}"
 
       - name: "Deploy Frontend to Azure Web App"
         id: deploy-frontend-to-webapp
