@@ -35,7 +35,7 @@ export default function SubscriptionPage() {
   const { subscription, club, variationId } = router.query;
   const { loading, error, data } = useQuery(SINGLE_ITEM_QUERY, {
     variables: {
-      id: variationId,
+      variationId,
     },
   });
   if (loading) return <p>Loading...</p>;
