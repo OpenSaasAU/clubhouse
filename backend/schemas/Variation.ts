@@ -75,6 +75,9 @@ export const Variation = list({
       many: true,
     }),
     price: integer({
+      access: {
+        update: () => false,
+      },
       validation: {
         isRequired: true,
       },
@@ -92,6 +95,9 @@ export const Variation = list({
       dividers: true,
     }),
     chargeInterval: select({
+      access: {
+        update: () => false,
+      },
       options: [
         { value: "day", label: "Day" },
         { value: "week", label: "Week" },
@@ -103,12 +109,18 @@ export const Variation = list({
       },
     }),
     chargeIntervalCount: integer({
+      access: {
+        update: () => false,
+      },
       validation: {
         isRequired: true,
       },
     }),
     totalCount: integer(),
     stripePriceId: text({
+      access: {
+        update: () => false,
+      },
       isIndexed: "unique",
     }),
   },

@@ -23,6 +23,16 @@ export const Subscription = list({
       }
       return resolvedData;
     },
+    afterOperation: async ({ listKey, operation, resolvedData, context }) => {
+      // Update Stripe Product if the subscription is being updated
+      if (operation === "update") {
+        await stripeConfig.products.update(
+          resolvedData.stripeProductId, {
+          name: resolvedData.name,
+          }
+        );
+      }
+    },
   },
   fields: {
     name: text({ validation: { isRequired: true } }),
