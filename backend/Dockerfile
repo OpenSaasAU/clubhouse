@@ -1,4 +1,4 @@
-FROM node:16-alpine AS builder
+FROM node:17-alpine AS builder
 RUN apk update
 # Set working directory
 WORKDIR /app
@@ -7,7 +7,7 @@ COPY . .
 RUN turbo prune --scope=@opensaas-clubhouse/backend --docker
 
 # Add lockfile and package.json's of isolated subworkspace
-FROM node:16-alpine AS installer
+FROM node:17-alpine AS installer
 ENV NODE_ENV=production
 ENV SESSION_SECRET=TEMP_SESSION_SECRET_1234567890132
 ENV DATABASE_ADAPTER=prisma_postgresql
@@ -17,7 +17,7 @@ COPY --from=builder /app/out/yarn.lock ./yarn.lock
 COPY --from=builder /app/out/full/ .
 RUN yarn install
 
-FROM node:16-alpine AS sourcer
+FROM node:17-alpine AS sourcer
 ENV NODE_ENV=production
 ENV SESSION_SECRET=TEMP_SESSION_SECRET_1234567890132
 ENV DATABASE_ADAPTER=prisma_postgresql
