@@ -1,6 +1,10 @@
 import { checkbox } from '@keystone-6/core/fields';
 
 export const permissionFields = {
+  canManageProducts: checkbox({
+    label: 'Can manage Variatons and Subscriptions',
+    defaultValue: false,
+  }),
   canManageClubs: checkbox({
     defaultValue: false,
     label: 'User can see and manage add Clubs',

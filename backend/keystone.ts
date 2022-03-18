@@ -30,7 +30,7 @@ let sessionMaxAge = 60 * 60 * 24 * 30; // 30 days
 const auth = createAuth({
   listKey: 'User',
   identityField: 'subjectId',
-  sessionData: `id name email memberships { id name status startDate renewalDate variation { id name subscription { id name }}}`,
+  sessionData: `id name email isAdmin memberships { id name status startDate renewalDate variation { id name subscription { id name }}}`,
   autoCreate: true,
   userMap: { subjectId: 'id', email: 'email', name: 'name',},
   accountMap: {},

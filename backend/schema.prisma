@@ -92,6 +92,7 @@ model Post {
 model Role {
   id                   String  @id @default(cuid())
   name                 String  @default("")
+  canManageProducts    Boolean @default(false)
   canManageClubs       Boolean @default(false)
   canSeeOtherUsers     Boolean @default(false)
   canManageUsers       Boolean @default(false)
@@ -115,6 +116,7 @@ model User {
   preferredName    String       @default("")
   phone            String       @default("")
   posts            Post[]       @relation("Post_author")
+  isAdmin          Boolean      @default(false)
   role             Role?        @relation("User_role", fields: [roleId], references: [id])
   roleId           String?      @map("role")
   householdMembers Json?

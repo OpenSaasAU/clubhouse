@@ -727,6 +727,7 @@ input TagRelateToManyForCreateInput {
 type Role {
   id: ID!
   name: String
+  canManageProducts: Boolean
   canManageClubs: Boolean
   canSeeOtherUsers: Boolean
   canManageUsers: Boolean
@@ -752,6 +753,7 @@ input RoleWhereInput {
   NOT: [RoleWhereInput!]
   id: IDFilter
   name: StringFilter
+  canManageProducts: BooleanFilter
   canManageClubs: BooleanFilter
   canSeeOtherUsers: BooleanFilter
   canManageUsers: BooleanFilter
@@ -770,6 +772,7 @@ input UserManyRelationFilter {
 input RoleOrderByInput {
   id: OrderDirection
   name: OrderDirection
+  canManageProducts: OrderDirection
   canManageClubs: OrderDirection
   canSeeOtherUsers: OrderDirection
   canManageUsers: OrderDirection
@@ -780,6 +783,7 @@ input RoleOrderByInput {
 
 input RoleUpdateInput {
   name: String
+  canManageProducts: Boolean
   canManageClubs: Boolean
   canSeeOtherUsers: Boolean
   canManageUsers: Boolean
@@ -803,6 +807,7 @@ input RoleUpdateArgs {
 
 input RoleCreateInput {
   name: String
+  canManageProducts: Boolean
   canManageClubs: Boolean
   canSeeOtherUsers: Boolean
   canManageUsers: Boolean
@@ -876,6 +881,7 @@ type User {
     skip: Int! = 0
   ): [Post!]
   postsCount(where: PostWhereInput! = {}): Int
+  isAdmin: Boolean
   role: Role
   householdMembers: JSON
   stripeCustomerId: String
@@ -905,6 +911,7 @@ input UserWhereInput {
   preferredName: StringFilter
   phone: StringFilter
   posts: PostManyRelationFilter
+  isAdmin: BooleanFilter
   role: RoleWhereInput
   stripeCustomerId: StringFilter
   memberships: MembershipManyRelationFilter
@@ -917,6 +924,7 @@ input UserOrderByInput {
   subjectId: OrderDirection
   preferredName: OrderDirection
   phone: OrderDirection
+  isAdmin: OrderDirection
   stripeCustomerId: OrderDirection
 }
 
@@ -927,6 +935,7 @@ input UserUpdateInput {
   preferredName: String
   phone: String
   posts: PostRelateToManyForUpdateInput
+  isAdmin: Boolean
   role: RoleRelateToOneForUpdateInput
   householdMembers: JSON
   stripeCustomerId: String
@@ -951,6 +960,7 @@ input UserCreateInput {
   preferredName: String
   phone: String
   posts: PostRelateToManyForCreateInput
+  isAdmin: Boolean
   role: RoleRelateToOneForCreateInput
   householdMembers: JSON
   stripeCustomerId: String
