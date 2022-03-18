@@ -87,9 +87,6 @@ export async function stripeHook(req: Request, res: Response) {
     data = req.body.data;
     eventType = req.body.type;
   }
-  console.log('Stripe Webhook Data', data);
-  console.log('Stripe Webhook Event Type', eventType);
-
   switch (eventType) {
     case 'checkout.session.completed':
       const membership = await context.query.Membership.findOne({
