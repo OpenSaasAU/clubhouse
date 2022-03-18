@@ -1,7 +1,7 @@
 import { useRouter } from 'next/dist/client/router';
-import { useForm, useUser } from '../../lib/form';
 import getConfig from 'next/config';
 import Link from 'next/link';
+import { useForm, useUser } from '../../lib/form';
 import { ManageStripeButton } from '../../components/ManageStripeButton';
 
 export default function MyMembership() {
@@ -16,7 +16,7 @@ export default function MyMembership() {
   if (memberships.length === 0) {
     return (
       <>
-        <h2>You Don't have any memberships yet</h2>
+        <h2>You Don&apos;t have any memberships yet</h2>
         <Link href={`/${club}`}>See Memberships</Link>
       </>
     );

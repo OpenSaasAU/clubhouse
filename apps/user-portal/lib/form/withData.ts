@@ -3,8 +3,7 @@ import { onError } from '@apollo/client/link/error';
 import { getDataFromTree } from '@apollo/client/react/ssr';
 import { createUploadLink } from 'apollo-upload-client';
 import withApollo from 'next-with-apollo';
-import getConfig from 'next/config'
-import React from 'react';
+import getConfig from 'next/config';
 
 function createClient({ headers, initialState }) {
   const { publicRuntimeConfig } = getConfig();
@@ -24,7 +23,8 @@ function createClient({ headers, initialState }) {
       }) as any,
       // this uses apollo-link-http under the hood, so all the options here come from that package
       createUploadLink({
-        uri: publicRuntimeConfig?.backend || "http://localhost:3000/api/graphql",
+        uri:
+          publicRuntimeConfig?.backend || 'http://localhost:3000/api/graphql',
         fetchOptions: {
           credentials: 'include',
         },

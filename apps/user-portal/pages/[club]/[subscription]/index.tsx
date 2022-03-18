@@ -1,9 +1,9 @@
 import { useRouter } from 'next/dist/client/router';
 import { Container, Row, Button } from 'react-bootstrap';
-import { DocumentBlock } from '../../../components/DocumentBlock';
 import { useQuery } from '@apollo/client';
-import { useSession, signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import gql from 'graphql-tag';
+import { DocumentBlock } from '../../../components/DocumentBlock';
 
 import { SubscribeButton } from '../../../components/SubscribeButton';
 
@@ -18,7 +18,11 @@ const SINGLE_ITEM_QUERY = gql`
       }
       variations {
         id
+        name
         stripePriceId
+        about {
+          document
+        }
         price
         chargeInterval
         chargeIntervalCount
@@ -55,24 +59,10 @@ export default function SubscriptionPage() {
       </Row>
 
       <br />
-      {!userData && (
-        <Button
-          onClick={() =>
-            signIn('auth0', {
-              callbackUrl: `${window.location.origin}`,
-            })
-          }
-        >
-          Get Started
-        </Button>
-      )}
       {data.subscription.variations.map((variation) => (
         <Row key={variation.id}>
           <h2>{variation.name}</h2>
-          <p>
-            Cost - {variation.price} every {variation.chargeIntervalCount}{' '}
-            {variation.chageInterval}
-          </p>
+          <DocumentBlock document={variation.about.document} />
           <SubscribeButton
             variation={variation}
             club={club}
@@ -85,8 +75,12 @@ export default function SubscriptionPage() {
       <br />
       <br />
 
-      <Button variant='primary' type='button' onClick={() => router.push('/')}>
-        Back to Home
+      <Button
+        variant="primary"
+        type="button"
+        onClick={() => router.push(`/${club}`)}
+      >
+        Back to {data.subscription.club.name}
       </Button>
     </Container>
   );

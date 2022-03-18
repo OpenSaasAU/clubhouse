@@ -9,7 +9,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next -p 7777",
-    "start": "next start -p 3000",
+    "start": "node server.js",
     "test": "NODE_ENV=test jest --watch"
   },
   "eslintConfig": {
@@ -82,8 +82,9 @@
     "graphql": "^15.7.2",
     "graphql-tag": "^2.12.6",
     "graphql-upload": "^13.0.0",
+    "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
-    "next": "^12.0.10",
+    "next": "^12.0.7",
     "next-auth": "^4.2.1",
     "next-transpile-modules": "^9.0.0",
     "next-with-apollo": "^5.2.1",
@@ -121,5 +122,6 @@
     "prettier": "^2.5.1",
     "react-test-renderer": "^17.0.2"
   },
-  "repository": "https://github.com/OpenSaasAU/clubhouse/tree/master/apps/user-portal"
+  "repository": "https://github.com/OpenSaasAU/clubhouse/tree/master/apps/user-portal",
+  "packageManager": "yarn@1.22.17"
 }

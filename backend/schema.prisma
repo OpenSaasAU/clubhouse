@@ -47,6 +47,7 @@ model Variation {
   subscriptionId      String?       @map("subscription")
   memberships         Membership[]  @relation("Membership_variation")
   price               Int
+  about               Json          @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   chargeInterval      String
   chargeIntervalCount Int
   totalCount          Int?

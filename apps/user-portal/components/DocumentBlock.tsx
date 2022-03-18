@@ -1,10 +1,10 @@
 import {
   DocumentRenderer,
   DocumentRendererProps,
-} from "@keystone-6/document-renderer";
-import ReactPlayer from "react-player";
+} from '@keystone-6/document-renderer';
+import ReactPlayer from 'react-player';
 
-const renderers: DocumentRendererProps["renderers"] = {
+const renderers: DocumentRendererProps['renderers'] = {
   // use your editor's autocomplete to see what other renderers you can override
   inline: {
     bold: ({ children }) => <strong>{children}</strong>,
@@ -16,18 +16,18 @@ const renderers: DocumentRendererProps["renderers"] = {
   },
 };
 
-const componentBlockRenderers: DocumentRendererProps["componentBlocks"] = {
+const componentBlockRenderers: DocumentRendererProps['componentBlocks'] = {
   quote: (props) => (
     <div
       style={{
-        borderLeft: "3px solid #CBD5E0",
+        borderLeft: '3px solid #CBD5E0',
         paddingLeft: 16,
       }}
     >
-      <div style={{ fontStyle: "italic", color: "#4A5568" }}>
+      <div style={{ fontStyle: 'italic', color: '#4A5568' }}>
         {props.content}
       </div>
-      <div style={{ fontWeight: "bold", color: "#718096" }}>
+      <div style={{ fontWeight: 'bold', color: '#718096' }}>
         — {props.attribution}
       </div>
     </div>
@@ -39,8 +39,8 @@ const componentBlockRenderers: DocumentRendererProps["componentBlocks"] = {
       <div contentEditable={false}>
         <div
           style={{
-            padding: "0 0 0 0",
-            position: "relative",
+            padding: '0 0 0 0',
+            position: 'relative',
           }}
         >
           <ReactPlayer url={url} />

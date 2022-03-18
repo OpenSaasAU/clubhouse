@@ -4,7 +4,7 @@ import { extendGraphqlSchema } from './mutations';
 import { config } from '@keystone-6/core';
 import { statelessSessions } from '@keystone-6/core/session';
 import { createAuth } from '@opensaas/keystone-nextjs-auth';
-import Auth0 from '@opensaas/keystone-nextjs-auth/providers/auth0';
+import AzureB2C from '@opensaas/keystone-nextjs-auth/providers/azure-ad-b2c';
 import { stripeHook } from './lib/stripe';
 import express from 'express';
 import url from 'url';
@@ -32,17 +32,18 @@ const auth = createAuth({
   identityField: 'subjectId',
   sessionData: `id name email memberships { id name status startDate renewalDate variation { id name subscription { id name }}}`,
   autoCreate: true,
-  userMap: { subjectId: 'id' },
+  userMap: { subjectId: 'id', email: 'email', name: 'name',},
   accountMap: {},
-  profileMap: { email: 'email', name: 'name', preferredName: 'nickname' },
+  profileMap: {preferredName: 'given_name', phone: 'extension_PhoneNumber'},
   sessionSecret,
   keystonePath: '/admin',
   providers: [
-    Auth0({
-      clientId: process.env.AUTH0_CLIENT_ID || 'Auth0ClientID',
-      clientSecret: process.env.AUTH0_CLIENT_SECRET || 'Auth0ClientSecret',
-      issuer:
-        process.env.AUTH0_ISSUER_BASE_URL || 'https://opensaas.au.auth0.com',
+    AzureB2C({
+      tenantId: process.env.B2C_TENANT_ID || 'tenant-id',
+      clientId: process.env.B2C_CLIENT_ID || 'ClientID',
+      clientSecret: process.env.B2C_CLIENT_SECRET || 'ClientSecret',
+      primaryUserFlow: process.env.B2C_FLOW || 'B2C_1_SignUp',
+      authorization: { params: { scope: "offline_access openid" }}
     }),
   ],
 });
@@ -51,6 +52,7 @@ export default auth.withAuth(
   config({
     db: {
       provider: 'postgresql',
+      useMigrations: true,
       url:
         process.env.DATABASE_URL ||
         'postgres://postgres:mysecretpassword@localhost:55000',
@@ -60,11 +62,16 @@ export default auth.withAuth(
     },
     lists,
     extendGraphqlSchema,
+    experimental: {
+      enableNextJsGraphqlApiEndpoint: true,
+      generateNextGraphqlAPI: true,
+    },
     session: statelessSessions({
       maxAge: sessionMaxAge,
       secret: sessionSecret,
     }),
     server: {
+      healthCheck: true,
       extendExpressApp: (app, createContext) => {
         app.use(
           '/api/stripe-webhook',

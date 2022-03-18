@@ -1,10 +1,10 @@
-import { useRouter } from "next/dist/client/router";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { SubscribeButton } from "../../../components/SubscribeButton";
-import { Container, Row, Button } from "react-bootstrap";
-import { DocumentBlock } from "../../../components/DocumentBlock";
-import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
+import { useRouter } from 'next/dist/client/router';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { Container, Row, Button } from 'react-bootstrap';
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
+import { DocumentBlock } from '../../../components/DocumentBlock';
+import { SubscribeButton } from '../../../components/SubscribeButton';
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($slug: String!) {
@@ -41,7 +41,7 @@ export default function SubscriptionPage() {
   if (!data.subscription)
     return <p>No subscription found for {subscription}</p>;
 
-  if (returnStatus === "success") {
+  if (returnStatus === 'success') {
     return (
       <Container>
         <Row>
@@ -51,7 +51,7 @@ export default function SubscriptionPage() {
         <Button
           variant="primary"
           type="button"
-          onClick={() => router.push("/")}
+          onClick={() => router.push('/')}
         >
           Back to Home
         </Button>
@@ -66,7 +66,7 @@ export default function SubscriptionPage() {
         </h2>
         <p> Maybe try again or contact the ${club}</p>
       </Row>
-      <Button variant="primary" type="button" onClick={() => router.push("/")}>
+      <Button variant="primary" type="button" onClick={() => router.push('/')}>
         Back to Home
       </Button>
     </Container>

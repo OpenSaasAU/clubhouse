@@ -1,23 +1,28 @@
-import { useRouter } from "next/dist/client/router";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { SubscribeButton } from "../../../components/SubscribeButton";
-import { Container, Row, Button } from "react-bootstrap";
-import { DocumentBlock } from "../../../components/DocumentBlock";
-import { useQuery } from "@apollo/client";
-import gql from "graphql-tag";
+import { useRouter } from 'next/dist/client/router';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { Container, Row, Button } from 'react-bootstrap';
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
+import { DocumentBlock } from '../../../components/DocumentBlock';
+import { SubscribeButton } from '../../../components/SubscribeButton';
+import { SigninButton } from '../../../components/SigninButton';
 
 const SINGLE_ITEM_QUERY = gql`
-  query SINGLE_ITEM_QUERY($slug: String!) {
-    subsciption(where: { slug: $slug }) {
+  query SINGLE_ITEM_QUERY($variationId: ID!) {
+    variation(where: { id: $variationId }) {
       name
-      slug
       about {
         document
       }
       id
-      club {
+      subscription {
         id
         name
+        slug
+        club {
+          id
+          name
+        }
       }
     }
   }
@@ -27,36 +32,38 @@ export default function SubscriptionPage() {
   const router = useRouter();
   const { data: userData, status } = useSession();
 
-  const { subscription } = router.query;
+  const { subscription, club, variationId } = router.query;
   const { loading, error, data } = useQuery(SINGLE_ITEM_QUERY, {
     variables: {
-      slug: subscription,
+      variationId,
     },
   });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  if (!data.club) return <p>No subscription found for {subscription}</p>;
+  if (!data.variation) return <p>No subscription found for {subscription}</p>;
   return (
     <Container>
       <Row>
-        <h2>Add Membership - {data.subscription.name}</h2>
+        <h2>Add Membership - {data.variation.name}</h2>
       </Row>
       <br />
       {!userData ? (
-        <Button
-          onClick={() =>
-            signIn("auth0", {
-              callbackUrl: `${window.location.origin}`,
-            })
-          }
-        >
-          Start
-        </Button>
+        <SigninButton returnUrl={`/${club}/${subscription}`} />
       ) : (
-        <SubscribeButton />
+        <SubscribeButton
+          variation={data.variation}
+          subscription={subscription}
+          club={club}
+        />
       )}
-      <Button variant="primary" type="button" onClick={() => router.push("/")}>
-        Back to Home
+      <br />
+      <br />
+      <Button
+        variant="primary"
+        type="button"
+        onClick={() => router.push(`/${club}`)}
+      >
+        Back to {data.variation.subscription.club.name}
       </Button>
     </Container>
   );

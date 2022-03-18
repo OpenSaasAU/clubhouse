@@ -16,15 +16,15 @@
   "scripts": {
     "build": "preconstruct build",
     "build:backend": "manypkg run backend build",
-    "clean": "manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
+    "clean": "manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && manypkg exec rm -rf .turbo && manypkg exec rm -rf .next && manypkg exec rm -rf .keystone && rm -rf node_modules",
     "dev:backend": "manypkg run backend dev",
     "dev:frontend": "manypkg run frontend dev",
-    "postinstall": "preconstruct dev && manypkg check",
+    "postinstall": "preconstruct dev",
     "lint": "yarn eslint .",
     "release": "yarn build && changeset publish",
-    "start": "echo figure out how to start both services simultaneously here",
-    "start:backend": "manypkg run backend start",
-    "start:next": "yarn manypkg run next-app start",
+    "start": "yarn start:$APP_NAME",
+    "start:backend": "cd backend && yarn start",
+    "start:frontend": "cd apps/user-portal && yarn start",
     "test": "jest"
   },
   "dependencies": {
@@ -38,9 +38,7 @@
     "@preconstruct/cli": "2.1.5",
     "babel-jest": "^27.4.6",
     "eslint": "7.32.0",
-    "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.4.7",
-    "prettier": "^2.5.1",
     "turbo": "^1.1.5"
   },
   "preconstruct": {
@@ -48,5 +46,6 @@
       "packages/*",
       "services/*"
     ]
-  }
+  },
+  "packageManager": "yarn@1.22.17"
 }

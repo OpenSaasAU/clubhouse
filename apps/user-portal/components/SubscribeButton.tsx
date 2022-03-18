@@ -1,15 +1,14 @@
 import { Button } from 'react-bootstrap';
-import React from 'react';
 import getConfig from 'next/config';
 import { useMutation } from '@apollo/client';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/dist/client/router';
 import gql from 'graphql-tag';
+import { SigninButton } from './SigninButton';
 import { User } from '../types';
 
 export function SubscribeButton({ ...props }) {
   const { data: userData, status } = useSession();
-  const userSession = userData.data as User;
   const router = useRouter();
 
   const { variation, subscription, club } = props;
@@ -27,9 +26,18 @@ export function SubscribeButton({ ...props }) {
     }
   `;
 
+  const userSession = userData?.data as User;
   const [getStripeSession] = useMutation(SUBSCRIPTION_MUTATION, {
-    //refetchQueries: [{ query: CURRENT_USER_QUERY }],
+    // refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
+  if (!userData) {
+    return (
+      <SigninButton
+        returnUrl={`/${club}/${subscription}/subscribe?variationId=${variation.id}`}
+      />
+    );
+  }
+
   const existingVariation = userSession.memberships.find(
     (m) => m.variation.id === variation.id
   );
@@ -38,7 +46,9 @@ export function SubscribeButton({ ...props }) {
       <>
         <p>You already have this one and is it {existingVariation.status}</p>
         <Button
+          // eslint-disable-next-line prettier/prettier
           variant='primary'
+          // eslint-disable-next-line prettier/prettier
           type='button'
           onClick={() => router.push(`/${club}/my-membership`)}
         >
