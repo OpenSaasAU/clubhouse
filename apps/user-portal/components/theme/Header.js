@@ -2,7 +2,7 @@ import { Navbar, Nav, Button, Container } from 'react-bootstrap';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { SigninButton } from '../SigninButton';
 
 export function Header() {
@@ -13,7 +13,7 @@ export function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
-            <Link href="/" passHref>
+            <Link href="/pantry" passHref>
               <Nav.Link>Home</Nav.Link>
             </Link>
             <Link href="/pantry/posts" passHref>
