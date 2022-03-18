@@ -5,6 +5,13 @@ import { permissionFields } from './roleFields';
 
 
 export const Role = list({
+  access: {
+    operation: {
+      create: permissions.canManageRoles,
+      delete: permissions.canManageRoles,
+      update: permissions.canManageRoles,
+    }
+  },
     fields: {
       name: text({ validation: { isRequired: true }}),
       ...permissionFields,
