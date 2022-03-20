@@ -2,7 +2,7 @@
 # Modify your Keystone config when you want to change this.
 
 type Mutation {
-  membershipSignup(variationId: ID!, userId: ID!, returnUrl: String!): JSON
+  membershipSignup(variationId: ID!, returnUrl: String!): JSON
   customSignup(
     email: String!
     name: String!
@@ -15,7 +15,7 @@ type Mutation {
     createUser: Boolean
     suburb: String
   ): JSON
-  stripeManage(userId: ID!, returnUrl: String!): JSON
+  stripeManage(returnUrl: String!): JSON
   createClub(data: ClubCreateInput!): Club
   createClubs(data: [ClubCreateInput!]!): [Club]
   updateClub(where: ClubWhereUniqueInput!, data: ClubUpdateInput!): Club
