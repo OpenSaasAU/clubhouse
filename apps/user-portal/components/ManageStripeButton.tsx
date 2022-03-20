@@ -13,8 +13,8 @@ export function ManageStripeButton() {
   const router = useRouter();
 
   const MANAGE_STRIPE_MUTATION = gql`
-    mutation MANAGE_STRIPE_MUTATION($userId: ID!, $returnUrl: String!) {
-      manageStripe(userId: $userId, returnUrl: $returnUrl)
+    mutation MANAGE_STRIPE_MUTATION($returnUrl: String!) {
+      manageStripe(returnUrl: $returnUrl)
     }
   `;
 
@@ -32,7 +32,6 @@ export function ManageStripeButton() {
 
         const portalSession = await getPortalSession({
           variables: {
-            userId: userSession.id,
             returnUrl: `${window.location.origin}/profile`,
           },
         });

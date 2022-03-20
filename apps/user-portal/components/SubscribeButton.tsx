@@ -13,16 +13,8 @@ export function SubscribeButton({ ...props }) {
 
   const { variation, subscription, club } = props;
   const SUBSCRIPTION_MUTATION = gql`
-    mutation SUBSCRIPTION_MUTATION(
-      $variationId: ID!
-      $userId: ID!
-      $returnUrl: String!
-    ) {
-      membershipSignup(
-        userId: $userId
-        returnUrl: $returnUrl
-        variationId: $variationId
-      )
+    mutation SUBSCRIPTION_MUTATION($variationId: ID!, $returnUrl: String!) {
+      membershipSignup(returnUrl: $returnUrl, variationId: $variationId)
     }
   `;
 
@@ -66,7 +58,6 @@ export function SubscribeButton({ ...props }) {
         const session = await getStripeSession({
           variables: {
             variationId: variation.id,
-            userId: userSession.id,
             returnUrl: `${window.location.origin}/${club}/${subscription}`,
           },
         });
