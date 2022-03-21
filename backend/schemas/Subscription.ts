@@ -12,6 +12,17 @@ import { document } from "@keystone-6/fields-document";
 import stripeConfig from "../lib/stripe";
 
 export const Subscription = list({
+  access: {
+    operation: {
+      create: permissions.canManageProducts,
+      delete: permissions.canManageProducts,
+      update: permissions.canManageProducts,
+    },
+    filter: {
+      update: rules.canManageSubscriptions,
+      query: rules.canReadProducts
+    },
+  },
   hooks: {
     resolveInput: async ({ resolvedData, item }) => {
       // If the subscription is being created and no stripeProductId is provided, create a new stripe product
@@ -75,6 +86,13 @@ export const Subscription = list({
     }),
     stripeProductId: text({
       isIndexed: "unique",
+    }),
+    status: select({
+      options: [
+        { value: "active", label: "Active" },
+        { value: "inactive", label: "Inactive" },
+      ],
+      defaultValue: "active",
     }),
   },
 });

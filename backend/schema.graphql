@@ -390,6 +390,7 @@ type Variation {
   id: ID!
   name: String
   subscription: Subscription
+  status: String
   memberships(
     where: MembershipWhereInput! = {}
     orderBy: [MembershipOrderByInput!]! = []
@@ -421,6 +422,7 @@ input VariationWhereInput {
   id: IDFilter
   name: StringFilter
   subscription: SubscriptionWhereInput
+  status: StringNullableFilter
   memberships: MembershipManyRelationFilter
   price: IntFilter
   chargeInterval: StringFilter
@@ -460,6 +462,7 @@ input IntNullableFilter {
 input VariationOrderByInput {
   id: OrderDirection
   name: OrderDirection
+  status: OrderDirection
   price: OrderDirection
   chargeInterval: OrderDirection
   chargeIntervalCount: OrderDirection
@@ -470,6 +473,7 @@ input VariationOrderByInput {
 input VariationUpdateInput {
   name: String
   subscription: SubscriptionRelateToOneForUpdateInput
+  status: String
   memberships: MembershipRelateToManyForUpdateInput
   price: Int
   about: JSON
@@ -500,6 +504,7 @@ input VariationUpdateArgs {
 input VariationCreateInput {
   name: String
   subscription: SubscriptionRelateToOneForCreateInput
+  status: String
   memberships: MembershipRelateToManyForCreateInput
   price: Int
   about: JSON
@@ -537,6 +542,7 @@ type Subscription {
   autoRenew: Boolean
   about: Subscription_about_Document
   stripeProductId: String
+  status: String
 }
 
 type Subscription_about_Document {
@@ -563,6 +569,7 @@ input SubscriptionWhereInput {
   slug: StringFilter
   autoRenew: BooleanFilter
   stripeProductId: StringFilter
+  status: StringNullableFilter
 }
 
 input VariationManyRelationFilter {
@@ -580,6 +587,7 @@ input SubscriptionOrderByInput {
   slug: OrderDirection
   autoRenew: OrderDirection
   stripeProductId: OrderDirection
+  status: OrderDirection
 }
 
 input SubscriptionUpdateInput {
@@ -593,6 +601,7 @@ input SubscriptionUpdateInput {
   autoRenew: Boolean
   about: JSON
   stripeProductId: String
+  status: String
 }
 
 input ClubRelateToOneForUpdateInput {
@@ -624,6 +633,7 @@ input SubscriptionCreateInput {
   autoRenew: Boolean
   about: JSON
   stripeProductId: String
+  status: String
 }
 
 input ClubRelateToOneForCreateInput {

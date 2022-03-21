@@ -60,7 +60,7 @@ export default auth.withAuth(
         'postgres://postgres:mysecretpassword@localhost:55000',
     },
     ui: {
-      isAccessAllowed: (context) => !!context.session?.data,
+      isAccessAllowed: (context) => context.session?.data?.isAdmin,
     },
     lists,
     extendGraphqlSchema,

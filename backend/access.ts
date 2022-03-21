@@ -34,6 +34,15 @@ export const rules = {
     // 2. If not, do they own this item?
     return { user: { id: { equals: session?.itemId }} };
   },
+  canManageSubscriptions({ session }: ListAccessArgs) {
+
+    // 1. Do they have the permission of canManageVariations
+    if (permissions.canManageProducts({ session })) {
+      return true;
+    }
+    // 2. If not, do they own this item?
+    return false;
+  },
   canManageOrgs({ session }: ListAccessArgs) {
     if (!isSignedIn({ session })) {
       return false;
@@ -75,7 +84,7 @@ export const rules = {
       return true; // They can read everything!
     }
     // They should only see available products (based on the status field)
-    return {status: {equals: 'AVAILABLE'} };
+    return {status: {equals: 'active'} };
   },
   canManageUsers({ session }: ListAccessArgs) {
     if (!isSignedIn({ session })) {

@@ -45,6 +45,7 @@ model Variation {
   name                String        @default("")
   subscription        Subscription? @relation("Variation_subscription", fields: [subscriptionId], references: [id])
   subscriptionId      String?       @map("subscription")
+  status              String?       @default("active")
   memberships         Membership[]  @relation("Membership_variation")
   price               Int
   about               Json          @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
@@ -69,6 +70,7 @@ model Subscription {
   autoRenew       Boolean     @default(false)
   about           Json        @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   stripeProductId String      @unique @default("")
+  status          String?     @default("active")
 
   @@index([clubId])
 }
