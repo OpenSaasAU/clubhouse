@@ -89,8 +89,6 @@ export async function stripeHook(req: Request, res: Response) {
   }
   switch (eventType) {
     case 'checkout.session.completed':
-      console.log(data.object.id);
-      
       const membership = await sudo.query.Membership.findOne({
         where: { signupSessionId: data.object.id },
         query: graphql`
@@ -105,8 +103,6 @@ export async function stripeHook(req: Request, res: Response) {
         console.log('⚠️  No membership found for checkout.session.completed');
         return res.sendStatus(404);
       }
-
-      console.log(membership);
       await sudo.query.Membership.updateOne({
         where: { id: membership.id },
         data: {
