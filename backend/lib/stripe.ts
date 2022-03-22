@@ -87,9 +87,10 @@ export async function stripeHook(req: Request, res: Response) {
     data = req.body.data;
     eventType = req.body.type;
   }
+  const sudo = context.sudo();
   switch (eventType) {
     case 'checkout.session.completed':
-      const membership = await context.query.Membership.findOne({
+      const membership = await sudo.query.Membership.findOne({
         where: { signupSessionId: data.object.id },
         query: graphql`
                 id
@@ -98,7 +99,11 @@ export async function stripeHook(req: Request, res: Response) {
                 }
                 `,
       });
-      await context.query.Membership.updateOne({
+      if (!membership) {
+        console.log('⚠️  No membership found for checkout.session.completed');
+        return res.sendStatus(404);
+      }
+      await sudo.query.Membership.updateOne({
         where: { id: membership.id },
         data: {
           status: 'PAID',
@@ -115,7 +120,7 @@ export async function stripeHook(req: Request, res: Response) {
       // This approach helps you avoid hitting rate limits.
       break;
     case 'invoice.payment_failed':
-      const failedMembership = await context.query.Membership.findOne({
+      const failedMembership = await sudo.query.Membership.findOne({
         where: { stripeSubscriptionId: data.object.subscription },
         query: graphql`
                 id
@@ -124,7 +129,11 @@ export async function stripeHook(req: Request, res: Response) {
                 }
                 `,
       });
-      await context.query.Membership.updateOne({
+      if (!failedMembership) {
+        console.log('⚠️  No membership found for invoice.payment_failed');
+        return res.sendStatus(404);
+      }
+      await sudo.query.Membership.updateOne({
         where: { id: failedMembership.id },
         data: {
           status: 'FAILED',
