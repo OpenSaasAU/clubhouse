@@ -57,6 +57,7 @@ export async function stripeHook(req: Request, res: Response) {
   const context = (req as any).context as KeystoneContext;
   let data;
   let eventType;
+  const sudo = context.sudo();
   // Check if webhook signing is configured.
   const webhookSecret =
     process.env.STRIPE_WEBHOOK_SECRET || 'whsec_1234567890123456789012345678901234567890';
@@ -83,13 +84,13 @@ export async function stripeHook(req: Request, res: Response) {
   } else {
     // Webhook signing is recommended, but if the secret is not configured in `config.js`,
     // retrieve the event data directly from the request body.
-
     data = req.body.data;
     eventType = req.body.type;
   }
-  const sudo = context.sudo();
   switch (eventType) {
     case 'checkout.session.completed':
+      console.log(data.object.id);
+      
       const membership = await sudo.query.Membership.findOne({
         where: { signupSessionId: data.object.id },
         query: graphql`
@@ -99,10 +100,13 @@ export async function stripeHook(req: Request, res: Response) {
                 }
                 `,
       });
+      
       if (!membership) {
         console.log('⚠️  No membership found for checkout.session.completed');
         return res.sendStatus(404);
       }
+
+      console.log(membership);
       await sudo.query.Membership.updateOne({
         where: { id: membership.id },
         data: {
@@ -129,7 +133,7 @@ export async function stripeHook(req: Request, res: Response) {
                 }
                 `,
       });
-      if (!failedMembership) {
+      if (!failedMembership.id) {
         console.log('⚠️  No membership found for invoice.payment_failed');
         return res.sendStatus(404);
       }
@@ -147,6 +151,6 @@ export async function stripeHook(req: Request, res: Response) {
     default:
     // Unhandled event type
   }
-
+  sudo.exitSudo;
   res.sendStatus(200);
 }
