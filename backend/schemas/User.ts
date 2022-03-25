@@ -4,6 +4,7 @@ import stripeConfig from '../lib/stripe';
 
 import { rules, isSignedIn, permissions } from "../access";
 
+
 export const User = list({
   hooks: {
     resolveInput: async ({ resolvedData, item }) => {
