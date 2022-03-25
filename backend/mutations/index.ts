@@ -9,7 +9,7 @@ const graphql = String.raw;
 export const extendGraphqlSchema = graphQLSchemaExtension({
   typeDefs: graphql`
     type Mutation {
-      membershipSignup(variationId: ID!, userId: ID!, returnUrl: String!): JSON
+      membershipSignup(variationId: ID!, returnUrl: String!): JSON
       customSignup(
         email: String!
         name: String!
@@ -22,7 +22,7 @@ export const extendGraphqlSchema = graphQLSchemaExtension({
         createUser: Boolean
         suburb: String
       ): JSON
-      stripeManage(userId: ID!, returnUrl: String!): JSON
+      stripeManage(returnUrl: String!): JSON
     }
   `,
   resolvers: {

@@ -13,6 +13,16 @@ import stripeConfig from "../lib/stripe";
 
 export const Variation = list({
   hooks: {
+    afterOperation: async ({ listKey, operation, resolvedData, context }) => {
+      // Update Stripe Price if the variation is being updated
+      if (operation === "update") {
+        const active = resolvedData.status === 'active' ? true : false;
+        await stripeConfig.prices.update(
+          resolvedData.stripePriceId, {
+          active
+        });
+      }
+    },
     resolveInput: async ({ resolvedData, item, context }) => {
       // If the User is being created and no stripeCutomerId is provided create the stripe customer
       if (!resolvedData.stripePriceId && !item?.stripePriceId) {
@@ -23,11 +33,15 @@ export const Variation = list({
                 id
                 stripeProductId`,
         });
+        const active = resolvedData.status === 'active' || item?.active === 'active' ? true : false;
         const stripeProductId = subscription.stripeProductId;
+        const unitPriceDollars = resolvedData.price || item?.price;
+        const unitPriceCents = unitPriceDollars * 100;
         const price = await stripeConfig.prices.create({
           product: stripeProductId,
+          active: active,
           currency: "aud",
-          unit_amount: resolvedData.price || item?.price,
+          unit_amount: unitPriceCents,
           recurring: {
             interval: resolvedData.chargeInterval || item?.chargeInterval,
             interval_count:
@@ -61,7 +75,8 @@ export const Variation = list({
       update: permissions.canManageProducts,
     },
     filter: {
-      update: rules.canManageProducts,
+      update: rules.canManageSubscriptions,
+      query: rules.canReadProducts
     },
   },
   fields: {
@@ -70,11 +85,20 @@ export const Variation = list({
       ref: "Subscription.variations",
       many: false,
     }),
+    status: select({
+      options: [
+        { value: "active", label: "Active"},
+        { value: "inactive", label: "Inactive"} ],
+      defaultValue: "active",
+    }),
     memberships: relationship({
       ref: "Membership.variation",
       many: true,
     }),
     price: integer({
+      access: {
+        update: () => false,
+      },
       validation: {
         isRequired: true,
       },
@@ -92,6 +116,9 @@ export const Variation = list({
       dividers: true,
     }),
     chargeInterval: select({
+      access: {
+        update: () => false,
+      },
       options: [
         { value: "day", label: "Day" },
         { value: "week", label: "Week" },
@@ -103,12 +130,18 @@ export const Variation = list({
       },
     }),
     chargeIntervalCount: integer({
+      access: {
+        update: () => false,
+      },
       validation: {
         isRequired: true,
       },
     }),
     totalCount: integer(),
     stripePriceId: text({
+      access: {
+        update: () => false,
+      },
       isIndexed: "unique",
     }),
   },

@@ -12,9 +12,14 @@ const graphql = String.raw;
 
 async function membershipSignup(
   root: any,
-  { variationId, userId, returnUrl }: Arguments,
+  { variationId, returnUrl }: Arguments,
   context: KeystoneContext
 ) {
+  const userId = context.session?.itemId;
+  if (!userId) {
+    console.log("No user signed in");
+    return {error: "No user signed in"};
+  };
   // get the subscription from the id
   const variation = await context.query.Variation.findOne({
     where: { id: variationId },

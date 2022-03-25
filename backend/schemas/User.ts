@@ -1,6 +1,9 @@
 import { list } from '@keystone-6/core';
-import { text, relationship, json } from '@keystone-6/core/fields';
+import { text, relationship, json, checkbox } from '@keystone-6/core/fields';
 import stripeConfig from '../lib/stripe';
+
+import { rules, isSignedIn, permissions } from "../access";
+
 
 export const User = list({
   hooks: {
@@ -19,6 +22,16 @@ export const User = list({
       return resolvedData;
     },
   },
+  access: {
+    operation: {
+      create: () => true,
+      delete: permissions.canManageUsers,
+    },
+    filter: {
+      update: rules.canManageUsers,
+      query: rules.canManageUsers,
+    },
+  },
   fields: {
     name: text({ validation: { isRequired: true } }),
     email: text({ validation: { isRequired: true }, isIndexed: true }),
@@ -26,7 +39,19 @@ export const User = list({
     preferredName: text(),
     phone: text(),
     posts: relationship({ ref: 'Post.author', many: true }),
+    isAdmin: checkbox({
+      access: {
+        update: permissions.canManageUsers,
+        create: permissions.canManageUsers,
+      },
+      defaultValue: false,
+      label: 'User can access admin portal',
+    }),
     role: relationship({
+      access: {
+        update: permissions.canManageUsers,
+        create: permissions.canManageUsers,
+      },
       ref: 'Role.assignedTo',
       many: false,
     }),

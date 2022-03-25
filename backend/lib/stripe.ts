@@ -57,6 +57,7 @@ export async function stripeHook(req: Request, res: Response) {
   const context = (req as any).context as KeystoneContext;
   let data;
   let eventType;
+  const sudo = context.sudo();
   // Check if webhook signing is configured.
   const webhookSecret =
     process.env.STRIPE_WEBHOOK_SECRET || 'whsec_1234567890123456789012345678901234567890';
@@ -83,13 +84,12 @@ export async function stripeHook(req: Request, res: Response) {
   } else {
     // Webhook signing is recommended, but if the secret is not configured in `config.js`,
     // retrieve the event data directly from the request body.
-
     data = req.body.data;
     eventType = req.body.type;
   }
   switch (eventType) {
     case 'checkout.session.completed':
-      const membership = await context.query.Membership.findOne({
+      const membership = await sudo.query.Membership.findOne({
         where: { signupSessionId: data.object.id },
         query: graphql`
                 id
@@ -98,7 +98,12 @@ export async function stripeHook(req: Request, res: Response) {
                 }
                 `,
       });
-      await context.query.Membership.updateOne({
+      
+      if (!membership) {
+        console.log('⚠️  No membership found for checkout.session.completed');
+        return res.sendStatus(404);
+      }
+      await sudo.query.Membership.updateOne({
         where: { id: membership.id },
         data: {
           status: 'PAID',
@@ -115,7 +120,7 @@ export async function stripeHook(req: Request, res: Response) {
       // This approach helps you avoid hitting rate limits.
       break;
     case 'invoice.payment_failed':
-      const failedMembership = await context.query.Membership.findOne({
+      const failedMembership = await sudo.query.Membership.findOne({
         where: { stripeSubscriptionId: data.object.subscription },
         query: graphql`
                 id
@@ -124,7 +129,11 @@ export async function stripeHook(req: Request, res: Response) {
                 }
                 `,
       });
-      await context.query.Membership.updateOne({
+      if (!failedMembership.id) {
+        console.log('⚠️  No membership found for invoice.payment_failed');
+        return res.sendStatus(404);
+      }
+      await sudo.query.Membership.updateOne({
         where: { id: failedMembership.id },
         data: {
           status: 'FAILED',
@@ -138,6 +147,6 @@ export async function stripeHook(req: Request, res: Response) {
     default:
     // Unhandled event type
   }
-
+  sudo.exitSudo;
   res.sendStatus(200);
 }

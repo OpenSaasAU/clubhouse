@@ -11,9 +11,14 @@ const graphql = String.raw;
 
 async function stripeManage(
   root: any,
-  { userId, returnUrl }: Arguments,
+  { returnUrl }: Arguments,
   context: KeystoneContext
 ) {
+  const userId = context.session?.itemId;
+  if (!userId) {
+    console.log("No user signed in");
+    return {error: "No user signed in"};
+  };
   const user = await context.query.User.findOne({
     where: { id: userId },
     query: graphql`

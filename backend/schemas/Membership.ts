@@ -18,7 +18,11 @@ export const Membership = list({
       create: () => true,
       // only people with the permission can delete themselves!
       // You can't delete yourself
-      delete: permissions.canManageUsers,
+      delete: permissions.canManageProducts,
+    },
+    filter: {
+      update: rules.canManageProducts,
+      query: rules.canManageProducts,
     },
   },
   hooks: {

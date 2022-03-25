@@ -33,6 +33,6 @@ export type AccessControl = {
 };
 
 export type ListAccessArgs = {
-  itemId?: string;
+  listKey?: string;
   session?: Session;
 };
