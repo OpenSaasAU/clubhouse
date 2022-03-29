@@ -21,25 +21,22 @@ export function ManageStripeButton() {
   const [getPortalSession] = useMutation(MANAGE_STRIPE_MUTATION, {
     // refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
-  if (!userData.id) {
+  if (!userSession) {
     return <SigninButton />;
   }
 
   return (
     <Button
       onClick={async () => {
-        console.log(userData.id);
-
         const portalSession = await getPortalSession({
           variables: {
             returnUrl: `${window.location.origin}/profile`,
           },
         });
-        console.log(JSON.stringify(portalSession));
         router.push(portalSession.data.url);
       }}
     >
-      Manage
+      Manage Membership
     </Button>
   );
 }
