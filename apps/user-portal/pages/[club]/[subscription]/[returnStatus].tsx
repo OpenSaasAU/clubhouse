@@ -3,8 +3,6 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import { Container, Row, Button } from 'react-bootstrap';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
-import { DocumentBlock } from '../../../components/DocumentBlock';
-import { SubscribeButton } from '../../../components/SubscribeButton';
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($slug: String!) {
@@ -23,11 +21,31 @@ const SINGLE_ITEM_QUERY = gql`
   }
 `;
 
+const GET_MEMBERSHIP_QUERY = gql`
+  query GET_MEMBERSHIP_QUERY($session_id: ID!) {
+    membership(where: { signupSessionId: $session_id }) {
+      id
+      status
+      variation {
+        id
+        name
+        slug
+        subscription {
+          id
+          name
+          slug
+        }
+      }
+    }
+  }
+`;
+
 export default function SubscriptionPage() {
   const router = useRouter();
+  // TODO: fix the thing that breaks membership when a user clicks back
   const { data: userData, status } = useSession();
 
-  const { subscription, club, returnStatus } = router.query;
+  const { subscription, club, returnStatus, session_id } = router.query;
   console.log(subscription, club, returnStatus);
 
   const { loading, error, data } = useQuery(SINGLE_ITEM_QUERY, {
@@ -35,9 +53,18 @@ export default function SubscriptionPage() {
       slug: subscription,
     },
   });
+  const {
+    loading: memLoad,
+    error: memError,
+    data: memData,
+  } = useQuery(GET_MEMBERSHIP_QUERY, {
+    variables: {
+      session_id,
+    },
+  });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading || memLoad) return <p>Loading...</p>;
+  if (error || memError) return <p>Error: {error.message}</p>;
   if (!data.subscription)
     return <p>No subscription found for {subscription}</p>;
 
@@ -46,12 +73,14 @@ export default function SubscriptionPage() {
       <Container>
         <Row>
           <h2>Thanks for becoming a member</h2>
+          <p> Variation - {memData.variation.name}</p>
+          <p> Status - {memData.status}</p>
         </Row>
         <br />
         <Button
           variant="primary"
           type="button"
-          onClick={() => router.push('/')}
+          onClick={() => router.push(`/${club}`)}
         >
           Back to Home
         </Button>
@@ -66,7 +95,14 @@ export default function SubscriptionPage() {
         </h2>
         <p> Maybe try again or contact the ${club}</p>
       </Row>
-      <Button variant="primary" type="button" onClick={() => router.push('/')}>
+      <Button
+        variant="primary"
+        type="button"
+        onClick={() => {
+          // TODO: delete the membership
+          router.push(`/${club}`);
+        }}
+      >
         Back to Home
       </Button>
     </Container>
