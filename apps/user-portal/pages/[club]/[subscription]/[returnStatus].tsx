@@ -45,6 +45,7 @@ export default function SubscriptionPage() {
   // TODO: fix the thing that breaks membership when a user clicks back
   const { data: userData, status } = useSession();
 
+  // eslint-disable-next-line camelcase
   const { subscription, club, returnStatus, session_id } = router.query;
   console.log(subscription, club, returnStatus);
 
