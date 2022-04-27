@@ -60,6 +60,8 @@ export default function SubscriptionPage() {
           >
             Find out More/Subscribe
           </Button>
+          <br />
+          <br />
         </Row>
       ))}
     </Container>

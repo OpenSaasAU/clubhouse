@@ -21,7 +21,7 @@ export function Header() {
             </Link>
             {data && (
               <>
-                <Link href="/pantry/my-membership" passHref>
+                <Link href="/pantry/subscriptions" passHref>
                   <Nav.Link>Pantry Membership</Nav.Link>
                 </Link>
                 <Link href="/profile" passHref>
