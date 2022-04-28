@@ -16,7 +16,7 @@ const SINGLE_ITEM_QUERY = gql`
       about {
         document
       }
-      variations(orderBy: [ name: desc ]) {
+      variations(orderBy: [{ name: desc }]) {
         id
         name
         stripePriceId
