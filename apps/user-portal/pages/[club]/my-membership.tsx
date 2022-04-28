@@ -14,6 +14,7 @@ export default function MyMembership() {
 
   // if user has membership
   if (memberships.length === 0) {
+    // TODO: show available memberships
     return (
       <>
         <h2>You Don&apos;t have any memberships yet</h2>

@@ -3,12 +3,12 @@ import { KeystoneContext } from '@keystone-6/core/types';
 
 export default async function getContactName(item: any, context: KeystoneContext) {
 
-    if (!item.personId) {
+    if (!item.userId) {
         return 'No Person Selected...'
     }
 
-    const person = context.query.Person.findOne({
-        where: { id: item.personId },
+    const person = context.query.User.findOne({
+        where: { id: item.userId },
         query: `
             name
         `

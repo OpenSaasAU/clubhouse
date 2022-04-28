@@ -53,9 +53,9 @@ export const Variation = list({
       }
       return resolvedData;
     },
-    validateInput: async ({ resolvedData, addValidationError, context }) => {
+    validateInput: async ({ resolvedData, addValidationError, context, item }) => {
       const subscription = await context.query.Subscription.findOne({
-        where: { id: resolvedData.subscription.connect.id },
+        where: { id: resolvedData.subscription?.connect?.id || item?.subscriptionId},
         query: `
               id
               stripeProductId`,

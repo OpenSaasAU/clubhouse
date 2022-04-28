@@ -31,7 +31,7 @@ const SINGLE_ITEM_QUERY = gql`
   }
 `;
 
-export default function ClubPage() {
+export default function SubscriptionPage() {
   const router = useRouter();
   const user = useUser();
   const memberships = user?.memberships || [];
@@ -48,17 +48,22 @@ export default function ClubPage() {
   if (!data.club) return <p>No club found for {club}</p>;
   return (
     <Container>
-      <Row>
-        <h2>{data.club.name}</h2>
-        <DocumentBlock document={data.club.about.document} />
-        <Button
-          variant="primary"
-          type="button"
-          onClick={() => router.push(`/${club}/subscriptions`)}
-        >
-          See {data.club.name} Membership Options
-        </Button>
-      </Row>
+      <h3>{data.club.name} Membership Options</h3>
+      {data.club.subscriptions.map((subscription) => (
+        <Row key={subscription.id}>
+          <h4>{subscription.name}</h4>
+          <p>{subscription.description}</p>
+          <Button
+            variant="primary"
+            type="button"
+            onClick={() => router.push(`/${club}/${subscription.slug}`)}
+          >
+            Find out More/Subscribe
+          </Button>
+          <br />
+          <br />
+        </Row>
+      ))}
     </Container>
   );
 }
