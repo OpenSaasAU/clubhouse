@@ -37,9 +37,17 @@ export const Subscription = list({
     afterOperation: async ({ listKey, operation, resolvedData, context }) => {
       // Update Stripe Product if the subscription is being updated
       if (operation === "update") {
+        const subscription = await context.query.Subscription.findOne({
+          where: { id: listKey },
+          query: `
+                            id
+                            stripeProductId
+                            name
+                            `,
+        });
         await stripeConfig.products.update(
-          resolvedData.stripeProductId, {
-          name: resolvedData.name,
+          subscription.stripeProductId, {
+          name: subscription.name,
           }
         );
       }
