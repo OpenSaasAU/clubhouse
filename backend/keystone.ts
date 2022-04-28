@@ -34,9 +34,13 @@ const auth = createAuth({
   identityField: 'subjectId',
   sessionData: `id name email isAdmin role { ${permissionsList.join(' ')} } memberships { id name status startDate renewalDate variation { id name subscription { id name }}}`,
   autoCreate: true,
-  userMap: { subjectId: 'id', email: 'email', name: 'name',},
-  accountMap: {},
-  profileMap: {preferredName: 'given_name', phone: 'extension_PhoneNumber'},
+  resolver: async ({ user, profile }: { user: any; profile: any }) => {
+    const preferredName = profile.given_name || user.name;
+    const phone = profile.extension_PhoneNumber;
+    const username = user.name as string;
+    const email = user.email as string;
+    return { email, username, preferredName, phone };
+  },
   sessionSecret,
   keystonePath: '/admin',
   providers: [
