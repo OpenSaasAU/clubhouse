@@ -15,13 +15,13 @@ export const Variation = list({
   hooks: {
     afterOperation: async ({ listKey, operation, resolvedData, context }) => {
       // Update Stripe Price if the variation is being updated
-      if (operation === "update") {
+      /*if (operation === "update") {
         const active = resolvedData.status === 'active' ? true : false;
         await stripeConfig.prices.update(
           resolvedData.stripePriceId, {
           active
         });
-      }
+      }*/
     },
     resolveInput: async ({ resolvedData, item, context }) => {
       // If the User is being created and no stripeCutomerId is provided create the stripe customer
