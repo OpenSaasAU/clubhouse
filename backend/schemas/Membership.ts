@@ -26,15 +26,6 @@ export const Membership = list({
     },
   },
   hooks: {
-    resolveInput: async ({ resolvedData,  }) => {
-      const { renewalDate } = resolvedData;
-      if (!renewalDate) {
-        // if there is no renewal date, set the renewal date to the start date + 1 year
-        resolvedData.renewalDate = new Date(
-          new Date(resolvedData.startDate).getTime() + 1000 * 60 * 60 * 24 * 365
-        );
-      }
-    },
     afterOperation: async ({ listKey, operation, resolvedData, context }) => {
       const sudo = context.sudo();
 
