@@ -9,7 +9,7 @@ import { SubscribeButton } from '../../../components/SubscribeButton';
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($slug: String!) {
-    subscription(where: { slug: $slug }) {
+    subscription(where: { slug: $slug }, orderBy: { name: desc }) {
       name
       slug
       stripeProductId
