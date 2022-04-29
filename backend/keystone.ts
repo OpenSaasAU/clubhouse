@@ -37,9 +37,9 @@ const auth = createAuth({
   resolver: async ({ user, profile }: { user: any; profile: any }) => {
     const preferredName = profile.given_name || user.name;
     const phone = profile.extension_PhoneNumber;
-    const username = user.name as string;
+    const name = user.name as string;
     const email = user.email as string;
-    return { email, username, preferredName, phone };
+    return { email, name, preferredName, phone };
   },
   sessionSecret,
   keystonePath: '/admin',
