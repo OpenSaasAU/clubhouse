@@ -35,14 +35,14 @@ jobs:
           password: ${{ secrets.AzureAppService_ContainerPassword_807a7babf8fc4bbab3814a0bd2d77375 }}
 
       - name: Build and push backend container image to registry
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           tags: collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_28d39508e5734f558fc68a409d6d0fac }}/pantry-backend:${{ github.sha }}
           file: ./backend/Dockerfile
 
       - name: Build and push frontend container image to registry
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           tags: collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e63bb1905c6a4a45b5a231dfb2e20209 }}/pantry-frontend:${{ github.sha }}
