@@ -106,6 +106,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^13.5.0",
+    "@types/apollo-upload-client": "^17.0.0",
     "@types/lodash": "^4.14.182",
     "@types/nprogress": "^0.2.0",
     "@types/styled-components": "^5.1.25",
