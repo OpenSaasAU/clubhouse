@@ -5,7 +5,7 @@ import Link from 'next/link';
 export function SigninButton({ ...props }) {
   const { returnUrl } = props;
   const { data, status } = useSession();
-  if (!data)
+  if (!data?.itemId)
     return (
       <Button
         onClick={() =>

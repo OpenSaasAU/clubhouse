@@ -29,6 +29,7 @@ module.exports = withPreconstruct({
       {
         source: '/',
         destination: '/pantry',
+        permanent: false,
       },
     ];
   },
