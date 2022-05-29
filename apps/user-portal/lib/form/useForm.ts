@@ -10,7 +10,7 @@ export function useForm(initial = {}) {
     setInputs(initial);
   }, [initialValues]);
 
-  function handleStageButton(e) {
+  function handleStageButton(e: any) {
     const { innerText } = e.target;
     const value = innerText.toLowerCase();
     setInputs({
@@ -19,13 +19,19 @@ export function useForm(initial = {}) {
     });
   }
 
-  function handleChange(e) {
-    let { value, name, type } = e.target;
+  function handleChange(e: any) {
+    let {
+      value,
+      name,
+      type,
+    }: { value: string | boolean | number; name: string; type: string } =
+      e.target;
 
     if (type === 'number') {
-      value = parseInt(value);
+      value = parseInt(value as string);
     }
     if (type === 'checkbox') {
+      // @ts-ignore
       value = !inputs[name];
     }
     if (type === 'radio') {
@@ -34,7 +40,7 @@ export function useForm(initial = {}) {
       } else if (value === 'no') {
         value = false;
       } else if (name === 'feeAmount') {
-        value = parseInt(value);
+        value = parseInt(value as string);
       }
     }
     if (type === 'file') {

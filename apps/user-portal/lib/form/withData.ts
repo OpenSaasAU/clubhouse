@@ -5,7 +5,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import withApollo from 'next-with-apollo';
 import getConfig from 'next/config';
 
-function createClient({ headers, initialState }) {
+function createClient({ headers, initialState }: any) {
   const { publicRuntimeConfig } = getConfig();
   return new ApolloClient({
     link: ApolloLink.from([
