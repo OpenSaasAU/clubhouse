@@ -39,7 +39,7 @@
     "babel-jest": "^27.4.6",
     "eslint": "7.32.0",
     "jest": "^27.4.7",
-    "turbo": "^1.2.12"
+    "turbo": "^1.2.14"
   },
   "preconstruct": {
     "packages": [
