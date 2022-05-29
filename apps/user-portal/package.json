@@ -72,7 +72,7 @@
     "@keystone-ui/icons": "^5.0.0",
     "@next/bundle-analyzer": "^12.1.6",
     "@preconstruct/next": "^4.0.0",
-    "@stripe/react-stripe-js": "^1.7.2",
+    "@stripe/react-stripe-js": "^1.8.1",
     "@stripe/stripe-js": "^1.23.0",
     "apollo-upload-client": "^17.0.0",
     "core-js": "^3.20.3",
