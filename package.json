@@ -36,9 +36,9 @@
     "@changesets/cli": "2.19.0",
     "@manypkg/cli": "0.19.1",
     "@preconstruct/cli": "2.1.5",
-    "babel-jest": "^27.4.6",
+    "babel-jest": "^27.5.1",
     "eslint": "7.32.0",
-    "jest": "^27.4.7",
+    "jest": "^27.5.1",
     "turbo": "^1.2.14"
   },
   "preconstruct": {
