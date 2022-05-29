@@ -8,22 +8,8 @@
   "separateMinorPatch": true,
   "prConcurrentLimit": 0,
   "includeForks": true,
-  "packageRules": [
-    {
-      "packagePatterns": [
-        "remark",
-        "babel-plugin-remove-graphql-queries",
-        "react-day-picker",
-        "^slate"
-      ],
-      "enabled": false
-    },
-    {
-      "updateTypes": [
-        "patch"
-      ],
-      "groupName": "patch dependencies"
-    }
+  "baseBranches": [
+    "dev"
   ],
   "rangeStrategy": "bump",
   "schedule": [

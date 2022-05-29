@@ -24,4 +24,12 @@ module.exports = withPreconstruct({
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/pantry',
+      },
+    ];
+  },
 });
