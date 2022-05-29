@@ -9,7 +9,7 @@ import { SigninButton } from './SigninButton';
 
 export function ManageStripeButton() {
   const { data: userData, status } = useSession();
-  const userSession = userData.data as User;
+  const userSession = userData?.data as User;
   const router = useRouter();
 
   const MANAGE_STRIPE_MUTATION = gql`

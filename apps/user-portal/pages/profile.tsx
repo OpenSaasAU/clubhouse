@@ -69,7 +69,7 @@ export default function Profile() {
   );
   const { publicRuntimeConfig } = getConfig();
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: any) {
     e.preventDefault();
     setLoading(true);
     nProgress.start();
@@ -93,7 +93,7 @@ export default function Profile() {
         <br />
         <Button type="submit">Update...</Button>
       </Form>
-      {user.memberships.map((membership) => (
+      {user.memberships.map((membership: any) => (
         <Row key={membership.id}>
           <br />
           <h2>{membership.variation.name}</h2>
