@@ -2076,10 +2076,10 @@
   resolved "https://registry.yarnpkg.com/@keystone-6/document-renderer/-/document-renderer-1.0.0.tgz#afedf84bdfcce8130d6f33daa9e477b08d5bc40c"
   integrity sha512-mumjqZ+6+m9GhPauJTuRPRZGiZSbYOVJlqBvRmiEcndCuXiTucpyOWmANkIqDQFtPMOy0b13Elpx20mh8eUC6g==
 
-"@keystone-6/fields-document@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@keystone-6/fields-document/-/fields-document-2.0.0.tgz#94e9eb568012573b9b58d62baec1ae7536a4015f"
-  integrity sha512-nzdv0Pd1ad599Wi/NpPq/f+w6swDUWixijBsuwmzKgo8vXGfZDBL5TVlarji71aJ1j1jl248z9G4HwvY/53WPw==
+"@keystone-6/fields-document@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@keystone-6/fields-document/-/fields-document-2.0.1.tgz#ebe5022868a591166d9fbe18521c523b40576453"
+  integrity sha512-urMx9QEsiI0FeuGIqSuvZL9eqDDoYD7szdYwA+IVvo1wAyezIhC9QhSvefMW3pm2eCNPUcm1EAJ523AcmJIZag==
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@braintree/sanitize-url" "^6.0.0"
@@ -2087,7 +2087,7 @@
     "@keystone-6/document-renderer" "^1.0.0"
     "@keystone-ui/button" "^6.0.0"
     "@keystone-ui/core" "^4.0.0"
-    "@keystone-ui/fields" "^6.0.1"
+    "@keystone-ui/fields" "^6.1.0"
     "@keystone-ui/icons" "^5.0.0"
     "@keystone-ui/popover" "^5.0.1"
     "@keystone-ui/tooltip" "^5.0.0"
