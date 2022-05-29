@@ -17,8 +17,8 @@ export default function SignupPage({ ...props }) {
         <>
           <p>
             Welcome
-            {data.user.name}, we have your Session email as
-            {data.user.email}
+            {data?.user?.name}, we have your Session email as
+            {data?.user?.email}
             {JSON.stringify(user)}
             {JSON.stringify(data)}
           </p>

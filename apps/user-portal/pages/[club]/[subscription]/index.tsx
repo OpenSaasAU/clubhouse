@@ -58,7 +58,7 @@ export default function SubscriptionPage() {
         <DocumentBlock document={data.subscription.about.document} />
       </Row>
       <br />
-      {data.subscription.variations.map((variation) => (
+      {data.subscription.variations.map((variation: any) => (
         <Row key={variation.id}>
           <h2>{variation.name}</h2>
           <DocumentBlock document={variation.about.document} />

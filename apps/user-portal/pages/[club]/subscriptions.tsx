@@ -49,7 +49,7 @@ export default function SubscriptionPage() {
   return (
     <Container>
       <h3>{data.club.name} Membership Options</h3>
-      {data.club.subscriptions.map((subscription) => (
+      {data.club.subscriptions.map((subscription: any) => (
         <Row key={subscription.id}>
           <h4>{subscription.name}</h4>
           <p>{subscription.description}</p>

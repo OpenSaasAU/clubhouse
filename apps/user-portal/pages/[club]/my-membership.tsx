@@ -29,22 +29,26 @@ export default function MyMembership() {
   return (
     <>
       <h3>Thanks for becoming a member...</h3>
-      {memberships.map((membership) => (
-        <div key={membership.id}>
-          <h4>
-            {club.charAt(0).toUpperCase() + club.substring(1)} - Membership -{' '}
-            {membership.variation.subscription.name}
-          </h4>
-          <p>Variation - {membership.variation.name}</p>
-          <p>Status - {membership.status}</p>
+      {club ? (
+        memberships.map((membership: any) => (
+          <div key={membership.id}>
+            <h4>
+              {club.charAt(0).toUpperCase() + club.substring(1)} - Membership -{' '}
+              {membership.variation.subscription.name}
+            </h4>
+            <p>Variation - {membership.variation.name}</p>
+            <p>Status - {membership.status}</p>
 
-          <ManageStripeButton />
-          <br />
-          <Link href={`/${club}/${membership.variation.subscription.slug}`}>
-            Find out More
-          </Link>
-        </div>
-      ))}
+            <ManageStripeButton />
+            <br />
+            <Link href={`/${club}/${membership.variation.subscription.slug}`}>
+              Find out More
+            </Link>
+          </div>
+        ))
+      ) : (
+        <p>No Club Found</p>
+      )}
     </>
   );
 }

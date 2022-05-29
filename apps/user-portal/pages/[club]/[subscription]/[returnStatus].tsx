@@ -65,7 +65,7 @@ export default function SubscriptionPage() {
   });
 
   if (loading || memLoad) return <p>Loading...</p>;
-  if (error || memError) return <p>Error: {error.message}</p>;
+  if (error || memError) return <p>Error: {error?.message}</p>;
   if (!data.subscription)
     return <p>No subscription found for {subscription}</p>;
 
