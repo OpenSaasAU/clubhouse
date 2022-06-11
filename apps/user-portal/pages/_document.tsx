@@ -1,21 +1,22 @@
+import React from 'react';
 import Document, { Html, Head, NextScript, Main } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
 export default class MyDocument extends Document {
-  static getInitialProps({ renderPage }: any) {
+  static async getInitialProps(ctx: any) {
     const sheet = new ServerStyleSheet();
-    const page = renderPage(
-      // eslint-disable-next-line react/display-name
+    const page = ctx.renderPage(
       (App: any) => (props: any) => sheet.collectStyles(<App {...props} />)
     );
     const styleTags = sheet.getStyleElement();
-    return { ...page, styleTags };
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps, ...page, styleTags };
   }
 
   render() {
     return (
       <Html lang="en-AU">
-        <link rel="icon" href="/static/favicon.png" />
+        <link rel="icon" href="/static/favicon.ico" />
         <Head />
         <body>
           <Main />
