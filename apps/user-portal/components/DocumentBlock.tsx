@@ -43,7 +43,6 @@ const componentBlockRenderers: DocumentRendererProps['componentBlocks'] = {
             position: 'relative',
           }}
         >
-          <ReactPlayer url={url} />
         </div>
       </div>
     );
