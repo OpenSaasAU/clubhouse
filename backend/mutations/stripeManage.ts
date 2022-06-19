@@ -16,21 +16,26 @@ async function stripeManage(
 ) {
   const userId = context.session?.itemId;
   if (!userId) {
-    console.log("No user signed in");
-    return {error: "No user signed in"};
-  };
-  const user = await context.query.User.findOne({
-    where: { id: userId },
-    query: graphql`
+    console.log('No user signed in');
+    return { error: 'No user signed in' };
+  }
+  try {
+    const user = await context.query.User.findOne({
+      where: { id: userId },
+      query: graphql`
             id
             stripeCustomerId
             `,
-  });
+    });
 
-  const portalSession = await stripeConfig.billingPortal.sessions.create({
-    customer: user.stripeCustomerId,
-    return_url: returnUrl,
-  });
-  return portalSession;
+    const portalSession = await stripeConfig.billingPortal.sessions.create({
+      customer: user.stripeCustomerId,
+      return_url: returnUrl,
+    });
+    return portalSession;
+  } catch (error) {
+    console.log(error);
+    return { error: error };
+  }
 }
 export default stripeManage;
