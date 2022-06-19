@@ -64,7 +64,12 @@ export default auth.withAuth(
       provider: 'postgresql',
       useMigrations: true,
       onConnect: async (context: KeystoneContext) => {
-        if (!firstUser) return;
+        if (!firstUser) {
+          console.log(
+            'No first user specified - Skipping initial user creation'
+          );
+          return;
+        }
 
         const roles = await context.query.Role.findMany();
 
