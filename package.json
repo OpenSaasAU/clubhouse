@@ -19,6 +19,7 @@
     "clean": "manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && manypkg exec rm -rf .turbo && manypkg exec rm -rf .next && manypkg exec rm -rf .keystone && rm -rf node_modules",
     "dev:backend": "manypkg run backend dev",
     "dev:frontend": "manypkg run frontend dev",
+    "dev": "NEXTAUTH_URL=http://localhost:7777 yarn turbo run dev",
     "postinstall": "preconstruct dev",
     "lint": "yarn eslint .",
     "release": "yarn build && changeset publish",

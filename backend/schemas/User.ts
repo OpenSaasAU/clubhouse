@@ -2,22 +2,22 @@ import { list } from '@keystone-6/core';
 import { text, relationship, json, checkbox } from '@keystone-6/core/fields';
 import stripeConfig from '../lib/stripe';
 
-import { rules, isSignedIn, permissions } from "../access";
-
+import { rules, isSignedIn, permissions } from '../access';
 
 export const User = list({
   hooks: {
     resolveInput: async ({ resolvedData, item }) => {
-      // If the User is being created and no stripeCutomerId is provided create the stripe customer
-      console.log(resolvedData);
-
       if (!resolvedData.stripeCustomerId && !item?.stripeCustomerId) {
-        const customer = await stripeConfig.customers.create({
-          email: resolvedData.email || item?.email,
-          name: resolvedData.name || item?.name,
-          phone: resolvedData.phone || item?.phone,
-        });
-        resolvedData.stripeCustomerId = customer.id;
+        try {
+          const customer = await stripeConfig.customers.create({
+            email: resolvedData.email || item?.email,
+            name: resolvedData.name || item?.name,
+            phone: resolvedData.phone || item?.phone,
+          });
+          resolvedData.stripeCustomerId = customer.id;
+        } catch (error) {
+          console.log(error);
+        }
       }
       return resolvedData;
     },
