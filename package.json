@@ -51,5 +51,5 @@
   "resolutions": {
     "next": "12.1.6"
   },
-  "packageManager": "yarn@1.22.18"
+  "packageManager": "yarn@1.22.19"
 }
