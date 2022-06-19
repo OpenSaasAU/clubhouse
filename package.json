@@ -29,11 +29,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "@babel/core": "^7.16.12",
-    "@babel/eslint-parser": "^7.17.0",
-    "@babel/plugin-transform-runtime": "^7.16.10",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
+    "@babel/core": "^7.18.5",
+    "@babel/eslint-parser": "^7.18.2",
+    "@babel/plugin-transform-runtime": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
     "@changesets/cli": "2.23.0",
     "@manypkg/cli": "0.19.1",
     "@preconstruct/cli": "2.1.5",
