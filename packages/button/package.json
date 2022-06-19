@@ -4,7 +4,7 @@
   "main": "dist/monorepo-starter-button.cjs.js",
   "module": "dist/monorepo-starter-button.esm.js",
   "dependencies": {
-    "@babel/preset-typescript": "^7.16.7",
+    "@babel/preset-typescript": "^7.17.12",
     "react": "17.0.2"
   },
   "repository": "https://github.com/OpenSaasAU/clubhouse/tree/master/packages/button"
