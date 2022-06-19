@@ -22,14 +22,13 @@ const SINGLE_ITEM_QUERY = gql`
 `;
 
 const GET_MEMBERSHIP_QUERY = gql`
-  query GET_MEMBERSHIP_QUERY($session_id: ID!) {
+  query GET_MEMBERSHIP_QUERY($session_id: String!) {
     membership(where: { signupSessionId: $session_id }) {
       id
       status
       variation {
         id
         name
-        slug
         subscription {
           id
           name
@@ -72,11 +71,13 @@ export default function SubscriptionPage() {
   if (returnStatus === 'success') {
     return (
       <Container>
-        <Row>
-          <h2>Thanks for becoming a member</h2>
-          <p> Variation - {memData.variation.name}</p>
-          <p> Status - {memData.status}</p>
-        </Row>
+        {memData &&
+          <Row>
+            <h2>Thanks for becoming a member</h2>
+            <p> Variation - {memData.membership.variation.name}</p>
+            <p> Status - {memData.membership.status}</p>
+          </Row>
+        }
         <br />
         <Button
           variant="primary"
