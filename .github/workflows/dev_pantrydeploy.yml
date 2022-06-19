@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - pantryadmin
 on:
   push:
     branches:
-      - master
+      - dev
   workflow_dispatch:
 
 env:
@@ -38,21 +38,21 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_28d39508e5734f558fc68a409d6d0fac }}/pantry-backend:${{ github.sha }}
+          tags: collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_28d39508e5734f558fc68a409d6d0fac }}/pantry-backend-dev:${{ github.sha }}
           file: ./backend/Dockerfile
 
       - name: Build and push frontend container image to registry
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e63bb1905c6a4a45b5a231dfb2e20209 }}/pantry-frontend:${{ github.sha }}
+          tags: collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e63bb1905c6a4a45b5a231dfb2e20209 }}/pantry-frontend-dev:${{ github.sha }}
           file: ./apps/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: "Production"
+      name: "Test"
       url: ${{ steps.frontend-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -60,16 +60,16 @@ jobs:
         id: backend-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "pantryadmin-docker"
+          app-name: "pantrybackend-dev"
           slot-name: "production"
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_d7e475cd12ae435193e3f0efff1d8394 }}
-          images: "collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_28d39508e5734f558fc68a409d6d0fac }}/pantry-backend:${{ github.sha }}"
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_b238d802ac8645e6b65a5edde468d12d }}
+          images: "collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_28d39508e5734f558fc68a409d6d0fac }}/pantry-backend-dev:${{ github.sha }}"
 
       - name: Deploy Frontend to Azure Web App
         id: frontend-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "pantryfrontend"
+          app-name: "pantryfrontend-dev"
           slot-name: "production"
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_4d2ccba4715b4bfe9af97028f357c793 }}
-          images: "collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e63bb1905c6a4a45b5a231dfb2e20209 }}/pantry-frontend:${{ github.sha }}"
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_3d252031ecc64559a923899a336cd451 }}
+          images: "collectivereg.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_e63bb1905c6a4a45b5a231dfb2e20209 }}/pantry-frontend-dev:${{ github.sha }}"

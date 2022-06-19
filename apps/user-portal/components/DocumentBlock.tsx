@@ -2,7 +2,8 @@ import {
   DocumentRenderer,
   DocumentRendererProps,
 } from '@keystone-6/document-renderer';
-import ReactPlayer from 'react-player';
+import { default as _ReactPlayer } from 'react-player';
+import { ReactPlayerProps } from "react-player/types/lib";
 
 const renderers: DocumentRendererProps['renderers'] = {
   // use your editor's autocomplete to see what other renderers you can override
@@ -34,6 +35,7 @@ const componentBlockRenderers: DocumentRendererProps['componentBlocks'] = {
   ),
   video: (props) => {
     const { url } = props;
+    const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>;
 
     return (
       <div contentEditable={false}>

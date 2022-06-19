@@ -14,7 +14,7 @@ export function ManageStripeButton() {
 
   const MANAGE_STRIPE_MUTATION = gql`
     mutation MANAGE_STRIPE_MUTATION($returnUrl: String!) {
-      manageStripe(returnUrl: $returnUrl)
+      stripeManage(returnUrl: $returnUrl)
     }
   `;
 
@@ -33,7 +33,7 @@ export function ManageStripeButton() {
             returnUrl: `${window.location.origin}/profile`,
           },
         });
-        router.push(portalSession.data.url);
+        router.push(portalSession.data.stripeManage.url);
       }}
     >
       Manage Membership

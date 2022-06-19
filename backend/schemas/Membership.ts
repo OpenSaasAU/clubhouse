@@ -5,12 +5,12 @@ import {
   relationship,
   timestamp,
   virtual,
-} from "@keystone-6/core/fields";
-import { list, graphql } from "@keystone-6/core";
-import { rules, isSignedIn, permissions } from "../access";
-import getContactName from "../lib/getContactName";
-import sendEmail from "../lib/sendEmail";
-import { preferenceFields } from "./preferenceFields";
+} from '@keystone-6/core/fields';
+import { list, graphql } from '@keystone-6/core';
+import { rules, isSignedIn, permissions } from '../access';
+import getContactName from '../lib/getContactName';
+import sendEmail from '../lib/sendEmail';
+import { preferenceFields } from './preferenceFields';
 
 export const Membership = list({
   access: {
@@ -23,13 +23,14 @@ export const Membership = list({
     filter: {
       update: rules.canManageProducts,
       query: rules.canManageProducts,
+      delete: rules.canDeleteMembership,
     },
   },
   hooks: {
     afterOperation: async ({ listKey, operation, resolvedData, context }) => {
       const sudo = context.sudo();
 
-      if (operation === "create") {
+      if (operation === 'create') {
         const user = await sudo.query.User.findOne({
           where: { id: resolvedData?.user?.connect?.id },
           query: `
@@ -70,40 +71,40 @@ export const Membership = list({
       }),
     }),
     user: relationship({
-      ref: "User.memberships",
+      ref: 'User.memberships',
       many: false,
     }),
     variation: relationship({
-      ref: "Variation.memberships",
+      ref: 'Variation.memberships',
       many: false,
     }),
     signupSessionId: text({
       validation: {
         isRequired: true,
       },
-      isIndexed: "unique",
+      isIndexed: 'unique',
     }),
     status: select({
       options: [
-        { label: "Pending", value: "PENDING" },
-        { label: "Approved", value: "APPROVED" },
-        { label: "Paid", value: "PAID" },
-        { label: "Payment Failed", value: "FAILED" },
-        { label: "Rejected", value: "REJECTED" },
-        { label: "Cancelled", value: "CANCELLED" },
-        { label: "Expired", value: "EXPIRED" },
+        { label: 'Pending', value: 'PENDING' },
+        { label: 'Approved', value: 'APPROVED' },
+        { label: 'Paid', value: 'PAID' },
+        { label: 'Payment Failed', value: 'FAILED' },
+        { label: 'Rejected', value: 'REJECTED' },
+        { label: 'Cancelled', value: 'CANCELLED' },
+        { label: 'Expired', value: 'EXPIRED' },
       ],
-      defaultValue: "PENDING",
+      defaultValue: 'PENDING',
     }),
     startDate: timestamp({
-      defaultValue: { kind: "now" },
+      defaultValue: { kind: 'now' },
     }),
     renewalDate: timestamp(),
     stripeSubscriptionId: text({
       validation: {
         isRequired: true,
       },
-      isIndexed: "unique",
+      isIndexed: 'unique',
     }),
     ...preferenceFields,
   },
