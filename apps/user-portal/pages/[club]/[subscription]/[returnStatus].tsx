@@ -1,7 +1,7 @@
 import { useRouter } from 'next/dist/client/router';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { Container, Row, Button } from 'react-bootstrap';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
 const SINGLE_ITEM_QUERY = gql`
@@ -17,6 +17,13 @@ const SINGLE_ITEM_QUERY = gql`
         id
         name
       }
+    }
+  }
+`;
+const DELETE_ITEM_MUTATION = gql`
+  mutation DELETE_ITEM_MUTATION($id: ID!) {
+    deleteSubscription(id: $id) {
+      id
     }
   }
 `;
@@ -62,6 +69,7 @@ export default function SubscriptionPage() {
       session_id,
     },
   });
+  const [deleteItem] = useMutation(DELETE_ITEM_MUTATION);
 
   if (loading || memLoad) return <p>Loading...</p>;
   if (error || memError) return <p>Error: {error?.message}</p>;
@@ -101,7 +109,12 @@ export default function SubscriptionPage() {
         variant="primary"
         type="button"
         onClick={() => {
-          // TODO: delete the membership
+          // delete the membership
+          deleteItem({
+            variables: {
+              id: memData.membership.id,
+            },
+          });
           router.push(`/${club}`);
         }}
       >
