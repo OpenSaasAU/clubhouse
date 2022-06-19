@@ -70,7 +70,7 @@
     "@keystone-ui/button": "^7.0.0",
     "@keystone-ui/fields": "^7.0.0",
     "@keystone-ui/icons": "^6.0.0",
-    "@next/bundle-analyzer": "^12.1.0",
+    "@next/bundle-analyzer": "^12.1.6",
     "@preconstruct/next": "^4.0.0",
     "@stripe/react-stripe-js": "^1.8.1",
     "@stripe/stripe-js": "^1.23.0",
