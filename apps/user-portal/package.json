@@ -72,7 +72,7 @@
     "@next/bundle-analyzer": "^12.0.10",
     "@preconstruct/next": "^3.0.1",
     "@stripe/react-stripe-js": "^1.7.0",
-    "@stripe/stripe-js": "^1.23.0",
+    "@stripe/stripe-js": "1.38.1",
     "apollo-upload-client": "^17.0.0",
     "core-js": "^3.20.3",
     "date-fns": "^2.27.0",
