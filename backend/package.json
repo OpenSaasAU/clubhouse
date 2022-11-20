@@ -17,7 +17,7 @@
     "@keystone-ui/fields": "^6.0.0",
     "@keystone-ui/icons": "^5.0.0",
     "@opensaas/keystone-nextjs-auth": "20.4.0",
-    "@sendgrid/mail": "7.6.1",
+    "@sendgrid/mail": "7.7.0",
     "cuid": "2.1.8",
     "dotenv": "16.0.0",
     "express": "4.17.1",
